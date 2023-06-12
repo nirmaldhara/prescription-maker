@@ -184,7 +184,8 @@ public class HelloController {
     @FXML
 
     public void searchPatientDetails ( ActionEvent event){
-        System.out.println("Search"+txtMobileNo.getText());
+        String mobileNo=txtMobileNo.getText();
+        System.out.println("Search"+mobileNo);
     }
 
 }

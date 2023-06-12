@@ -28,6 +28,8 @@ public class HelloController {
     TableView tblPrescription;
 
     @FXML
+    TextField  txtMobileNo;
+    @FXML
     TableColumn <PatientDetails, String> clmnMedicine;
     @FXML
     TableColumn <PatientDetails, String> clmnT1;
@@ -150,12 +152,12 @@ public class HelloController {
         prescriptionData.add(pd);
         tblPatientName.setCellValueFactory(new PropertyValueFactory("Medicine"));
 
-        clmnT1.setCellValueFactory(new PropertyValueFactory("T1"));
-        clmnT2.setCellValueFactory(new PropertyValueFactory("T2"));
-        clmnT3.setCellValueFactory(new PropertyValueFactory("T3"));
-        clmnT4.setCellValueFactory(new PropertyValueFactory("T4"));
-        clmnNote.setCellValueFactory(new PropertyValueFactory("Note"));
-        tblPrescription.setItems(data);
+//        clmnT1.setCellValueFactory(new PropertyValueFactory("T1"));
+//        clmnT2.setCellValueFactory(new PropertyValueFactory("T2"));
+//        clmnT3.setCellValueFactory(new PropertyValueFactory("T3"));
+//        clmnT4.setCellValueFactory(new PropertyValueFactory("T4"));
+//        clmnNote.setCellValueFactory(new PropertyValueFactory("Note"));
+//        tblPrescription.setItems(data);
       //  txtAddMedicine.bindAutoCompletion(textfield,"text to suggest", "another text to suggest");
         txtCurrentDate.setValue(NOW_LOCAL_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
@@ -179,5 +181,10 @@ public class HelloController {
         }
     }
 
+    @FXML
+
+    public void searchPatientDetails ( ActionEvent event){
+        System.out.println("Search"+txtMobileNo.getText());
+    }
 
 }

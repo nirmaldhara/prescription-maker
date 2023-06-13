@@ -125,11 +125,11 @@ public class PrescriptionController {
         p1.setMobile_no("9611207000");
         data.add(p1);
 
-        tblPatientName.setCellValueFactory(new PropertyValueFactory("name"));
+        tblPatientName.setCellValueFactory(new PropertyValueFactory("first_name"));
         tblPatientAge.setCellValueFactory(new PropertyValueFactory("age"));
         tblPatientSex.setCellValueFactory(new PropertyValueFactory("sex"));
         tblPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
-        tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobileNo"));
+        tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobile_no"));
         tblPatientId.setCellValueFactory(new PropertyValueFactory("patientId"));
         tblPatient.setItems(data);
 

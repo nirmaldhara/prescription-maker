@@ -99,30 +99,30 @@ public class PrescriptionController {
         data = FXCollections.observableArrayList();
 
         PatientDetails p1= new PatientDetails();
-        p1.setName("Patient1");
+        p1.setFirst_name("Patient1");
         p1.setAge(30);
         p1.setSex("Male");
         p1.setAddress("Kolkata");
         p1.setPatientId("12345");
-        p1.setMobileNo("9611207000");
+        p1.setMobile_no("9611207000");
         data.add(p1);
 
         p1= new PatientDetails();
-        p1.setName("Patient2");
+        p1.setFirst_name("Patient2");
         p1.setAge(6);
         p1.setSex("Male");
         p1.setAddress("Kolkata");
         p1.setPatientId("123456");
-        p1.setMobileNo("9611207000");
+        p1.setMobile_no("9611207000");
         data.add(p1);
 
         p1= new PatientDetails();
-        p1.setName("Patient3");
+        p1.setFirst_name("Patient3");
         p1.setAge(25);
         p1.setSex("Female");
         p1.setAddress("Kolkata");
         p1.setPatientId("123457");
-        p1.setMobileNo("9611207000");
+        p1.setMobile_no("9611207000");
         data.add(p1);
 
         tblPatientName.setCellValueFactory(new PropertyValueFactory("name"));

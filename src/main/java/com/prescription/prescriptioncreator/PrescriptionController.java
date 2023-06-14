@@ -1,5 +1,6 @@
 package com.prescription.prescriptioncreator;
 
+import com.prescription.prescriptioncreator.util.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,11 +11,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class PrescriptionController {
 
@@ -23,6 +26,9 @@ public class PrescriptionController {
 
     @FXML
     TextField  txtMobileNo;
+    @FXML
+    TextField  txtPatientId;
+
     @FXML
     TableColumn <PatientDetails, String> clmnMedicine;
     @FXML
@@ -80,6 +86,31 @@ public class PrescriptionController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+
+    private void displayPatientDetails(List<PatientDetails> lstPatient){
+
+
+        data = FXCollections.observableArrayList();
+
+        for(PatientDetails patientDetails:lstPatient)
+        {
+            PatientDetails p1= new PatientDetails();
+            p1.setFirst_name(patientDetails.getFirst_name() +" "+patientDetails.getLast_name());
+            p1.setAge(patientDetails.getAge());
+            p1.setSex(patientDetails.getSex());
+            p1.setAddress(patientDetails.getAddress());
+            p1.setPatientId(patientDetails.getPatientId());
+            p1.setMobile_no(patientDetails.getMobile_no());
+            data.add(p1);
+        }
+        tblPatientName.setCellValueFactory(new PropertyValueFactory("first_name"));
+        tblPatientAge.setCellValueFactory(new PropertyValueFactory("age"));
+        tblPatientSex.setCellValueFactory(new PropertyValueFactory("sex"));
+        tblPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
+        tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobile_no"));
+        tblPatientId.setCellValueFactory(new PropertyValueFactory("patientId"));
+        tblPatient.setItems(data);
+    }
     @FXML
     public void initialize() {
 
@@ -95,45 +126,6 @@ public class PrescriptionController {
             days.add(""+i);
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
         chBoxDays.setItems(listDays);
-      //  txtAddMedicine= new AutoCompleteTextField().getEntries().addAll(Arrays.asList("AA", "AB", "AC","BCA"));
-        data = FXCollections.observableArrayList();
-
-        PatientDetails p1= new PatientDetails();
-        p1.setFirst_name("Patient1");
-        p1.setAge(30);
-        p1.setSex("Male");
-        p1.setAddress("Kolkata");
-        p1.setPatientId("12345");
-        p1.setMobile_no("9611207000");
-        data.add(p1);
-
-        p1= new PatientDetails();
-        p1.setFirst_name("Patient2");
-        p1.setAge(6);
-        p1.setSex("Male");
-        p1.setAddress("Kolkata");
-        p1.setPatientId("123456");
-        p1.setMobile_no("9611207000");
-        data.add(p1);
-
-        p1= new PatientDetails();
-        p1.setFirst_name("Patient3");
-        p1.setAge(25);
-        p1.setSex("Female");
-        p1.setAddress("Kolkata");
-        p1.setPatientId("123457");
-        p1.setMobile_no("9611207000");
-        data.add(p1);
-
-        tblPatientName.setCellValueFactory(new PropertyValueFactory("first_name"));
-        tblPatientAge.setCellValueFactory(new PropertyValueFactory("age"));
-        tblPatientSex.setCellValueFactory(new PropertyValueFactory("sex"));
-        tblPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
-        tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobile_no"));
-        tblPatientId.setCellValueFactory(new PropertyValueFactory("patientId"));
-        tblPatient.setItems(data);
-
-        ////////////////////////////////////////
 
         prescriptionData = FXCollections.observableArrayList();
         PrescriptionDetails pd = new PrescriptionDetails();
@@ -177,8 +169,11 @@ public class PrescriptionController {
 
     @FXML
 
-    public void searchPatientDetails ( ActionEvent event){
+    public void searchPatientDetails ( ActionEvent event) throws SQLException {
         String mobileNo=txtMobileNo.getText();
+        String patientId=txtPatientId.getText();
+        List<PatientDetails> lstPatient=DBUtil.searchUser(mobileNo,patientId);
+        displayPatientDetails(lstPatient);
         System.out.println("Search"+mobileNo);
     }
 

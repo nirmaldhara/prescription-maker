@@ -2,6 +2,8 @@ package com.prescription.prescriptioncreator.util;
 import com.prescription.prescriptioncreator.PatientDetails;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBUtil {
 
@@ -45,8 +47,9 @@ public class DBUtil {
 
 
     }
-    static void searchUser(PatientDetails patientDetails) throws SQLException{
-        String dbsql = "select first_name, last_name, age, sex, mobile_no,patient_id,address from patient where id = ?";
+    public static List<PatientDetails> searchUser(String mobile_no,String patient_id) throws SQLException{
+        String dbsql = "select distinct  first_name, last_name, age, sex, mobile_no,patient_id,address from patient where mobile_no = ? or patient_id = ? ";
+        List<PatientDetails> paitentList=new ArrayList<>();
         try(Connection conn = getConnection()){
             PreparedStatement preparedStmt = conn.prepareStatement(dbsql);
             ResultSet rs = null;
@@ -54,7 +57,15 @@ public class DBUtil {
             preparedStmt.setInt(1,id);
             rs = preparedStmt.executeQuery();
             while(rs.next()){
-                System.out.println(rs.getInt(1));
+                PatientDetails pd= new PatientDetails();
+                pd.setFirst_name(rs.getString("first_name"));
+                pd.setLast_name(rs.getString("first_name"));
+                pd.setAge(rs.getInt("age"));
+                pd.setSex(rs.getString("sex"));
+                pd.setMobile_no(rs.getString("mobile_no"));
+                pd.setPatientId(rs.getString("patient_id"));
+                pd.setAddress(rs.getString("address"));
+                paitentList.add(pd);
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -62,5 +73,6 @@ public class DBUtil {
         finally {
             conn.close();
         }
+        return paitentList;
     }
 }

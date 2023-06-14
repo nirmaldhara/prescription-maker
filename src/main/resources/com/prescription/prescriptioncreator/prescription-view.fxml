@@ -44,7 +44,7 @@
          </children></VBox>
       <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="60.0" text="Moblile Number" />
       <Button fx:id="btnPatientSearch" layoutX="394.0" layoutY="60.0" mnemonicParsing="false" onAction="#searchPatientDetails" text="Search" />
-      <TextField layoutX="214.0" layoutY="60.0" text="Patient Id" />
+      <TextField layoutX="214.0" layoutY="60.0" text="Patient Id" fx:id="txtPatientId" />
       <Label layoutX="178.0" layoutY="64.0" text="OR" />
       <TableView fx:id="tblPatient" layoutX="14.0" layoutY="91.0" prefHeight="162.0" prefWidth="844.0">
         <columns>

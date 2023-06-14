@@ -1,10 +1,8 @@
 package com.prescription.prescriptioncreator.util;
 import com.prescription.prescriptioncreator.PatientDetails;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+
 public class DBUtil {
 
     private static Connection conn = null;
@@ -12,10 +10,10 @@ public class DBUtil {
     static Connection getConnection() throws Exception {
         if (conn == null) {
             String url = "jdbc:mysql://localhost:3306/";
-            String dbName = "prescriptions";
+            String dbName = "ntaj916db";
             String driver = "com.mysql.jdbc.Driver";
-            String userName = "use_name";
-            String password = "user_pwd";
+            String userName = "root";
+            String password = "root";
 
             Class.forName(driver).newInstance();
             conn = DriverManager.getConnection(url + dbName, userName, password);
@@ -46,5 +44,23 @@ public class DBUtil {
 
 
 
+    }
+    static void searchUser(PatientDetails patientDetails) throws SQLException{
+        String dbsql = "select first_name, last_name, age, sex, mobile_no,patient_id,address from patient where id = ?";
+        try(Connection conn = getConnection()){
+            PreparedStatement preparedStmt = conn.prepareStatement(dbsql);
+            ResultSet rs = null;
+            int id = 0;
+            preparedStmt.setInt(1,id);
+            rs = preparedStmt.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getInt(1));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            conn.close();
+        }
     }
 }

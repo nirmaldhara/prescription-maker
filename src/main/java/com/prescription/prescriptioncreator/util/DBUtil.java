@@ -12,8 +12,8 @@ public class DBUtil {
     static Connection getConnection() throws Exception {
         if (conn == null) {
             String url = "jdbc:mysql://localhost:3306/";
-            String dbName = "ntaj916db";
-            String driver = "com.mysql.jdbc.Driver";
+            String dbName = "prescription?useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
+            String driver = "com.mysql.cj.jdbc.Driver";
             String userName = "root";
             String password = "root";
 
@@ -27,7 +27,7 @@ public class DBUtil {
 
     static void addUser(PatientDetails patientDetails) throws SQLException {
         String sql = " insert into patient (first_name, last_name, age, sex, mobile_no,patient_id,address) values (?, ?, ?, ?, ?,?,?)";
-        try(Connection conn=getConnection() ) {
+        try(Connection conn=getConnection()) {
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setString (1, patientDetails.getFirst_name());
             preparedStmt.setString (2, patientDetails.getLast_name());
@@ -50,11 +50,13 @@ public class DBUtil {
     public static List<PatientDetails> searchUser(String mobile_no,String patient_id) throws SQLException{
         String dbsql = "select distinct  first_name, last_name, age, sex, mobile_no,patient_id,address from patient where mobile_no = ? or patient_id = ? ";
         List<PatientDetails> paitentList=new ArrayList<>();
+        PreparedStatement preparedStmt =null;
+        ResultSet rs = null;
         try(Connection conn = getConnection()){
-            PreparedStatement preparedStmt = conn.prepareStatement(dbsql);
-            ResultSet rs = null;
-            int id = 0;
-            preparedStmt.setInt(1,id);
+            preparedStmt=  conn.prepareStatement(dbsql);
+
+            preparedStmt.setString(1,mobile_no);
+            preparedStmt.setString(2,patient_id);
             rs = preparedStmt.executeQuery();
             while(rs.next()){
                 PatientDetails pd= new PatientDetails();
@@ -71,7 +73,10 @@ public class DBUtil {
             e.printStackTrace();
         }
         finally {
+            preparedStmt.close();
+            rs.close();
             conn.close();
+            conn=null;
         }
         return paitentList;
     }

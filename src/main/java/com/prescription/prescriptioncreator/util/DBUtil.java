@@ -73,10 +73,14 @@ public class DBUtil {
             e.printStackTrace();
         }
         finally {
+            if(preparedStmt!=null)
             preparedStmt.close();
+            if(rs!=null)
             rs.close();
-            conn.close();
-            conn=null;
+            if(conn!=null) {
+                conn.close();
+                conn = null;
+            }
         }
         return paitentList;
     }

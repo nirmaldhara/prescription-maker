@@ -12,7 +12,7 @@ public class DBUtil {
     static Connection getConnection() throws Exception {
         if (conn == null) {
             String url = "jdbc:mysql://localhost:3306/";
-            String dbName = "prescription?useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
+            String dbName = "ntaj916db";
             String driver = "com.mysql.cj.jdbc.Driver";
             String userName = "root";
             String password = "root";
@@ -61,7 +61,7 @@ public class DBUtil {
             while(rs.next()){
                 PatientDetails pd= new PatientDetails();
                 pd.setFirst_name(rs.getString("first_name"));
-                pd.setLast_name(rs.getString("first_name"));
+                pd.setLast_name(rs.getString("last_name"));
                 pd.setAge(rs.getInt("age"));
                 pd.setSex(rs.getString("sex"));
                 pd.setMobile_no(rs.getString("mobile_no"));

@@ -1,4 +1,4 @@
-package com.prescription.prescriptioncreator;
+package com.prescription.prescriptioncreator.model;
 
 public class PrescriptionDetails {
     private  String medicineName;

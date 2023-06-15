@@ -1,14 +1,18 @@
-package com.prescription.prescriptioncreator;
+package com.prescription.prescriptioncreator.controller;
 
+import com.prescription.prescriptioncreator.model.PatientDetails;
+import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.util.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PrescriptionController {
 
@@ -154,19 +160,37 @@ public class PrescriptionController {
         LocalDate localDate = LocalDate.parse(date , formatter);
         return localDate;
     }
-
+@FXML
     public void openPrescription( ActionEvent event){
         try {
 
             System.out.println("Opening");
 
-            VBox newLoadedPane =  FXMLLoader.load(getClass().getResource("Prescription.fxml"));
+            VBox newLoadedPane =  FXMLLoader.load(getClass().getResource("addpatient-view.fxml"));
             mainVBox.getChildren().add(newLoadedPane);
         } catch (IOException e) {
 
         }
     }
-
+    @FXML
+    public void openAddPatient( ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/addpatient-view.fxml"));
+            /*
+             * if "fx:controller" is not set in fxml
+             * fxmlLoader.setController(NewWindowController);
+             */
+            Scene scene = new Scene(fxmlLoader.load(), 540, 220);
+            Stage stage = new Stage();
+            stage.setTitle("New Window");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+    }
     @FXML
 
     public void searchPatientDetails ( ActionEvent event) throws SQLException {

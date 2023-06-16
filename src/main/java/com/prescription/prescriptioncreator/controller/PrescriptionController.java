@@ -202,5 +202,8 @@ public class PrescriptionController {
         displayPatientDetails(lstPatient);
         System.out.println("Search"+mobileNo);
     }
+    public void addPatientDetails (ActionEvent event) throws Exception{
+        String firstName=txtFName.getText();
+    }
 
 }

@@ -8,13 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.AddPatientController">
    <children>
-      <TextField fx:id="txtPName" layoutX="14.0" layoutY="14.0" promptText="First name" />
+      <TextField fx:id="txtFName" layoutX="14.0" layoutY="14.0" promptText="First name" />
+      <TextField fx:id="txtLName" layoutX="177.0" layoutY="14.0" promptText="Last name" />
       <TextField layoutX="342.0" layoutY="14.0" prefHeight="25.0" prefWidth="74.0" promptText="Age" />
       <TextField layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="514.0" promptText="Mobile Number" />
       <TextArea layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="514.0" promptText="Address" />
-      <Button layoutX="251.0" layoutY="179.0" mnemonicParsing="false" text="Add" />
       <ComboBox layoutX="427.0" layoutY="14.0" prefHeight="25.0" prefWidth="99.0" promptText="Sex">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -23,7 +23,7 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <TextField fx:id="txtPName1" layoutX="177.0" layoutY="14.0" promptText="Last name" />
+      <Button layoutX="251.0" layoutY="179.0" mnemonicParsing="false" text="Add" onAction="#addPatientDetails" />
    </children>
 
 </Pane>

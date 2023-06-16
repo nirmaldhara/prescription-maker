@@ -2,6 +2,8 @@ package com.prescription.prescriptioncreator.controller;
 
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
+import com.prescription.prescriptioncreator.service.PatientService;
+import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.util.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -178,10 +180,6 @@ public class PrescriptionController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/addpatient-view.fxml"));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
             Scene scene = new Scene(fxmlLoader.load(), 540, 220);
             Stage stage = new Stage();
             stage.setTitle("New Window");
@@ -194,11 +192,11 @@ public class PrescriptionController {
     }
 
     @FXML
-
-    public void searchPatientDetails ( ActionEvent event) throws SQLException {
+    public void searchPatientDetails ( ActionEvent event) throws Exception {
+        PatientService patientService= new PatientServiceImpl();
         String mobileNo=txtMobileNo.getText();
         String patientId=txtPatientId.getText();
-        List<PatientDetails> lstPatient=DBUtil.searchUser(mobileNo,patientId);
+        List<PatientDetails> lstPatient=patientService.searchPatientDetails(mobileNo,patientId);
         displayPatientDetails(lstPatient);
         System.out.println("Search"+mobileNo);
     }

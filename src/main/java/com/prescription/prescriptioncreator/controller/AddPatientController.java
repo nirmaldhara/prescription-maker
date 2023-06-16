@@ -30,8 +30,7 @@ public class AddPatientController {
     TextField txtMobileNo;
     @FXML
     TextArea txtAddress;
-    @FXML
-    ComboBox txtSex;
+
     @FXML
     public void addPatientDetails ( ActionEvent event) throws SQLException {
         String first_name = txtFName.getText();
@@ -39,7 +38,7 @@ public class AddPatientController {
         int age = Integer.parseInt(txtAge.getText());
         String mobile_no=txtMobileNo.getText();
         String address = txtAddress.getText();
-
+        String sex = txtSex.get
         System.out.println("AddPatient "+first_name);
         System.out.println("AddPatient "+last_name);
         System.out.println("AddAge "+age);

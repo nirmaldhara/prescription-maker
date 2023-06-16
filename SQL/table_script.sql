@@ -1,11 +1,13 @@
 /* table script for patient details */
-CREATE TABLE patient (
-        id int,
-        first_name varchar(255),
-        last_name varchar(255),
-        age int,
-        sex varchar(255),
-        mobile_no varchar(255),
-        patient_id varchar(255),
-        address varchar(255)
-    );
+CREATE TABLE `patient` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  `mobile_no` varchar(255) DEFAULT NULL,
+  `patient_id` int DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `search` (`mobile_no`,`patient_id`)
+)

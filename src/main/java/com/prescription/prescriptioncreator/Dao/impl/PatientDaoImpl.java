@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
+
 public class PatientDaoImpl implements PatientDao {
 
     public List<PatientDetails> searchPatientDetails(String mobile_no, String patient_id) throws Exception {
@@ -18,7 +20,7 @@ public class PatientDaoImpl implements PatientDao {
         List<PatientDetails> paitentList=new ArrayList<>();
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
-        Connection conn = DBConnection.getConnection();
+        Connection conn = getConnection();
         try{
             preparedStmt=  conn.prepareStatement(dbsql);
 
@@ -47,5 +49,28 @@ public class PatientDaoImpl implements PatientDao {
 
         }
         return paitentList;
+    }
+
+@Override
+    public  void addPatient(PatientDetails patientDetails) throws Exception {
+        String sql = " insert into patient (first_name, last_name, age, sex, mobile_no,patient_id,address) values (?, ?, ?, ?, ?,?,?)";
+        Connection conn=getConnection();
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setString (1, patientDetails.getFirst_name());
+            preparedStmt.setString (2, patientDetails.getLast_name());
+            preparedStmt.setInt   (3, patientDetails.getAge());
+            preparedStmt.setString(4, patientDetails.getSex());
+            preparedStmt.setString(5, patientDetails.getMobile_no());
+            preparedStmt.setString(6, patientDetails.getPatientId());
+            preparedStmt.setString(7, patientDetails.getAddress());
+            preparedStmt.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
     }
 }

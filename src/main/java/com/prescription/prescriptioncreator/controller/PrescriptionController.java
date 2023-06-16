@@ -172,6 +172,7 @@ public class PrescriptionController {
 
         }
     }
+
     @FXML
     public void openAddPatient( ActionEvent event){
         try {
@@ -191,6 +192,7 @@ public class PrescriptionController {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
+
     @FXML
 
     public void searchPatientDetails ( ActionEvent event) throws SQLException {

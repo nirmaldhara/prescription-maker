@@ -26,7 +26,7 @@ public class DBUtil {
     }
 
 
-    static void addUser(PatientDetails patientDetails) throws SQLException {
+    static void addPatient(PatientDetails patientDetails) throws SQLException {
         String sql = " insert into patient (first_name, last_name, age, sex, mobile_no,patient_id,address) values (?, ?, ?, ?, ?,?,?)";
         try(Connection conn=getConnection()) {
             PreparedStatement preparedStmt = conn.prepareStatement(sql);

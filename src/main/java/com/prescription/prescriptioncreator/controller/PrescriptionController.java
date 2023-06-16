@@ -202,5 +202,4 @@ public class PrescriptionController {
         displayPatientDetails(lstPatient);
         System.out.println("Search"+mobileNo);
     }
-
 }

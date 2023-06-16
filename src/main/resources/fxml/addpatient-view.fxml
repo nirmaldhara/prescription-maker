@@ -12,10 +12,10 @@
    <children>
       <TextField fx:id="txtFName" layoutX="14.0" layoutY="14.0" promptText="First name" />
       <TextField fx:id="txtLName" layoutX="177.0" layoutY="14.0" promptText="Last name" />
-      <TextField layoutX="342.0" layoutY="14.0" prefHeight="25.0" prefWidth="74.0" promptText="Age" />
-      <TextField layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="514.0" promptText="Mobile Number" />
-      <TextArea layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="514.0" promptText="Address" />
-      <ComboBox layoutX="427.0" layoutY="14.0" prefHeight="25.0" prefWidth="99.0" promptText="Sex">
+      <TextField fx:id="txtAge" layoutX="342.0" layoutY="14.0" prefHeight="25.0" prefWidth="74.0" promptText="Age" />
+      <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="514.0" promptText="Mobile Number" />
+      <TextArea fx:id="txtAddress" layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="514.0" promptText="Address" />
+      <ComboBox fx:id="txtSex" layoutX="427.0" layoutY="14.0" prefHeight="25.0" prefWidth="99.0" promptText="Sex">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Male" />

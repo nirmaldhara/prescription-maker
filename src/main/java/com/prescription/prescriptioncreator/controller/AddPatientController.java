@@ -46,5 +46,6 @@ public class AddPatientController {
         System.out.println("AddMobileNo "+mobile_no);
         System.out.println("AddAddress "+address);
         //System.out.println("AddSex "+sex);
+
     }
 }

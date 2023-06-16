@@ -14,4 +14,10 @@ public class PatientServiceImpl implements PatientService {
         PatientDao patientDao= new PatientDaoImpl();
         return patientDao.searchPatientDetails(mobile_no,patient_id);
     }
+@Override
+public void addPatient(PatientDetails patientDetails) throws Exception{
+    PatientDao patientDao= new PatientDaoImpl();
+    patientDao.addPatient(patientDetails);
+
+}
 }

@@ -9,4 +9,3 @@ CREATE TABLE patient (
         patient_id varchar(255),
         address varchar(255)
     );
-);

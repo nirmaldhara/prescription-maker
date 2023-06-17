@@ -8,6 +8,7 @@ import com.prescription.prescriptioncreator.service.MedicineService;
 public class MedicineServiceImpl implements MedicineService {
     @Override
     public void addMedicine(MedicineDetails medicineDetails) throws Exception {
-
+        MedicineDao medicineDao= new MedicineDaoImpl();
+        medicineDao.addMedicine(medicineDetails);
     }
 }

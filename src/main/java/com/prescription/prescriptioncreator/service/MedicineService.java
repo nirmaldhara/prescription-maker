@@ -5,4 +5,5 @@ import com.prescription.prescriptioncreator.model.PatientDetails;
 
 public interface MedicineService {
     void addMedicine(MedicineDetails medicineDetails) throws Exception;
+
 }

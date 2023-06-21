@@ -1,87 +1,86 @@
 package com.prescription.prescriptioncreator.model;
 
 public class MedicineDetails {
-    private String medicine_name;
-    private String t1;
-    private String t2;
-    private String t3;
-    private String t4;
-    private String t5;
-    private String t6;
-    private String fr;
-    private String days;
-    private String note;
+    private String medicineName;
+    private String Dose1;
+    private String Dose2;
+    private String Dose3;
+    private String Dose4;
+    private String Dose5;
+    private String Dose6;
+    private String when;
+    private String noOfDays;
 
-    public String getMedicine_name() {
-        return medicine_name;
+    public String getMedicineName() {
+        return medicineName;
     }
 
-    public void setMedicine_name(String medicine_name) {
-        this.medicine_name = medicine_name;
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
     }
 
-    public String getT1() {
-        return t1;
+    public String getDose1() {
+        return Dose1;
     }
 
-    public void setT1(String t1) {
-        this.t1 = t1;
+    public void setDose1(String dose1) {
+        Dose1 = dose1;
     }
 
-    public String getT2() {
-        return t2;
+    public String getDose2() {
+        return Dose2;
     }
 
-    public void setT2(String t2) {
-        this.t2 = t2;
+    public void setDose2(String dose2) {
+        Dose2 = dose2;
     }
 
-    public String getT3() {
-        return t3;
+    public String getDose3() {
+        return Dose3;
     }
 
-    public void setT3(String t3) {
-        this.t3 = t3;
+    public void setDose3(String dose3) {
+        Dose3 = dose3;
     }
 
-    public String getT4() {
-        return t4;
+    public String getDose4() {
+        return Dose4;
     }
 
-    public void setT4(String t4) {
-        this.t4 = t4;
+    public void setDose4(String dose4) {
+        Dose4 = dose4;
     }
 
-    public String getT5() {
-        return t5;
+    public String getDose5() {
+        return Dose5;
     }
 
-    public void setT5(String t5) {
-        this.t5 = t5;
+    public void setDose5(String dose5) {
+        Dose5 = dose5;
     }
 
-    public String getT6() {
-        return t6;
+    public String getDose6() {
+        return Dose6;
     }
 
-    public void setT6(String t6) {
-        this.t6 = t6;
+    public void setDose6(String dose6) {
+        Dose6 = dose6;
     }
 
-    public String getFr() {
-        return fr;
+    public String getWhen() {
+        return when;
     }
 
-    public void setFr(String fr) {
-        this.fr = fr;
+    public void setWhen(String when) {
+        this.when = when;
     }
 
-    public String getDays() {
-        return days;
+    public String getNoOfDays() {
+        return noOfDays;
     }
 
-    public void setDays(String days) {
-        this.days = days;
+    public void setNoOfDays(String noOfDays) {
+        this.noOfDays = noOfDays;
     }
 
     public String getNote() {
@@ -91,4 +90,7 @@ public class MedicineDetails {
     public void setNote(String note) {
         this.note = note;
     }
+
+    private String note;
+
 }

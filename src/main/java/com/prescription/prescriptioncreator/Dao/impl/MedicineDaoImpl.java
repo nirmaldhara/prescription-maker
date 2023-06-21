@@ -15,15 +15,15 @@ public class MedicineDaoImpl implements MedicineDao {
         Connection conn=getConnection();
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setString (1, medicineDetails.getMedicine_name());
-            preparedStmt.setString (2, medicineDetails.getT1());
-            preparedStmt.setString (3, medicineDetails.getT2());
-            preparedStmt.setString(4,  medicineDetails.getT3());
-            preparedStmt.setString(5,  medicineDetails.getT4());
-            preparedStmt.setString(6,  medicineDetails.getT5());
-            preparedStmt.setString(7,  medicineDetails.getT6());
-            preparedStmt.setString(8,  medicineDetails.getFr());
-            preparedStmt.setString(9,  medicineDetails.getDays());
+            preparedStmt.setString (1, medicineDetails.getMedicineName());
+            preparedStmt.setString (2, medicineDetails.getDose1());
+            preparedStmt.setString (3, medicineDetails.getDose2());
+            preparedStmt.setString(4,  medicineDetails.getDose3());
+            preparedStmt.setString(5,  medicineDetails.getDose4());
+            preparedStmt.setString(6,  medicineDetails.getDose5());
+            preparedStmt.setString(7,  medicineDetails.getDose6());
+            preparedStmt.setString(8,  medicineDetails.getWhen());
+            preparedStmt.setString(9,  medicineDetails.getNoOfDays());
             preparedStmt.setString(10,  medicineDetails.getNote());
             preparedStmt.execute();
         } catch (Exception e) {

@@ -28,7 +28,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PrescriptionController {
-
+    @FXML
+    private ComboBox<String> cmbWhen,cmbNoOFDays;
     @FXML
     TableView tblPrescription;
 
@@ -74,10 +75,6 @@ public class PrescriptionController {
     @FXML
     private Label welcomeText;
     @FXML
-    private  ChoiceBox chBoxWhen;
-    @FXML
-    private  ChoiceBox chBoxDays;
-    @FXML
     ButtonBar btnBar;
     @FXML
     TextField txtAddMedicine;
@@ -121,19 +118,11 @@ public class PrescriptionController {
     }
     @FXML
     public void initialize() {
-
-
-        ArrayList<String> cities = new ArrayList<>();
-        cities.add("BF");cities.add("AF");
-        ObservableList<String> list = FXCollections.observableArrayList(cities);
-        chBoxWhen.setItems(list);
-
-
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
-        chBoxDays.setItems(listDays);
+        cmbNoOFDays.setItems(listDays);
 
         prescriptionData = FXCollections.observableArrayList();
         PrescriptionDetails pd = new PrescriptionDetails();

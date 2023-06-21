@@ -11,7 +11,7 @@ import static com.prescription.prescriptioncreator.util.DBConnection.getConnecti
 
 public class MedicineDaoImpl implements MedicineDao {
     public  void addMedicine(MedicineDetails medicineDetails) throws Exception {
-        String sql = " insert into medicine (medicine_name, t1, t2, t3, t4, t5, t6, fr, days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
+        String sql = " insert into medicine (medicine_name, dose1, dose2, dose3, dose4, dose5, dose6, when_bf_af, no_of_days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
         Connection conn=getConnection();
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(sql);

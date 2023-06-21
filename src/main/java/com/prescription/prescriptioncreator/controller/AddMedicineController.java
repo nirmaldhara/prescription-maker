@@ -45,8 +45,8 @@ public class AddMedicineController {
         medicineDetails.setDose4(txtDose4.getText());
         medicineDetails.setDose5(txtDose5.getText());
         medicineDetails.setDose6(txtDose6.getText());
-        medicineDetails.setWhen(cmbWhen.getEditor().getText());
-        medicineDetails.setNoOfDays(cmbNoOFDays.getEditor().getText());
+        medicineDetails.setWhen(cmbWhen.getValue());
+        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
         medicineDetails.setNote(txtNote.getText());
         medicineService.addMedicine(medicineDetails);
     }

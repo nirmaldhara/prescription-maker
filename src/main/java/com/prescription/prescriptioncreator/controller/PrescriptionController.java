@@ -200,4 +200,20 @@ public class PrescriptionController {
         displayPatientDetails(lstPatient);
         System.out.println("Search"+mobileNo);
     }
+
+    @FXML
+    public void openAddMedicine( ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/addmedicine-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 540, 220);
+            Stage stage = new Stage();
+            stage.setTitle("New Window");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+    }
 }

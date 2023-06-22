@@ -1,7 +1,6 @@
 package com.prescription.prescriptioncreator.controller;
 
 import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import javafx.collections.FXCollections;
@@ -11,13 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-public class AddMedicineController {
+public class MedicineController {
     @FXML
     private ComboBox<String> cmbWhen,cmbNoOFDays;
     @FXML

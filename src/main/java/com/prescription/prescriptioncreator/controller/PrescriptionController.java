@@ -136,14 +136,15 @@ public class PrescriptionController {
         md.setNote("twice a day 2");
         lstMedicine.add(md);
 
-        AutoCompletionBinding<List<MedicineDetails>> acb = TextFields.bindAutoCompletion(txtMedicineName , Collections.singleton(lstMedicine));
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<List<MedicineDetails>>>()
+        AutoCompletionBinding<MedicineDetails> acb = TextFields.bindAutoCompletion(txtMedicineName , lstMedicine);
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<MedicineDetails>>()
         {
 
             @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<List<MedicineDetails>> event)
+            public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
             {
-                List<MedicineDetails> valueFromAutoCompletion = event.getCompletion();
+                MedicineDetails valueFromAutoCompletion = event.getCompletion();
+
             }
         });
 

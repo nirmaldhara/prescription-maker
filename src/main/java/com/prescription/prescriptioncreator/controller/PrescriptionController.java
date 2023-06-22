@@ -1,10 +1,13 @@
 package com.prescription.prescriptioncreator.controller;
 
+import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
-import com.prescription.prescriptioncreator.util.DBUtil;
+import javafx.event.EventHandler;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,7 +81,7 @@ public class PrescriptionController {
     @FXML
     ButtonBar btnBar;
     @FXML
-    TextField txtAddMedicine;
+    TextField txtMedicineName;
     @FXML
     VBox mainVBox;
 
@@ -118,6 +122,31 @@ public class PrescriptionController {
     }
     @FXML
     public void initialize() {
+        List<MedicineDetails> lstMedicine= new ArrayList<>();
+        MedicineDetails md= new MedicineDetails();
+        md.setMedicineName("cal pol");
+        md.setNote("twice a day");
+        lstMedicine.add(md);
+        md= new MedicineDetails();
+        md.setMedicineName("calpol 250");
+        md.setNote("twice a day 1");
+        lstMedicine.add(md);
+        md= new MedicineDetails();
+        md.setMedicineName("calpol 500");
+        md.setNote("twice a day 2");
+        lstMedicine.add(md);
+
+        AutoCompletionBinding<List<MedicineDetails>> acb = TextFields.bindAutoCompletion(txtMedicineName , Collections.singleton(lstMedicine));
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<List<MedicineDetails>>>()
+        {
+
+            @Override
+            public void handle(AutoCompletionBinding.AutoCompletionEvent<List<MedicineDetails>> event)
+            {
+                List<MedicineDetails> valueFromAutoCompletion = event.getCompletion();
+            }
+        });
+
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);

@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
    <children>
       <Line endX="-21.0" endY="1.5" layoutX="629.0" layoutY="278.0" startX="-231.0" />
       <ButtonBar fx:id="btnBar" layoutX="-9.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="6000.0">
@@ -65,7 +65,7 @@
           <TableColumn prefWidth="199.0" text="Previous Visit" />
         </columns>
       </TableView>
-      <TextField fx:id="txtAddMedicine" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
+      <TextField fx:id="txtMedicineName" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
       <TextField fx:id="txtAddMedicine1" layoutX="394.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D1">
          <font>
             <Font size="10.0" />

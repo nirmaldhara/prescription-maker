@@ -5,6 +5,9 @@ import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
+import com.prescription.prescriptioncreator.util.DateUtil;
+import com.prescription.prescriptioncreator.util.FXMLUtil;
+import com.prescription.prescriptioncreator.util.PatientRenderUtil;
 import javafx.event.EventHandler;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -15,18 +18,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,37 +45,15 @@ public class PrescriptionController {
     @FXML
     TableColumn <PatientDetails, String> clmnMedicine;
     @FXML
-    TableColumn <PatientDetails, String> clmnT1;
-    @FXML
-    TableColumn <PatientDetails, String> clmnT2;
-    @FXML
-    TableColumn <PatientDetails, String> clmnT3;
+    TableColumn <PatientDetails, String> clmnT1,clmnT2,clmnT3,clmnT4,clmnT5,clmnT6,clmnNote;
 
-    @FXML
-    TableColumn <PatientDetails, String> clmnT4;
-    @FXML
-    TableColumn <PatientDetails, String> clmnT5;
-    @FXML
-    TableColumn <PatientDetails, String> clmnT6;
-    @FXML
-    TableColumn <PatientDetails, String> clmnNote;
 
 
     @FXML
     TableView tblPatient;
     @FXML
-    TableColumn <PatientDetails, String> tblPatientName;
-    @FXML
-    TableColumn <PatientDetails, Integer> tblPatientAge;
-    @FXML
-    TableColumn <PatientDetails, String> tblPatientSex;
-    @FXML
-    TableColumn <PatientDetails, String> tblPatientAddress;
+    TableColumn <PatientDetails, String> tblPatientName,tblPatientAge,tblPatientSex,tblPatientAddress,tblPatientMobileNo,tblPatientId;
 
-    @FXML
-    TableColumn <PatientDetails, String> tblPatientMobileNo;
-    @FXML
-    TableColumn <PatientDetails, String> tblPatientId;
     @FXML
     private Label welcomeText;
     @FXML
@@ -88,7 +66,7 @@ public class PrescriptionController {
     @FXML
     DatePicker txtCurrentDate;
 
-    private ObservableList<PatientDetails> data;
+
     private ObservableList<PrescriptionDetails> prescriptionData;
     @FXML
     protected void onHelloButtonClick() {
@@ -96,30 +74,6 @@ public class PrescriptionController {
     }
 
 
-    private void displayPatientDetails(List<PatientDetails> lstPatient){
-
-
-        data = FXCollections.observableArrayList();
-
-        for(PatientDetails patientDetails:lstPatient)
-        {
-            PatientDetails p1= new PatientDetails();
-            p1.setFirst_name(patientDetails.getFirst_name() +" "+patientDetails.getLast_name());
-            p1.setAge(patientDetails.getAge());
-            p1.setSex(patientDetails.getSex());
-            p1.setAddress(patientDetails.getAddress());
-            p1.setPatientId(patientDetails.getPatientId());
-            p1.setMobile_no(patientDetails.getMobile_no());
-            data.add(p1);
-        }
-        tblPatientName.setCellValueFactory(new PropertyValueFactory("first_name"));
-        tblPatientAge.setCellValueFactory(new PropertyValueFactory("age"));
-        tblPatientSex.setCellValueFactory(new PropertyValueFactory("sex"));
-        tblPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
-        tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobile_no"));
-        tblPatientId.setCellValueFactory(new PropertyValueFactory("patientId"));
-        tblPatient.setItems(data);
-    }
     @FXML
     public void initialize() {
         List<MedicineDetails> lstMedicine= new ArrayList<>();
@@ -172,42 +126,16 @@ public class PrescriptionController {
 //        clmnNote.setCellValueFactory(new PropertyValueFactory("Note"));
 //        tblPrescription.setItems(data);
       //  txtAddMedicine.bindAutoCompletion(textfield,"text to suggest", "another text to suggest");
-        txtCurrentDate.setValue(NOW_LOCAL_DATE());
+        txtCurrentDate.setValue(DateUtil.NOW_LOCAL_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
     }
-    public static final LocalDate NOW_LOCAL_DATE (){
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate localDate = LocalDate.parse(date , formatter);
-        return localDate;
-    }
-@FXML
-    public void openPrescription( ActionEvent event){
-        try {
 
-            System.out.println("Opening");
 
-            VBox newLoadedPane =  FXMLLoader.load(getClass().getResource("addpatient-view.fxml"));
-            mainVBox.getChildren().add(newLoadedPane);
-        } catch (IOException e) {
-
-        }
-    }
 
     @FXML
     public void openAddPatient( ActionEvent event){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/addpatient-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 540, 220);
-            Stage stage = new Stage();
-            stage.setTitle("New Window");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
+
+        FXMLUtil.openChildWindow("/fxml/addpatient-view.fxml",540,220,"Add Patient");
     }
 
     @FXML
@@ -216,23 +144,14 @@ public class PrescriptionController {
         String mobileNo=txtMobileNo.getText();
         String patientId=txtPatientId.getText();
         List<PatientDetails> lstPatient=patientService.searchPatientDetails(mobileNo,patientId);
-        displayPatientDetails(lstPatient);
+        PatientRenderUtil.displayPatientDetails( lstPatient, tblPatient, tblPatientName, tblPatientAge,tblPatientSex, tblPatientAddress, tblPatientMobileNo,tblPatientId);
         System.out.println("Search"+mobileNo);
     }
 
     @FXML
     public void openAddMedicine( ActionEvent event){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/addmedicine-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 540, 220);
-            Stage stage = new Stage();
-            stage.setTitle("New Window");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
+
+        FXMLUtil.openChildWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
+
     }
 }

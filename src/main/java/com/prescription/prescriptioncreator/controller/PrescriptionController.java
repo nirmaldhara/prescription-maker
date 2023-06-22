@@ -93,7 +93,6 @@ public class PrescriptionController {
         AutoCompletionBinding<MedicineDetails> acb = TextFields.bindAutoCompletion(txtMedicineName , lstMedicine);
         acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<MedicineDetails>>()
         {
-
             @Override
             public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
             {

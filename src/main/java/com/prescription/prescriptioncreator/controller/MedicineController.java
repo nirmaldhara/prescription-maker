@@ -21,7 +21,6 @@ public class MedicineController {
     @FXML
     public void initialize() {
 
-
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);

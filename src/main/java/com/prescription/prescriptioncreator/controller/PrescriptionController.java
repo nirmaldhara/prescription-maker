@@ -8,6 +8,7 @@ import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.util.DateUtil;
 import com.prescription.prescriptioncreator.util.FXMLUtil;
 import com.prescription.prescriptioncreator.util.PatientRenderUtil;
+import com.prescription.prescriptioncreator.util.PrescriptionRenderUtil;
 import javafx.event.EventHandler;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -32,6 +33,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PrescriptionController {
+    List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
+    @FXML
+    TextField  txtD1,txtD2,txtD3,txtD4,txtD5,txtD6,txtNote;
     @FXML
     private ComboBox<String> cmbWhen,cmbNoOFDays;
     @FXML
@@ -43,12 +47,7 @@ public class PrescriptionController {
     TextField  txtPatientId;
 
     @FXML
-    TableColumn <PatientDetails, String> clmnMedicine;
-    @FXML
-    TableColumn <PatientDetails, String> clmnT1,clmnT2,clmnT3,clmnT4,clmnT5,clmnT6,clmnNote;
-
-
-
+    TableColumn <MedicineDetails, String> clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote;
     @FXML
     TableView tblPatient;
     @FXML
@@ -73,6 +72,24 @@ public class PrescriptionController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+    @FXML
+    private void addToPrescription( ActionEvent event){
+
+        MedicineDetails medicineDetails= new MedicineDetails();
+        medicineDetails.setMedicineName(txtMedicineName.getText());
+        medicineDetails.setDose1(txtD1.getText());
+        medicineDetails.setDose2(txtD2.getText());
+        medicineDetails.setDose3(txtD3.getText());
+        medicineDetails.setDose4(txtD4.getText());
+        medicineDetails.setDose5(txtD5.getText());
+        medicineDetails.setDose6(txtD6.getText());
+        medicineDetails.setNote(txtNote.getText());
+        medicineDetails.setWhen(cmbWhen.getValue());
+        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
+        lstMedicineDetails.add(0,medicineDetails);
+        PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
+
+    }
 
     @FXML
     public void initialize() {
@@ -81,10 +98,13 @@ public class PrescriptionController {
         md.setMedicineName("cal pol");
         md.setNote("twice a day");
         lstMedicine.add(md);
+
         md= new MedicineDetails();
         md.setMedicineName("calpol 250");
         md.setNote("twice a day 1");
+
         lstMedicine.add(md);
+
         md= new MedicineDetails();
         md.setMedicineName("calpol 500");
         md.setNote("twice a day 2");
@@ -96,7 +116,15 @@ public class PrescriptionController {
             @Override
             public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
             {
-                MedicineDetails valueFromAutoCompletion = event.getCompletion();
+                MedicineDetails value = event.getCompletion();
+                txtD1.setText(value.getDose1());
+                txtD2.setText(value.getDose2());
+                txtD3.setText(value.getDose3());
+                txtD4.setText(value.getDose4());
+                txtD5.setText(value.getDose5());
+                txtD6.setText(value.getDose6());
+                txtNote.setText(value.getNote());
+
 
             }
         });
@@ -108,23 +136,7 @@ public class PrescriptionController {
         cmbNoOFDays.setItems(listDays);
 
         prescriptionData = FXCollections.observableArrayList();
-        PrescriptionDetails pd = new PrescriptionDetails();
-        pd.setMedicineName("Calpol 650");
-        pd.setTime1("1/2");
-        pd.setTime2("1/2");
-        pd.setTime3("1/2");
-        pd.setTime4("1/2");
-        pd.setNote("For 5 days");
-        prescriptionData.add(pd);
-       // tblPatientName.setCellValueFactory(new PropertyValueFactory("Medicine"));
 
-//        clmnT1.setCellValueFactory(new PropertyValueFactory("T1"));
-//        clmnT2.setCellValueFactory(new PropertyValueFactory("T2"));
-//        clmnT3.setCellValueFactory(new PropertyValueFactory("T3"));
-//        clmnT4.setCellValueFactory(new PropertyValueFactory("T4"));
-//        clmnNote.setCellValueFactory(new PropertyValueFactory("Note"));
-//        tblPrescription.setItems(data);
-      //  txtAddMedicine.bindAutoCompletion(textfield,"text to suggest", "another text to suggest");
         txtCurrentDate.setValue(DateUtil.NOW_LOCAL_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
     }

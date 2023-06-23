@@ -2,12 +2,12 @@ package com.prescription.prescriptioncreator.model;
 
 public class PrescriptionDetails {
     private  String medicineName;
-    private  String time1;
-    private  String time2;
-    private  String time3;
-    private  String time4;
-    private  String time5;
-    private  String time6;
+    private  String dose1;
+    private  String dose2;
+    private  String dose3;
+    private  String dose4;
+    private  String dose5;
+    private  String dose6;
 
     public String getMedicineName() {
         return medicineName;
@@ -17,52 +17,52 @@ public class PrescriptionDetails {
         this.medicineName = medicineName;
     }
 
-    public String getTime1() {
-        return time1;
+    public String getDose1() {
+        return dose1;
     }
 
-    public void setTime1(String time1) {
-        this.time1 = time1;
+    public void setDose1(String dose1) {
+        this.dose1 = dose1;
     }
 
-    public String getTime2() {
-        return time2;
+    public String getDose2() {
+        return dose2;
     }
 
-    public void setTime2(String time2) {
-        this.time2 = time2;
+    public void setDose2(String dose2) {
+        this.dose2 = dose2;
     }
 
-    public String getTime3() {
-        return time3;
+    public String getDose3() {
+        return dose3;
     }
 
-    public void setTime3(String time3) {
-        this.time3 = time3;
+    public void setDose3(String dose3) {
+        this.dose3 = dose3;
     }
 
-    public String getTime4() {
-        return time4;
+    public String getDose4() {
+        return dose4;
     }
 
-    public void setTime4(String time4) {
-        this.time4 = time4;
+    public void setDose4(String dose4) {
+        this.dose4 = dose4;
     }
 
-    public String getTime5() {
-        return time5;
+    public String getDose5() {
+        return dose5;
     }
 
-    public void setTime5(String time5) {
-        this.time5 = time5;
+    public void setDose5(String dose5) {
+        this.dose5 = dose5;
     }
 
-    public String getTime6() {
-        return time6;
+    public String getDose6() {
+        return dose6;
     }
 
-    public void setTime6(String time6) {
-        this.time6 = time6;
+    public void setDose6(String dose6) {
+        this.dose6 = dose6;
     }
 
     public String getNote() {

@@ -66,32 +66,32 @@
         </columns>
       </TableView>
       <TextField fx:id="txtMedicineName" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
-      <TextField fx:id="txtAddMedicine1" layoutX="394.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D1">
+      <TextField fx:id="txtD1" layoutX="394.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D1">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddMedicine11" layoutX="434.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D2">
+      <TextField fx:id="txtD2" layoutX="434.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D2">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddMedicine12" layoutX="474.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D3">
+      <TextField fx:id="txtD3" layoutX="474.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D3">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddMedicine121" layoutX="514.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D4">
+      <TextField fx:id="txtD4" layoutX="514.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D4">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddMedicine122" layoutX="554.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D5">
+      <TextField fx:id="txtD5" layoutX="554.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D5">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddMedicine123" layoutX="594.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D6">
+      <TextField fx:id="txtD6" layoutX="594.0" layoutY="267.0" prefHeight="25.0" prefWidth="28.0" promptText="D6">
          <font>
             <Font size="10.0" />
          </font>
@@ -107,7 +107,7 @@
            </items>
        </ComboBox>
        <ComboBox fx:id="cmbNoOFDays" layoutX="735.0" layoutY="267.0" prefHeight="25.0" prefWidth="122.0" promptText="Days" />
-      <TextField fx:id="txtAddMedicine2" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="844.0" promptText="Note" />
+      <TextField fx:id="txtNote" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="844.0" promptText="Note" />
 
    </children>
   

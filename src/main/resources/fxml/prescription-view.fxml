@@ -61,8 +61,8 @@
             <TableColumn fx:id="tblPatientAddress" prefWidth="230.0" text="Address" />
         </columns>
       </TableView>
-      <DatePicker fx:id="txtCurrentDate" layoutX="558.0" layoutY="48.0" />
-      <TableView layoutX="877.0" layoutY="91.0" prefHeight="229.0" prefWidth="200.0">
+      <DatePicker fx:id="txtCurrentDate" layoutX="684.0" layoutY="60.0" />
+      <TableView layoutX="877.0" layoutY="42.0" prefHeight="278.0" prefWidth="200.0">
         <columns>
           <TableColumn prefWidth="199.0" text="Previous Visit" />
         </columns>

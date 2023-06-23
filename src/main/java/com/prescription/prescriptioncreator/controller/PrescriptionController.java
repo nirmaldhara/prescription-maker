@@ -110,10 +110,10 @@ public class PrescriptionController {
         prescriptionData = FXCollections.observableArrayList();
         PrescriptionDetails pd = new PrescriptionDetails();
         pd.setMedicineName("Calpol 650");
-        pd.setTime1("1/2");
-        pd.setTime2("1/2");
-        pd.setTime3("1/2");
-        pd.setTime4("1/2");
+        pd.setDose1("1/2");
+        pd.setDose2("1/2");
+        pd.setDose3("1/2");
+        pd.setDose4("1/2");
         pd.setNote("For 5 days");
         prescriptionData.add(pd);
        // tblPatientName.setCellValueFactory(new PropertyValueFactory("Medicine"));

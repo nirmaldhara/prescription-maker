@@ -1,5 +1,7 @@
 package com.prescription.prescriptioncreator.Dao;
 
-public interface PrescriptionDao {
+import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 
+public interface PrescriptionDao {
+    public void addPrescription(PrescriptionDetails prescriptionDetails) throws Exception;
 }

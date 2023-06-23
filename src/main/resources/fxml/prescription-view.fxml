@@ -23,7 +23,7 @@
          <buttons>
             <ToolBar fx:id="tBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="6000.0">
               <items>
-                <Button mnemonicParsing="false"  text="Prescription" />
+                  <Button mnemonicParsing="false" text="Prescription" />
                   <Button mnemonicParsing="false" onAction="#openAddPatient" text="Registration" />
                   <Button mnemonicParsing="false" onAction="#openAddMedicine" text="Add Medicine" />
               </items>

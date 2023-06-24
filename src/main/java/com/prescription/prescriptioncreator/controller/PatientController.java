@@ -22,7 +22,7 @@ public class PatientController {
     @FXML
     TextArea txtAddress;
     @FXML
-    ComboBox cmbSex;
+    ComboBox<String> cmbSex;
     @FXML
     public void addPatientDetails ( ActionEvent event) throws Exception {
         if(!ValidationUtil.isBlank(txtFName)){
@@ -30,7 +30,7 @@ public class PatientController {
             PatientDetails patientDetails = new PatientDetails();
             patientDetails.setFirst_name(txtFName.getText());
             patientDetails.setLast_name(txtLName.getText());
-            patientDetails.setSex(cmbSex.getEditor().getText());
+            patientDetails.setSex(cmbSex.getValue());
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
             patientDetails.setAge(Integer.parseInt(txtAge.getText()));

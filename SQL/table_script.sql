@@ -27,3 +27,19 @@ CREATE TABLE `patient` (
       PRIMARY KEY (`id`),
       KEY `search` (`medicine_name`)
     )
+
+    /* table script for prescription details */
+    CREATE TABLE `prescription`(
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `patientid` INT NULL,
+      `medicine_name` VARCHAR(45) NULL,
+      `when_bf_af` VARCHAR(45) NULL,
+      `no_of_days` VARCHAR(45) NULL,
+      `dose1` VARCHAR(45) NULL,
+      `dose2` VARCHAR(45) NULL,
+      `dose3` VARCHAR(45) NULL,
+      `dose4` VARCHAR(45) NULL,
+      `dose5` VARCHAR(45) NULL,
+      `dose6` VARCHAR(45) NULL,
+      `note` VARCHAR(45) NULL,
+      PRIMARY KEY (`id`));

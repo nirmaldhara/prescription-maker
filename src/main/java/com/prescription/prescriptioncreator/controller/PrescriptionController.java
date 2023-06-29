@@ -3,8 +3,12 @@ package com.prescription.prescriptioncreator.controller;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
+import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
+import com.prescription.prescriptioncreator.service.PrescriptionService;
+import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
+import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
 import com.prescription.prescriptioncreator.util.DateUtil;
 import com.prescription.prescriptioncreator.util.FXMLUtil;
 import com.prescription.prescriptioncreator.util.PatientRenderUtil;
@@ -65,7 +69,6 @@ public class PrescriptionController {
     @FXML
     DatePicker txtCurrentDate;
 
-
     private ObservableList<PrescriptionDetails> prescriptionData;
     @FXML
     protected void onHelloButtonClick() {
@@ -73,8 +76,7 @@ public class PrescriptionController {
     }
 
     @FXML
-    private void addToPrescription( ActionEvent event){
-
+    private void addToPrescription( ActionEvent event) {
         MedicineDetails medicineDetails= new MedicineDetails();
         medicineDetails.setMedicineName(txtMedicineName.getText());
         medicineDetails.setDose1(txtD1.getText());
@@ -88,9 +90,23 @@ public class PrescriptionController {
         medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
         lstMedicineDetails.add(0,medicineDetails);
         PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
-
     }
-
+    @FXML
+    private void openAddPrescription( ActionEvent event) throws Exception {
+        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
+        MedicineDetails medicineDetails= new MedicineDetails();
+        medicineDetails.setMedicineName(txtMedicineName.getText());
+        medicineDetails.setDose1(txtD1.getText());
+        medicineDetails.setDose2(txtD2.getText());
+        medicineDetails.setDose3(txtD3.getText());
+        medicineDetails.setDose4(txtD4.getText());
+        medicineDetails.setDose5(txtD5.getText());
+        medicineDetails.setDose6(txtD6.getText());
+        medicineDetails.setNote(txtNote.getText());
+        medicineDetails.setWhen(cmbWhen.getValue());
+        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
+        prescriptionService.addPrescription(medicineDetails);
+    }
     @FXML
     public void initialize() {
         List<MedicineDetails> lstMedicine= new ArrayList<>();

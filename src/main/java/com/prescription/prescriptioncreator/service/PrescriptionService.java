@@ -1,7 +1,8 @@
 package com.prescription.prescriptioncreator.service;
 
+import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 
 public interface PrescriptionService {
-    void addPrescription(PrescriptionDetails prescriptionDetails) throws Exception;
+    void addPrescription(MedicineDetails medicineDetails) throws Exception;//////
 }

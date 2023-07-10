@@ -180,5 +180,6 @@ public class PrescriptionController {
 
         FXMLUtil.openChildWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
 
+
     }
 }

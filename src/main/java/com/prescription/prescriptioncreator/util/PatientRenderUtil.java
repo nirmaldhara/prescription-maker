@@ -1,6 +1,7 @@
 package com.prescription.prescriptioncreator.util;
 
 import com.prescription.prescriptioncreator.model.PatientDetails;
+import com.prescription.prescriptioncreator.model.PreviousVisit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -29,5 +30,16 @@ public class PatientRenderUtil {
         tblPatientMobileNo.setCellValueFactory(new PropertyValueFactory("mobile_no"));
         tblPatientId.setCellValueFactory(new PropertyValueFactory("patientId"));
         tblPatient.setItems(data);
+    }
+
+
+    public static  void displayPreviousVisitDetails(List<PreviousVisit> previousVisit,
+                                              TableView <PreviousVisit> tblPreviousVisit,
+                                              TableColumn<PreviousVisit, String> clmnPreviousVisit){
+
+        ObservableList<PreviousVisit> data = FXCollections.observableArrayList(previousVisit);
+        clmnPreviousVisit.setCellValueFactory(new PropertyValueFactory("previousVisit"));
+
+        tblPreviousVisit.setItems(data);
     }
 }

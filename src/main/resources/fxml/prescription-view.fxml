@@ -62,9 +62,9 @@
         </columns>
       </TableView>
       <DatePicker fx:id="txtCurrentDate" layoutX="684.0" layoutY="60.0" />
-      <TableView layoutX="877.0" layoutY="42.0" prefHeight="278.0" prefWidth="200.0">
+      <TableView layoutX="877.0" layoutY="42.0" prefHeight="278.0" prefWidth="200.0" fx:id="tblPreviousVisit">
         <columns>
-          <TableColumn prefWidth="199.0" text="Previous Visit" />
+          <TableColumn prefWidth="199.0" text="Previous Visit"  fx:id="clmnPreviousVisit"/>
         </columns>
       </TableView>
       <TextField fx:id="txtMedicineName" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
@@ -111,7 +111,7 @@
        <ComboBox fx:id="cmbNoOFDays" layoutX="735.0" layoutY="267.0" prefHeight="25.0" prefWidth="122.0" promptText="Days" />
       <TextField fx:id="txtNote" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="715.0" promptText="Note" />
       <Button layoutX="735.0" layoutY="296.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="25.0" prefWidth="122.0" text="Add" />
-      <Button layoutX="382.0" layoutY="632.0" mnemonicParsing="false" text="Print &amp; Save" />
+      <Button layoutX="382.0" layoutY="632.0" mnemonicParsing="false" onAction="#saveNPrintPrescription" text="Print &amp; Save" />
 
    </children>
   

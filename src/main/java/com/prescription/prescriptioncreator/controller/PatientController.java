@@ -12,13 +12,7 @@ import javafx.scene.control.TextField;
 
 public class PatientController {
     @FXML
-    TextField txtFName;
-    @FXML
-    TextField txtLName;
-    @FXML
-    TextField txtAge;
-    @FXML
-    TextField txtMobileNo;
+    TextField txtFName,txtLName,txtAge,txtMobileNo;
     @FXML
     TextArea txtAddress;
     @FXML

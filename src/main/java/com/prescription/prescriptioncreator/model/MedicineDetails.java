@@ -9,7 +9,16 @@ public class MedicineDetails {
     private String Dose5;
     private String Dose6;
     private String when;
-    private String noOfDays;
+
+    public int getNoOfDays() {
+        return noOfDays;
+    }
+
+    public void setNoOfDays(int noOfDays) {
+        this.noOfDays = noOfDays;
+    }
+
+    private int noOfDays;
 
     public String getMedicineName() {
         return medicineName;
@@ -73,14 +82,6 @@ public class MedicineDetails {
 
     public void setWhen(String when) {
         this.when = when;
-    }
-
-    public String getNoOfDays() {
-        return noOfDays;
-    }
-
-    public void setNoOfDays(String noOfDays) {
-        this.noOfDays = noOfDays;
     }
 
     public String getNote() {

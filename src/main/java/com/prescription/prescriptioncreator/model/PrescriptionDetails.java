@@ -8,6 +8,26 @@ public class PrescriptionDetails {
     private  String dose4;
     private  String dose5;
     private  String dose6;
+    private String when_bf_af;
+
+    public int getNo_of_days() {
+        return no_of_days;
+    }
+
+    public void setNo_of_days(int no_of_days) {
+        this.no_of_days = no_of_days;
+    }
+
+    private int no_of_days;
+    public String getWhen_bf_af() {
+        return when_bf_af;
+    }
+
+    public void setWhen_bf_af(String when_bf_af) {
+        this.when_bf_af = when_bf_af;
+    }
+
+
 
     public String getMedicineName() {
         return medicineName;

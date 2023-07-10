@@ -16,7 +16,7 @@ import static com.prescription.prescriptioncreator.util.DBConnection.getConnecti
 public class PatientDaoImpl implements PatientDao {
 
     public List<PatientDetails> searchPatientDetails(String mobile_no, String patient_id) throws Exception {
-        String dbsql = "select distinct  first_name, last_name, age, sex, mobile_no,patient_id,address from patient where mobile_no = ? or patient_id = ? ";
+        String dbsql = "select distinct  id ,first_name, last_name, age, sex, mobile_no,patient_id,address from patient where mobile_no = ? or patient_id = ? ";
         List<PatientDetails> paitentList=new ArrayList<>();
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
@@ -29,6 +29,7 @@ public class PatientDaoImpl implements PatientDao {
             rs = preparedStmt.executeQuery();
             while(rs.next()){
                 PatientDetails pd= new PatientDetails();
+                pd.setId(rs.getInt("id"));
                 pd.setFirst_name(rs.getString("first_name"));
                 pd.setLast_name(rs.getString("first_name"));
                 pd.setAge(rs.getInt("age"));

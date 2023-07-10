@@ -40,7 +40,7 @@ public class MedicineController {
         medicineDetails.setDose5(txtDose5.getText());
         medicineDetails.setDose6(txtDose6.getText());
         medicineDetails.setWhen(cmbWhen.getValue());
-        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
+        medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()));
         medicineDetails.setNote(txtNote.getText());
         medicineService.addMedicine(medicineDetails);
     }

@@ -1,7 +1,15 @@
 package com.prescription.prescriptioncreator.model;
 
 public class PatientDetails {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
     private  String first_name;
     private  String last_name;
     private String patientId;

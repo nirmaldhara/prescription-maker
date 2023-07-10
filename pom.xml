@@ -61,6 +61,12 @@
             <artifactId>font-awesome</artifactId>
             <version>6.4.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>21-ea+23</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
     </dependencies>

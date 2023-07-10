@@ -140,6 +140,8 @@ public class PrescriptionController {
                 txtD5.setText(value.getDose5());
                 txtD6.setText(value.getDose6());
                 txtNote.setText(value.getNote());
+
+
             }
         });
 

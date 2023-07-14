@@ -26,7 +26,6 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
         Connection conn = getConnection();
         try{
             preparedStmt=  conn.prepareStatement(dbsql);
-
             rs = preparedStmt.executeQuery();
             rs.next();
             visitId=rs.getInt("visit_id");
@@ -68,8 +67,43 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
+    public List<MedicineDetails> getPrescriptionDetailsByVisitId(Integer visitID) throws Exception {
+        String dbsql = "select visit_id, patient_id , medicine_name, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note from prescription where visit_id=?";
+        PreparedStatement preparedStmt =null;
+        ResultSet rs = null;
+        Connection conn = getConnection();
+        List<MedicineDetails>lstPrescription = new ArrayList<>();
+
+        try{
+            preparedStmt=  conn.prepareStatement(dbsql);
+            preparedStmt.setInt(1,visitID.intValue());
+            rs = preparedStmt.executeQuery();
+            while(  rs.next())
+            {
+                MedicineDetails medicineDetails =  new MedicineDetails();
+                medicineDetails.setMedicineName(rs.getString("medicine_name"));
+                medicineDetails.setWhen(rs.getString("when_bf_af"));
+                medicineDetails.setNoOfDays(rs.getInt("no_of_days"));
+                medicineDetails.setDose2(rs.getString("dose2"));
+                medicineDetails.setDose3(rs.getString("dose3"));
+                medicineDetails.setDose4(rs.getString("dose4"));
+                medicineDetails.setDose5(rs.getString("dose5"));
+                medicineDetails.setDose6(rs.getString("dose6"));
+                medicineDetails.setNote(rs.getString("note"));
+                lstPrescription.add(medicineDetails);
+
+            }
+
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return lstPrescription;
+    }
+
+    @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-        String dbsql = "select  DATE_FORMAT(date,'%d/%m/%Y') AS visitdate  from prescription where patient_id=?  group by DATE_FORMAT(date,'%d/%m/%Y')";
+        String dbsql = "select  DATE_FORMAT(date,'%d/%m/%Y') AS visitdate, visit_id  from prescription where patient_id=?  group by DATE_FORMAT(date,'%d/%m/%Y'),visit_id";
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         int visitId=0;
@@ -83,6 +117,8 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             while(rs.next()) {
                 PreviousVisit pv= new PreviousVisit();
                 pv.setPreviousVisit(rs.getString("visitdate"));
+           //     pv.setId(rs.getInt("id"));
+                pv.setVisitId(rs.getInt("visit_id"));
                 visitList.add(pv);
 
             }

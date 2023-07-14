@@ -10,15 +10,20 @@ import com.prescription.prescriptioncreator.service.PrescriptionService;
 import java.util.List;
 
 public class PrescriptionServiceImpl implements PrescriptionService {
+    PrescriptionDao prescriptionDao= new PrescriptionDaoImpl();
     @Override
     public void saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails, int patientId) throws Exception {
-        PrescriptionDao prescriptionDao= new PrescriptionDaoImpl();
         prescriptionDao.saveNPrintPrescription(lstMedicineDetails,patientId);
     }
 
     @Override
+    public List<MedicineDetails> getPrescriptionDetailsByVisitId(Integer visitID) throws Exception {
+        return prescriptionDao.getPrescriptionDetailsByVisitId(visitID);
+    }
+
+
+    @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-        PrescriptionDao prescriptionDao= new PrescriptionDaoImpl();
 
 
         return prescriptionDao.getVisitDetails(patientId);

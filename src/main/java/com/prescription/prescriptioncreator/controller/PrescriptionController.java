@@ -67,16 +67,19 @@ public class PrescriptionController {
     @FXML
     DatePicker txtCurrentDate;
 
-    private ObservableList<MedicineDetails> autoCompleteData;
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-   static  AutoCompletionBinding acb =null;
+
+public void addDataToPrescriptionTable(){
+    PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
+
+}
     @FXML
     private void addToPrescription( ActionEvent event){
-
         MedicineDetails medicineDetails= new MedicineDetails();
         medicineDetails.setMedicineName(txtMedicineName.getText());
         medicineDetails.setDose1(txtD1.getText());
@@ -89,40 +92,17 @@ public class PrescriptionController {
         medicineDetails.setWhen(cmbWhen.getValue());
         medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()));
         lstMedicineDetails.add(0,medicineDetails);
-        PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
+        addDataToPrescriptionTable();
 
     }
 
-    public  List<PreviousVisit>  getVisitDetails(int patientID) throws Exception {
-        PrescriptionService ps= new PrescriptionServiceImpl();
-       return  ps.getVisitDetails(patientID);
-
-    }
 
     @FXML
     public void initialize() throws Exception {
-        autoCompleteData= FXCollections.observableArrayList(medicineService.getAutoSuggestMedicine());
-        acb = TextFields.bindAutoCompletion(txtMedicineName ,autoCompleteData );
-        acb.setVisibleRowCount(5);
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<MedicineDetails>>()
-        {
 
-            @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
-            {
-
-                MedicineDetails value = event.getCompletion();
-                txtD1.setText(value.getDose1());
-                txtD2.setText(value.getDose2());
-                txtD3.setText(value.getDose3());
-                txtD4.setText(value.getDose4());
-                txtD5.setText(value.getDose5());
-                txtD6.setText(value.getDose6());
-                txtNote.setText(value.getNote());
-               // acb.dispose();
-
-            }
-        });
+        PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
+        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
+        PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
 
         ArrayList<String> days = new ArrayList<>();
@@ -136,22 +116,7 @@ public class PrescriptionController {
         txtCurrentDate.setValue(DateUtil.NOW_LOCAL_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
 
-        tblPatient.setRowFactory(tv -> {
-            TableRow <PatientDetails>row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
-                        && event.getClickCount() == 1) {
 
-                    PatientDetails clickedRow = row.getItem();
-                    try {
-                        PatientRenderUtil.displayPreviousVisitDetails( getVisitDetails(clickedRow.getId()),tblPreviousVisit,clmnPreviousVisit);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-            return row ;
-        });
 
     }
 

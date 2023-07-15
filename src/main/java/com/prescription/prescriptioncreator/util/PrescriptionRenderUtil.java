@@ -7,15 +7,15 @@ import com.prescription.prescriptioncreator.model.PreviousVisit;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -140,6 +140,31 @@ public class PrescriptionRenderUtil {
                 }
             });
             return row ;
+        });
+    }
+
+    public static  void removePrescriptionRow(  TableView tblPrescription){
+        tblPrescription.setRowFactory(new Callback<TableView<MedicineDetails>, TableRow<MedicineDetails>>() {
+            @Override
+            public TableRow<MedicineDetails> call(TableView<MedicineDetails> tableView) {
+                final TableRow<MedicineDetails> row = new TableRow<>();
+                final ContextMenu contextMenu = new ContextMenu();
+                final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        tblPrescription.getItems().remove(row.getItem());
+                    }
+                });
+                contextMenu.getItems().add(removeMenuItem);
+                // Set context menu on row, but use a binding to make it only show for non-empty rows:
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                                .then((ContextMenu)null)
+                                .otherwise(contextMenu)
+                );
+                return row ;
+            }
         });
     }
 }

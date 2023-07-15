@@ -9,8 +9,10 @@ import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
 import com.prescription.prescriptioncreator.util.*;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
+import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import javafx.collections.FXCollections;
@@ -90,7 +92,8 @@ public void addDataToPrescriptionTable(){
         medicineDetails.setDose6(txtD6.getText());
         medicineDetails.setNote(txtNote.getText());
         medicineDetails.setWhen(cmbWhen.getValue());
-        medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()));
+        medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()==null? "0":cmbNoOFDays.getValue()));
+        lstMedicineDetails=tblPrescription.getItems();
         lstMedicineDetails.add(0,medicineDetails);
         addDataToPrescriptionTable();
 
@@ -100,6 +103,7 @@ public void addDataToPrescriptionTable(){
     @FXML
     public void initialize() throws Exception {
 
+        PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);

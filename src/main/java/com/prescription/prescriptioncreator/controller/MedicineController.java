@@ -43,5 +43,6 @@ public class MedicineController {
         medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()));
         medicineDetails.setNote(txtNote.getText());
         medicineService.addMedicine(medicineDetails);
+
     }
 }

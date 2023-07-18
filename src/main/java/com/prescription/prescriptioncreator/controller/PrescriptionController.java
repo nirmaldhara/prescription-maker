@@ -1,19 +1,18 @@
 package com.prescription.prescriptioncreator.controller;
-
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
-import com.prescription.prescriptioncreator.model.PrescriptionDetails;
+import com.prescription.prescriptioncreator.model.PreviousVisit;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
-import com.prescription.prescriptioncreator.util.DateUtil;
-import com.prescription.prescriptioncreator.util.FXMLUtil;
-import com.prescription.prescriptioncreator.util.PatientRenderUtil;
-import com.prescription.prescriptioncreator.util.PrescriptionRenderUtil;
+import com.prescription.prescriptioncreator.util.*;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
+import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import javafx.collections.FXCollections;
@@ -32,6 +31,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,39 +44,44 @@ public class PrescriptionController {
     private ComboBox<String> cmbWhen,cmbNoOFDays;
     @FXML
     TableView tblPrescription;
+    @FXML
+    TableView<PreviousVisit> tblPreviousVisit;
+    @FXML TableView<PatientDetails> tblPatient;
 
     @FXML
-    TextField  txtMobileNo;
+    TextField  txtMobileNo,txtPatientId,txtMedicineName;
     @FXML
-    TextField  txtPatientId;
+    TableColumn <PreviousVisit, String> clmnPreviousVisit;
+
 
     @FXML
     TableColumn <MedicineDetails, String> clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote;
     @FXML
-    TableView tblPatient;
-    @FXML
     TableColumn <PatientDetails, String> tblPatientName,tblPatientAge,tblPatientSex,tblPatientAddress,tblPatientMobileNo,tblPatientId;
-
+    MedicineService medicineService= new MedicineServiceImpl();
     @FXML
     private Label welcomeText;
     @FXML
     ButtonBar btnBar;
-    @FXML
-    TextField txtMedicineName;
     @FXML
     VBox mainVBox;
 
     @FXML
     DatePicker txtCurrentDate;
 
-    private ObservableList<PrescriptionDetails> prescriptionData;
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+
+public void addDataToPrescriptionTable(){
+    PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
+
+}
     @FXML
-    private void addToPrescription( ActionEvent event) {
+    private void addToPrescription( ActionEvent event){
         MedicineDetails medicineDetails= new MedicineDetails();
         medicineDetails.setMedicineName(txtMedicineName.getText());
         medicineDetails.setDose1(txtD1.getText());
@@ -87,63 +92,22 @@ public class PrescriptionController {
         medicineDetails.setDose6(txtD6.getText());
         medicineDetails.setNote(txtNote.getText());
         medicineDetails.setWhen(cmbWhen.getValue());
-        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
+        medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()==null? "0":cmbNoOFDays.getValue()));
+        lstMedicineDetails=tblPrescription.getItems();
         lstMedicineDetails.add(0,medicineDetails);
-        PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
+        addDataToPrescriptionTable();
+
     }
+
+
     @FXML
-    private void openAddPrescription( ActionEvent event) throws Exception {
-        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
-        MedicineDetails medicineDetails= new MedicineDetails();
-        medicineDetails.setMedicineName(txtMedicineName.getText());
-        medicineDetails.setDose1(txtD1.getText());
-        medicineDetails.setDose2(txtD2.getText());
-        medicineDetails.setDose3(txtD3.getText());
-        medicineDetails.setDose4(txtD4.getText());
-        medicineDetails.setDose5(txtD5.getText());
-        medicineDetails.setDose6(txtD6.getText());
-        medicineDetails.setNote(txtNote.getText());
-        medicineDetails.setWhen(cmbWhen.getValue());
-        medicineDetails.setNoOfDays(cmbNoOFDays.getValue());
-        prescriptionService.addPrescription(medicineDetails);
-    }
-    @FXML
-    public void initialize() {
-        List<MedicineDetails> lstMedicine= new ArrayList<>();
-        MedicineDetails md= new MedicineDetails();
-        md.setMedicineName("cal pol");
-        md.setNote("twice a day");
-        lstMedicine.add(md);
+    public void initialize() throws Exception {
 
-        md= new MedicineDetails();
-        md.setMedicineName("calpol 250");
-        md.setNote("twice a day 1");
+        PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
+        PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
+        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
+        PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
-        lstMedicine.add(md);
-
-        md= new MedicineDetails();
-        md.setMedicineName("calpol 500");
-        md.setNote("twice a day 2");
-        lstMedicine.add(md);
-
-        AutoCompletionBinding<MedicineDetails> acb = TextFields.bindAutoCompletion(txtMedicineName , lstMedicine);
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<MedicineDetails>>()
-        {
-            @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
-            {
-                MedicineDetails value = event.getCompletion();
-                txtD1.setText(value.getDose1());
-                txtD2.setText(value.getDose2());
-                txtD3.setText(value.getDose3());
-                txtD4.setText(value.getDose4());
-                txtD5.setText(value.getDose5());
-                txtD6.setText(value.getDose6());
-                txtNote.setText(value.getNote());
-
-
-            }
-        });
 
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
@@ -151,10 +115,13 @@ public class PrescriptionController {
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
         cmbNoOFDays.setItems(listDays);
 
-        prescriptionData = FXCollections.observableArrayList();
+      //  prescriptionData = FXCollections.observableArrayList();
 
         txtCurrentDate.setValue(DateUtil.NOW_LOCAL_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
+
+
+
     }
 
 
@@ -180,6 +147,16 @@ public class PrescriptionController {
 
         FXMLUtil.openChildWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
 
+    }
 
+    @FXML
+    public void saveNPrintPrescription( ActionEvent event) throws Exception {
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+        PrescriptionService prescriptionService= new PrescriptionServiceImpl();
+        prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
+        if(PrintUtil.createPrescription()){
+            PrintUtil.print();
+
+        }
     }
 }

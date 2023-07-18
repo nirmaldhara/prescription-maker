@@ -2,7 +2,6 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.MedicineDao;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
-import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,13 +28,6 @@ public class MedicineDaoImpl implements MedicineDao {
             preparedStmt.setInt(9,  medicineDetails.getNoOfDays());
             preparedStmt.setString(10,  medicineDetails.getNote());
             preparedStmt.execute();
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Successfully Added!");
-            alert.showAndWait();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

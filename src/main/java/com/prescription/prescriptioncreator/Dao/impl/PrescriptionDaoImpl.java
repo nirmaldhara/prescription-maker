@@ -6,7 +6,6 @@ import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.model.PreviousVisit;
 import com.prescription.prescriptioncreator.util.DBConnection;
-import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,7 +60,6 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 preparedStmt.setString(11,pd.getDose6());
                 preparedStmt.setString(12, pd.getNote());
                 preparedStmt.execute();
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

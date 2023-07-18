@@ -68,7 +68,6 @@ public class MedicineDaoImpl implements MedicineDao {
                 md.setDose5(rs.getString("dose5"));
                 md.setDose6(rs.getString("dose6"));
                 md.setNote(rs.getString("note"));
-
                 lstMedicineDetails.add(md);
             }
         } catch(Exception e){

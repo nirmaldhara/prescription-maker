@@ -97,12 +97,19 @@ public void addDataToPrescriptionTable(){
         lstMedicineDetails.add(0,medicineDetails);
         addDataToPrescriptionTable();
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+
     }
 
 
     @FXML
     public void initialize() throws Exception {
 
+        PrescriptionRenderUtil.removePatientRow(tblPatient);
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);

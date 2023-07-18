@@ -167,4 +167,28 @@ public class PrescriptionRenderUtil {
             }
         });
     }
+    public static  void removePatientRow(  TableView tblPatient){
+        tblPatient.setRowFactory(new Callback<TableView<PatientDetails>, TableRow<PatientDetails>>() {
+            @Override
+            public TableRow<PatientDetails> call(TableView<PatientDetails> tableView) {
+                final TableRow<PatientDetails> row = new TableRow<>();
+                final ContextMenu contextMenu = new ContextMenu();
+                final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        tblPatient.getItems().remove(row.getItem());
+                    }
+                });
+                contextMenu.getItems().add(removeMenuItem);
+                // Set context menu on row, but use a binding to make it only show for non-empty rows:
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                                .then((ContextMenu)null)
+                                .otherwise(contextMenu)
+                );
+                return row ;
+            }
+        });
+    }
 }

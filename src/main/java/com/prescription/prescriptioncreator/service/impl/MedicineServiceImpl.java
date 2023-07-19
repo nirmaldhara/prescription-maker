@@ -10,9 +10,10 @@ import java.util.List;
 public class MedicineServiceImpl implements MedicineService {
     MedicineDao medicineDao= new MedicineDaoImpl();
     @Override
-    public void addMedicine(MedicineDetails medicineDetails) throws Exception {
+    public boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
 
-        medicineDao.addMedicine(medicineDetails);
+        //medicineDao.addMedicine(medicineDetails);
+        return medicineDao.addMedicine(medicineDetails);
     }
 
     @Override

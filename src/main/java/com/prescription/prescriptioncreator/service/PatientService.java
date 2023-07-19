@@ -6,6 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 public interface PatientService {
     public  List<PatientDetails> searchPatientDetails(String mobile_no, String patient_id) throws Exception;
-    void addPatient(PatientDetails patientDetails) throws Exception;
+    boolean addPatient(PatientDetails patientDetails) throws Exception;
 
 }

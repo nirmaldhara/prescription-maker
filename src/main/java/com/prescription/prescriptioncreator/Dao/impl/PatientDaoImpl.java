@@ -53,7 +53,7 @@ public class PatientDaoImpl implements PatientDao {
     }
 
 @Override
-    public  void addPatient(PatientDetails patientDetails) throws Exception {
+    public  boolean addPatient(PatientDetails patientDetails) throws Exception {
         String sql = " insert into patient (first_name, last_name, age, sex, mobile_no,patient_id,address) values (?, ?, ?, ?, ?,?,?)";
         Connection conn=getConnection();
         try {
@@ -65,9 +65,12 @@ public class PatientDaoImpl implements PatientDao {
             preparedStmt.setString(5, patientDetails.getMobile_no());
             preparedStmt.setString(6, patientDetails.getPatientId());
             preparedStmt.setString(7, patientDetails.getAddress());
-            preparedStmt.execute();
+             preparedStmt.execute();
+             return true;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return false;
+
+
         }
 
 

@@ -12,7 +12,7 @@ import java.util.List;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class MedicineDaoImpl implements MedicineDao {
-    public  void addMedicine(MedicineDetails medicineDetails) throws Exception {
+    public  boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
         String sql = " insert into medicine (medicine_name, dose1, dose2, dose3, dose4, dose5, dose6, when_bf_af, no_of_days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
         Connection conn=getConnection();
         try {
@@ -28,8 +28,9 @@ public class MedicineDaoImpl implements MedicineDao {
             preparedStmt.setInt(9,  medicineDetails.getNoOfDays());
             preparedStmt.setString(10,  medicineDetails.getNote());
             preparedStmt.execute();
+            return  true;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return false;
         }
 
     }

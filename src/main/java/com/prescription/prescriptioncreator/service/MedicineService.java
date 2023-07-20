@@ -6,7 +6,7 @@ import com.prescription.prescriptioncreator.model.PatientDetails;
 import java.util.List;
 
 public interface MedicineService {
-    void addMedicine(MedicineDetails medicineDetails) throws Exception;
+    boolean addMedicine(MedicineDetails medicineDetails) throws Exception;
      List<MedicineDetails> getAutoSuggestMedicine() throws Exception;
 
     }

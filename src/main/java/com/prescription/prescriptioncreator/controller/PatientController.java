@@ -1,6 +1,6 @@
 package com.prescription.prescriptioncreator.controller;
 
-import com.prescription.prescriptioncreator.Message;
+import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
@@ -17,8 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static com.prescription.prescriptioncreator.Message.ADD_PATIENT_SUCCESS;
-import static com.prescription.prescriptioncreator.util.IntegerValue.*;
+import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_ERROR;
+import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_SUCCESS;
+import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 
 public class PatientController {
     @FXML
@@ -47,6 +48,9 @@ public class PatientController {
             if(patientService.addPatient(patientDetails)==true){
                 ToastUtil.makeText(stage, ADD_PATIENT_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
 
+            }
+            else {
+                ToastUtil.makeText(stage, ADD_PATIENT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
             }
         }
 

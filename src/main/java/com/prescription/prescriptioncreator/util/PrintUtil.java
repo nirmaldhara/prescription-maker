@@ -32,12 +32,16 @@ public class PrintUtil {
             try {
                 photo = c.newInstance("10x15", 82, 297, MM);
             } catch (InstantiationException ex) {
+                System.out.println(ex);
 
             } catch (IllegalAccessException ex) {
 
+                System.out.println(ex);
             } catch (IllegalArgumentException ex) {
+                System.out.println(ex);
 
             } catch (InvocationTargetException ex) {
+                System.out.println(ex);
 
             }
 

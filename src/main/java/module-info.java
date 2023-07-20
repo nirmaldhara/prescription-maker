@@ -13,6 +13,8 @@ module com.prescription.prescriptioncreator {
     opens com.prescription.prescriptioncreator.model to javafx.fxml;
     exports com.prescription.prescriptioncreator.controller;
     opens com.prescription.prescriptioncreator.controller to javafx.fxml;
+    exports com.prescription.prescriptioncreator.appenum;
+    opens com.prescription.prescriptioncreator.appenum to javafx.fxml;
 
 
 }

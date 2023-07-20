@@ -1,4 +1,4 @@
-package com.prescription.prescriptioncreator.util;
+package com.prescription.prescriptioncreator.appenum;
 
 public enum IntegerValue {
     LONG_DELAY(5000),

@@ -12,7 +12,6 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
 
-        //medicineDao.addMedicine(medicineDetails);
         return medicineDao.addMedicine(medicineDetails);
     }
 

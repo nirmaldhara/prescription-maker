@@ -1,4 +1,4 @@
-package com.prescription.prescriptioncreator;
+package com.prescription.prescriptioncreator.appenum;
 
 public enum Message {
     PATIENT_FNAME_BlANK("Please provide the first name"),
@@ -6,11 +6,11 @@ public enum Message {
     PATIENT_AGE_BlANK("Please provide the age"),
     PATIENT_SEX_BLANK("Please select the gender Male/Female"),
     ADD_PATIENT_SUCCESS("Patient details added successfully"),
-    MEDICINE_NAME_BLANK("Please provide the medicine name"),
-    MEDICINE_WHEN_BLANK("Please provide the medicine time BF/AF"),
-    MEDICINE_NO_OF_DAYS_BLANK("Please provide the number of days"),
-    ADD_MEDICINE_SUCCESS("Medicine details added successfully");
-
+    ADD_PATIENT_ERROR("Can't add patient details"),
+    MOBILE_OR_PATIENT_ID_BLANK("Please provide mobile number or patient id"),
+    MEDICINE_NAME_BLANK("Please provide medicine name"),
+    ADD_MEDICINE_SUCCESS("Medicine details added successfully"),
+    ADD_MEDICINE_ERROR("Can't add medincine details");
     private String value;
 
     public String val() {

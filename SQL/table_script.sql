@@ -47,3 +47,12 @@ CREATE TABLE `patient` (
       `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (`id`)
     )
+    /* table script for lab_test */
+
+    CREATE TABLE `lab_test` (
+          `id` int NOT NULL AUTO_INCREMENT,
+    	  `test_name` varchar(255) DEFAULT NULL,
+    	  `test_value` varchar(255) DEFAULT NULL,
+          `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`)
+        )

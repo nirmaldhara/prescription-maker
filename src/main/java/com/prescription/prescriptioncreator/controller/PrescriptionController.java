@@ -1,13 +1,17 @@
 package com.prescription.prescriptioncreator.controller;
+import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PreviousVisit;
+import com.prescription.prescriptioncreator.model.TestDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
+import com.prescription.prescriptioncreator.service.TestService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import com.prescription.prescriptioncreator.service.impl.TestServiceImpl;
 import com.prescription.prescriptioncreator.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,11 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
+import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
+import static com.prescription.prescriptioncreator.appenum.IntegerValue.SUCCESS;
+import static com.prescription.prescriptioncreator.appenum.Message.*;
 
 public class PrescriptionController {
     List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
@@ -53,8 +60,16 @@ public class PrescriptionController {
 
     @FXML
     DatePicker txtCurrentDate;
-
-
+    //////////
+    @FXML
+    private TableColumn<TestDetails, String> clmnTestName,clmnTestValue;
+    @FXML
+    private TableView<?> tblTestDetails;
+    @FXML
+    private TextField txtTestName;
+    @FXML
+    private TextField txtTestValue;
+    Stage stage = new Stage();
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -150,4 +165,22 @@ public void addDataToPrescriptionTable(){
 
         }
     }
+    public void addToTest(ActionEvent event)throws Exception{
+        TestService testService = new TestServiceImpl();
+        TestDetails testDetails = new TestDetails();
+        if(!(ValidationUtil.isTextFieldBlank(txtTestName,Message.TEST_NAME_BLANK.val()) &&
+                ValidationUtil.isTextFieldBlank(txtTestValue,Message.TEST_VALUE_BLANK.val()))
+        ){
+        testDetails.setTest_name(txtTestName.getText());
+        testDetails.setTest_value((txtTestValue.getText()));
+            if(testService.addTest(testDetails)==true){
+                ToastUtil.makeText(stage, ADD_TEST_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
+
+            }
+            else {
+                ToastUtil.makeText(stage, ADD_TEST_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
+            }
+       }
+    }
+
 }

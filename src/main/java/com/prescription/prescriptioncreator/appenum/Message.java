@@ -10,7 +10,11 @@ public enum Message {
     MOBILE_OR_PATIENT_ID_BLANK("Please provide mobile number or patient id"),
     MEDICINE_NAME_BLANK("Please provide medicine name"),
     ADD_MEDICINE_SUCCESS("Medicine details added successfully"),
-    ADD_MEDICINE_ERROR("Can't add medincine details");
+    ADD_MEDICINE_ERROR("Can't add medicine details"),
+    ADD_TEST_SUCCESS("Test details added successfully"),
+    ADD_TEST_ERROR("Can't add test details"),
+    TEST_NAME_BLANK("Please provide test name"),
+    TEST_VALUE_BLANK("Please provide test value");
     private String value;
 
     public String val() {

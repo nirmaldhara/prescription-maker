@@ -2,6 +2,8 @@ package com.prescription.prescriptioncreator.Dao;
 
 import com.prescription.prescriptioncreator.model.TestDetails;
 
+import java.util.List;
+
 public interface TestDao {
-    public boolean addTest(TestDetails testDetails) throws Exception;
+    public void saveTest(List<TestDetails> testDetails,int patientId) throws Exception;
 }

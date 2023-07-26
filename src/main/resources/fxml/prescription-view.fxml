@@ -112,10 +112,10 @@
       <TextField fx:id="txtNote" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="715.0" promptText="Note" />
       <Button layoutX="735.0" layoutY="296.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="25.0" prefWidth="122.0" text="Add" />
       <Button layoutX="382.0" layoutY="632.0" mnemonicParsing="false" onAction="#saveNPrintPrescription" text="Print &amp; Save" />
-      <TableView fx:id="tblTestDetails" layoutX="1088.0" layoutY="376.0" prefHeight="233.0" prefWidth="263.0">
+      <TableView fx:id="tblTest" layoutX="1088.0" layoutY="376.0" prefHeight="238.0" prefWidth="263.0">
         <columns>
           <TableColumn fx:id="clmnTestName" prefWidth="130.0" text="Test Name" />
-          <TableColumn fx:id="clmnTestValue" prefWidth="128.0" text="Test Value" />
+          <TableColumn fx:id="clmnTestValue" prefWidth="132.0" text="Test Value" />
         </columns>
       </TableView>
       <Button layoutX="1296.0" layoutY="330.0" mnemonicParsing="false" onAction="#addToTest" text="Add" />
@@ -126,6 +126,7 @@
           <TableColumn fx:id="clmnTestHistory" prefWidth="262.0" text="Test History" />
         </columns>
       </TableView>
+      <Button layoutX="1194.0" layoutY="620.0" mnemonicParsing="false" onAction="#saveTest" text="Save" />
 
    </children>
   

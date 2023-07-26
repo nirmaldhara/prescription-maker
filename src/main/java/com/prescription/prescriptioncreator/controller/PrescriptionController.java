@@ -61,10 +61,11 @@ public class PrescriptionController {
     @FXML
     DatePicker txtCurrentDate;
     //////////
+    List<TestDetails> lstTestDetails= new ArrayList<>();
     @FXML
     private TableColumn<TestDetails, String> clmnTestName,clmnTestValue;
     @FXML
-    private TableView<?> tblTestDetails;
+    private TableView<?> tblTest;
     @FXML
     private TextField txtTestName;
     @FXML
@@ -111,6 +112,7 @@ public void addDataToPrescriptionTable(){
 
         PrescriptionRenderUtil.removePatientRow(tblPatient);
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
+        TestRenderUtil.removeTestRow(tblTest);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
@@ -165,22 +167,25 @@ public void addDataToPrescriptionTable(){
 
         }
     }
-    public void addToTest(ActionEvent event)throws Exception{
+    @FXML
+    private void addToTest(ActionEvent event){
+        TestDetails testDetails = new TestDetails();
+        testDetails.setTest_name(txtTestName.getText());
+        testDetails.setTest_value(txtTestValue.getText());
+        lstTestDetails = (List<TestDetails>) tblTest.getItems();
+        lstTestDetails.add(testDetails);
+        TestRenderUtil.addToTest(lstTestDetails, tblTest, clmnTestName,clmnTestValue);
+    }
+    @FXML
+    private void saveTest(ActionEvent event) throws Exception {
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         TestService testService = new TestServiceImpl();
         TestDetails testDetails = new TestDetails();
-        if(!(ValidationUtil.isTextFieldBlank(txtTestName,Message.TEST_NAME_BLANK.val()) &&
-                ValidationUtil.isTextFieldBlank(txtTestValue,Message.TEST_VALUE_BLANK.val()))
-        ){
-        testDetails.setTest_name(txtTestName.getText());
-        testDetails.setTest_value((txtTestValue.getText()));
-            if(testService.addTest(testDetails)==true){
-                ToastUtil.makeText(stage, ADD_TEST_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
+        testService.saveTest(lstTestDetails,patientDetails.getId());
+        if(PrintUtil.createPrescription()){
+            PrintUtil.print();
 
-            }
-            else {
-                ToastUtil.makeText(stage, ADD_TEST_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
-            }
-       }
+        }
     }
 
 }

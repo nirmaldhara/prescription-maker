@@ -5,10 +5,13 @@ import com.prescription.prescriptioncreator.Dao.impl.TestDaoImpl;
 import com.prescription.prescriptioncreator.model.TestDetails;
 import com.prescription.prescriptioncreator.service.TestService;
 
+import java.util.List;
+
 public class TestServiceImpl implements TestService {
+    TestDao testDao = new TestDaoImpl();
     @Override
-    public boolean addTest(TestDetails testDetails) throws Exception {
-        TestDao testDao = new TestDaoImpl();
-        return testDao.addTest(testDetails);
+    public void saveTest(List<TestDetails> testDetails, int patientId) throws Exception {
+
+        testDao.saveTest(testDetails,patientId);
     }
 }

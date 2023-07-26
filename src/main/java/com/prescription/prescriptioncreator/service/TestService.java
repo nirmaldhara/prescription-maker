@@ -2,6 +2,8 @@ package com.prescription.prescriptioncreator.service;
 
 import com.prescription.prescriptioncreator.model.TestDetails;
 
+import java.util.List;
+
 public interface TestService {
-    boolean addTest(TestDetails testDetails) throws Exception;
+    void saveTest(List<TestDetails> testDetails, int patientId) throws Exception;
 }

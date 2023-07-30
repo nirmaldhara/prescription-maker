@@ -2,12 +2,15 @@ package com.prescription.prescriptioncreator.controller;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PreviousVisit;
+import com.prescription.prescriptioncreator.model.TestDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
+import com.prescription.prescriptioncreator.service.TestService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import com.prescription.prescriptioncreator.service.impl.TestServiceImpl;
 import com.prescription.prescriptioncreator.util.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
@@ -35,6 +38,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
 
 public class PrescriptionController {
     List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
@@ -68,8 +73,17 @@ public class PrescriptionController {
 
     @FXML
     DatePicker txtCurrentDate;
-
-
+    //////////
+    List<TestDetails> lstTestDetails= new ArrayList<>();
+    @FXML
+    private TableColumn<TestDetails, String> clmnTestName,clmnTestValue;
+    @FXML
+    private TableView<?> tblTest;
+    @FXML
+    private TextField txtTestName;
+    @FXML
+    private TextField txtTestValue;
+    Stage stage = new Stage();
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -110,6 +124,7 @@ public void addDataToPrescriptionTable(){
 
         PrescriptionRenderUtil.removePatientRow(tblPatient);
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
+        TestRenderUtil.removeTestRow(tblTest);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
@@ -143,9 +158,11 @@ public void addDataToPrescriptionTable(){
         PatientService patientService= new PatientServiceImpl();
         String mobileNo=txtMobileNo.getText();
         String patientId=txtPatientId.getText();
-        List<PatientDetails> lstPatient=patientService.searchPatientDetails(mobileNo,patientId);
-        PatientRenderUtil.displayPatientDetails( lstPatient, tblPatient, tblPatientName, tblPatientAge,tblPatientSex, tblPatientAddress, tblPatientMobileNo,tblPatientId);
-        System.out.println("Search"+mobileNo);
+        if((!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val())) || (!ValidationUtil.isTextFieldBlank(txtPatientId,MOBILE_OR_PATIENT_ID_BLANK.val()))) {
+            List<PatientDetails> lstPatient = patientService.searchPatientDetails(mobileNo, patientId);
+            PatientRenderUtil.displayPatientDetails(lstPatient, tblPatient, tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId);
+            System.out.println("Search" + mobileNo);
+        }
     }
 
     @FXML
@@ -160,6 +177,26 @@ public void addDataToPrescriptionTable(){
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
+        if(PrintUtil.createPrescription()){
+            PrintUtil.print();
+
+        }
+    }
+    @FXML
+    private void addToTest(ActionEvent event){
+        TestDetails testDetails = new TestDetails();
+        testDetails.setTest_name(txtTestName.getText());
+        testDetails.setTest_value(txtTestValue.getText());
+        lstTestDetails = (List<TestDetails>) tblTest.getItems();
+        lstTestDetails.add(testDetails);
+        TestRenderUtil.addToTest(lstTestDetails, tblTest, clmnTestName,clmnTestValue);
+    }
+    @FXML
+    private void saveTest(ActionEvent event) throws Exception {
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+        TestService testService = new TestServiceImpl();
+        TestDetails testDetails = new TestDetails();
+        testService.saveTest(lstTestDetails,patientDetails.getId());
         if(PrintUtil.createPrescription()){
             PrintUtil.print();
 

@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.MedicineDao;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.util.List;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class MedicineDaoImpl implements MedicineDao {
-    public  boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
+    public  void addMedicine(MedicineDetails medicineDetails) throws Exception {
         String sql = " insert into medicine (medicine_name, dose1, dose2, dose3, dose4, dose5, dose6, when_bf_af, no_of_days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
         Connection conn=getConnection();
         try {
@@ -28,9 +29,15 @@ public class MedicineDaoImpl implements MedicineDao {
             preparedStmt.setInt(9,  medicineDetails.getNoOfDays());
             preparedStmt.setString(10,  medicineDetails.getNote());
             preparedStmt.execute();
-            return  true;
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Successfully Added!");
+            alert.showAndWait();
+
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException(e);
         }
 
     }
@@ -61,7 +68,6 @@ public class MedicineDaoImpl implements MedicineDao {
                 md.setDose5(rs.getString("dose5"));
                 md.setDose6(rs.getString("dose6"));
                 md.setNote(rs.getString("note"));
-
                 lstMedicineDetails.add(md);
             }
         } catch(Exception e){

@@ -83,6 +83,7 @@ public class PrescriptionController {
     private TextField txtTestName;
     @FXML
     private TextField txtTestValue;
+    TestService testService = new TestServiceImpl();
     Stage stage = new Stage();
     @FXML
     protected void onHelloButtonClick() {
@@ -128,7 +129,7 @@ public void addDataToPrescriptionTable(){
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
-
+        TestRenderUtil.setTestSearchAutoComplete(testService, txtTestName, txtTestValue);
 
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)

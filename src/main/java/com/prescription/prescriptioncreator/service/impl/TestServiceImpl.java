@@ -14,4 +14,8 @@ public class TestServiceImpl implements TestService {
 
         testDao.saveTest(testDetails,patientId);
     }
+    @Override
+    public List<TestDetails> getAutoSuggestTest() throws Exception {
+        return testDao.getAutoSuggestTest();
+    }
 }

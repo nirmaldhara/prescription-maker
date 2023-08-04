@@ -18,4 +18,6 @@ public class TestDetails {
     public void setTest_value(String test_value) {
         this.test_value = test_value;
     }
+    public String toString(){return this.getTest_name();
+    }
 }

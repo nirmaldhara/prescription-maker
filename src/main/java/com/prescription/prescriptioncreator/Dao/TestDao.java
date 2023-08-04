@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TestDao {
     public void saveTest(List<TestDetails> testDetails,int patientId) throws Exception;
+    List<TestDetails> getAutoSuggestTest() throws Exception;
 }

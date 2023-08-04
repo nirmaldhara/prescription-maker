@@ -94,7 +94,6 @@ public class MedicineDetails {
 
     private String note;
     @Override
-    public String toString() {
-        return this.getMedicineName();
+    public String toString() {return this.getMedicineName();
     }
 }

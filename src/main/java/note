@@ -1,1 +1,3 @@
 vm options --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
+
+--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls,javafx.fxml --add-exports javafx.graphics/com.sun.javafx.print=javafx.graphics

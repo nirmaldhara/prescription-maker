@@ -122,11 +122,9 @@ public void addDataToPrescriptionTable(){
 
         PrescriptionRenderUtil.removePatientRow(tblPatient);
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
-        TestRenderUtil.removeTestRow(tblTest);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
-        TestRenderUtil.setTestSearchAutoComplete(testService, txtTestName, txtTestValue);
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);

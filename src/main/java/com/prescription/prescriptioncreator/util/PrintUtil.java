@@ -62,7 +62,7 @@ public class PrintUtil {
         }
     }
 
-    public    boolean createPrescription() throws IOException {
+    public static boolean createPrescription() throws IOException {
         boolean flag = false;
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<html>");

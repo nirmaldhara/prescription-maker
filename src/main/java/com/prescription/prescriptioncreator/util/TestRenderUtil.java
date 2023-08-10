@@ -40,47 +40,4 @@ public class TestRenderUtil {
         clmnTestValue.setCellValueFactory(new PropertyValueFactory("test_value"));
         tblTest.setItems(data);
     }
-    public static  void removeTestRow(  TableView tblTest){
-        tblTest.setRowFactory(new Callback<TableView<TestDetails>, TableRow<TestDetails>>() {
-            @Override
-            public TableRow<TestDetails> call(TableView<TestDetails> tableView) {
-                final TableRow<TestDetails> row = new TableRow<>();
-                final ContextMenu contextMenu = new ContextMenu();
-                final MenuItem removeMenuItem = new MenuItem("Remove");
-                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        tblTest.getItems().remove(row.getItem());
-                    }
-                });
-                contextMenu.getItems().add(removeMenuItem);
-                // Set context menu on row, but use a binding to make it only show for non-empty rows:
-                row.contextMenuProperty().bind(
-                        Bindings.when(row.emptyProperty())
-                                .then((ContextMenu)null)
-                                .otherwise(contextMenu)
-                );
-                return row ;
-            }
-        });
-    }
-    public static void setTestSearchAutoComplete(TestService testService, TextField txtTestName, TextField txtTestValue) throws Exception {
-        ObservableList<TestDetails> autoCompleteData;
-        autoCompleteData= FXCollections.observableArrayList(testService.getAutoSuggestTest());
-        AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtTestName ,autoCompleteData );
-        acb.setVisibleRowCount(5);
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<TestDetails>>()
-        {
-
-            @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<TestDetails> event)
-            {
-
-                TestDetails value = event.getCompletion();
-                txtTestValue.setText(value.getTest_value());
-                // acb.dispose();
-            }
-        });
-
-    }
 }

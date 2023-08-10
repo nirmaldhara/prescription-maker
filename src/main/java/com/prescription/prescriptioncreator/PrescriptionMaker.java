@@ -15,7 +15,7 @@ public class PrescriptionMaker extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PrescriptionMaker.class.getResource("/fxml/prescription-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("Prescription Generator!");
         stage.setScene(scene);
         stage.show();
         stage.setMaximized(true);

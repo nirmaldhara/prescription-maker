@@ -57,7 +57,7 @@
         <content>
             <Pane prefHeight="755.0" prefWidth="1291.0">
                 <children>
-                    <TextField fx:id="txtMobileNo" layoutX="3.0" layoutY="3.0" promptText="Mobile No" />
+                    <TextField fx:id="txtMobileNo" layoutX="3.0" layoutY="5.0" promptText="Mobile No" />
                     <Button fx:id="btnPatientSearch" layoutX="365.0" layoutY="1.0" mnemonicParsing="false" onAction="#searchPatientDetails" text="Search">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -66,8 +66,8 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                    <TextField fx:id="txtPatientId" layoutX="214.0" layoutY="3.0" promptText="Patient Id" />
-                    <Label layoutX="178.0" layoutY="7.0" text="OR" />
+                    <TextField fx:id="txtPatientId" layoutX="214.0" layoutY="5.0" promptText="Patient Id" />
+                    <Label layoutX="178.0" layoutY="9.0" text="OR" />
                     <TableView fx:id="tblPatient" layoutX="3.0" layoutY="36.0" prefHeight="113.0" prefWidth="844.0">
                         <columns>
                             <TableColumn fx:id="tblPatientName" prefWidth="262.0" text="Name" />
@@ -79,7 +79,7 @@
                         </columns>
                     </TableView>
 
-                    <TableView fx:id="tblPrescription" layoutX="3.0" layoutY="388.0" prefHeight="241.0" prefWidth="844.0">
+                    <TableView fx:id="tblPrescription" layoutX="3.0" layoutY="396.0" prefHeight="241.0" prefWidth="844.0">
                         <columns>
                             <TableColumn fx:id="clmnMedicineName" prefWidth="251.19999104738235" text="Medicine Name" />
                             <TableColumn fx:id="clmnD1" minWidth="3.0" prefWidth="34.40003967285156" text="D1" />
@@ -94,8 +94,8 @@
                         </columns>
                     </TableView>
 
-                    <DatePicker fx:id="txtCurrentDate" disable="true" layoutX="853.0" layoutY="3.0" prefHeight="25.0" prefWidth="193.0" />
-                    <TableView fx:id="tblPreviousVisit" layoutX="852.0" layoutY="31.0" prefHeight="300.0" prefWidth="194.0">
+                    <DatePicker fx:id="txtCurrentDate" disable="true" layoutX="853.0" layoutY="5.0" prefHeight="25.0" prefWidth="193.0" />
+                    <TableView fx:id="tblPreviousVisit" layoutX="852.0" layoutY="34.0" prefHeight="297.0" prefWidth="194.0">
                         <columns>
                             <TableColumn fx:id="clmnPreviousVisit" prefWidth="192.0" text="Previous Visit Details" />
                         </columns>
@@ -141,8 +141,15 @@
                         </items>
                     </ComboBox>
                     <ComboBox fx:id="cmbNoOFDays" layoutX="724.0" layoutY="332.0" prefHeight="25.0" prefWidth="122.0" promptText="Days" />
-                    <TextField fx:id="txtNote" layoutX="3.0" layoutY="360.0" prefHeight="25.0" prefWidth="715.0" promptText="Note" />
-                    <Button layoutX="725.0" layoutY="360.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="25.0" prefWidth="122.0" text="Add" />
+                    <TextField fx:id="txtNote" layoutX="3.0" layoutY="364.0" prefHeight="25.0" prefWidth="715.0" promptText="Note" />
+                    <Button layoutX="725.0" layoutY="360.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="25.0" prefWidth="122.0" text="Add">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                     <TableView fx:id="tblPreviousVisit1" layoutX="852.0" layoutY="332.0" prefHeight="300.0" prefWidth="195.0">
                         <columns>
                             <TableColumn fx:id="clmnPreviousVisit1" prefWidth="194.0" text="Previous Lab Test Report" />
@@ -183,8 +190,8 @@
                         <TableColumn prefWidth="250.0" text="Previous History" />
                      </columns>
                   </TableView>
-                  <TextField layoutX="465.0" layoutY="2.0" prefHeight="25.0" prefWidth="115.0" promptText="Weight" />
-                  <TextField layoutX="589.0" layoutY="2.0" prefHeight="25.0" prefWidth="115.0" promptText="Height" />
+                  <TextField layoutX="465.0" layoutY="6.0" prefHeight="25.0" prefWidth="115.0" promptText="Weight" />
+                  <TextField layoutX="589.0" layoutY="5.0" prefHeight="25.0" prefWidth="115.0" promptText="Height" />
                 </children>
             </Pane>
 

@@ -1,8 +1,5 @@
 package com.prescription.prescriptioncreator.controller;
-import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.PatientDetails;
-import com.prescription.prescriptioncreator.model.PreviousVisit;
-import com.prescription.prescriptioncreator.model.TestDetails;
+import com.prescription.prescriptioncreator.model.*;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
@@ -130,7 +127,6 @@ public void addDataToPrescriptionTable(){
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
         TestRenderUtil.setTestSearchAutoComplete(testService, txtTestName, txtTestValue);
-
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);

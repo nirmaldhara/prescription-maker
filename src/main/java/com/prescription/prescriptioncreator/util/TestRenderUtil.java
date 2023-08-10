@@ -1,9 +1,11 @@
 package com.prescription.prescriptioncreator.util;
 
-import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.TestDetails;
+import com.prescription.prescriptioncreator.model.*;
 import com.prescription.prescriptioncreator.service.MedicineService;
+import com.prescription.prescriptioncreator.service.PrescriptionService;
 import com.prescription.prescriptioncreator.service.TestService;
+import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import com.prescription.prescriptioncreator.service.impl.TestServiceImpl;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;

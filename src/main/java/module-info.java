@@ -16,6 +16,5 @@ module com.prescription.prescriptioncreator {
     exports com.prescription.prescriptioncreator.appenum;
     opens com.prescription.prescriptioncreator.appenum to javafx.fxml;
 
-
 }
 

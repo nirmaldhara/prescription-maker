@@ -21,35 +21,22 @@ import static com.sun.javafx.print.Units.MM;
 public class PrintUtil {
     public static void print() throws MalformedURLException {
         //printstatus.setText("print : printing...");
+        System.out.println("printing");
         Paper photo = null;
         try {
             WebView webview = new WebView();
+            System.out.println("printing 1");
             final WebEngine webengine = webview.getEngine();
+            System.out.println("printing 2");
             Printer printer = Printer.getDefaultPrinter();
-            Constructor<Paper> c = Paper.class.getDeclaredConstructor(String.class,
-                    double.class, double.class, Units.class);
-            c.setAccessible(true);
-            try {
-                photo = c.newInstance("10x15", 82, 297, MM);
-            } catch (InstantiationException ex) {
-                System.out.println(ex);
 
-            } catch (IllegalAccessException ex) {
+            System.out.println("done");
 
-                System.out.println(ex);
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex);
 
-            } catch (InvocationTargetException ex) {
-                System.out.println(ex);
 
-            }
-
-            PageLayout pageLayout = printer.createPageLayout(photo,
-                    PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
             PrinterJob job = PrinterJob.createPrinterJob();
 
-            job.getJobSettings().setPageLayout(pageLayout);
+            job.getJobSettings().getPageLayout();
 
             JobSettings js = job.getJobSettings();
 
@@ -71,8 +58,6 @@ public class PrintUtil {
 
                 // printstatus.setText("print : Done");
             }
-        } catch (NoSuchMethodException ex) {
-            // Logger.getLogger(ElectricBillController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
             //Logger.getLogger(ElectricBillController.class.getName()).log(Level.SEVERE, null, ex);
         }

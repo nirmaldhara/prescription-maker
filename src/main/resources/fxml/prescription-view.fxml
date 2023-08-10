@@ -10,9 +10,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -39,7 +39,7 @@
                     <Button fx:id="btnPatientSearch" layoutX="394.0" layoutY="3.0" mnemonicParsing="false" onAction="#searchPatientDetails" text="Search" />
                     <TextField fx:id="txtPatientId" layoutX="214.0" layoutY="3.0" promptText="Patient Id" />
                     <Label layoutX="178.0" layoutY="7.0" text="OR" />
-                    <TableView fx:id="tblPatient" layoutX="14.0" layoutY="31.0" prefHeight="142.0" prefWidth="844.0">
+                    <TableView fx:id="tblPatient" layoutX="14.0" layoutY="31.0" prefHeight="113.0" prefWidth="844.0">
                         <columns>
                             <TableColumn fx:id="tblPatientName" prefWidth="262.0" text="Name" />
                             <TableColumn fx:id="tblPatientAge" minWidth="0.0" prefWidth="46.0" text="Age" />
@@ -66,9 +66,9 @@
                     </TableView>
 
                     <DatePicker fx:id="txtCurrentDate" disable="true" layoutX="684.0" layoutY="3.0" />
-                    <TableView fx:id="tblPreviousVisit" layoutX="862.0" layoutY="2.0" prefHeight="328.0" prefWidth="150.0">
+                    <TableView fx:id="tblPreviousVisit" layoutX="862.0" layoutY="2.0" prefHeight="328.0" prefWidth="180.0">
                         <columns>
-                            <TableColumn fx:id="clmnPreviousVisit" prefWidth="149.20001220703125" text="Previous Visit Details" />
+                            <TableColumn fx:id="clmnPreviousVisit" prefWidth="174.0" text="Previous Visit Details" />
                         </columns>
                     </TableView>
                     <TextField fx:id="txtMedicineName" layoutX="14.0" layoutY="331.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
@@ -114,30 +114,42 @@
                     <ComboBox fx:id="cmbNoOFDays" layoutX="735.0" layoutY="332.0" prefHeight="25.0" prefWidth="122.0" promptText="Days" />
                     <TextField fx:id="txtNote" layoutX="14.0" layoutY="360.0" prefHeight="25.0" prefWidth="715.0" promptText="Note" />
                     <Button layoutX="735.0" layoutY="360.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="25.0" prefWidth="122.0" text="Add" />
-
-                    <TextArea layoutX="14.0" layoutY="176.0" prefHeight="154.0" prefWidth="844.0" promptText="Findings /Suggestions" />
-                    <TableView fx:id="tblPreviousVisit1" layoutX="862.0" layoutY="332.0" prefHeight="300.0" prefWidth="150.0">
+                    <TableView fx:id="tblPreviousVisit1" layoutX="862.0" layoutY="332.0" prefHeight="300.0" prefWidth="180.0">
                         <columns>
                             <TableColumn fx:id="clmnPreviousVisit1" prefWidth="149.199951171875" text="Previous Lab Test Report" />
                         </columns>
                     </TableView>
                     <TextField layoutX="1334.0" layoutY="380.0" prefHeight="25.0" prefWidth="90.0" promptText="Unit" />
                     <Button layoutX="1429.0" layoutY="380.0" mnemonicParsing="false" text="Add" />
-                  <ImageView fitHeight="216.0" fitWidth="200.0" layoutX="1023.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="163.0" fitWidth="175.0" layoutX="1048.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/kidney.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="212.0" fitWidth="232.0" layoutX="1023.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="212.0" fitWidth="185.0" layoutX="1047.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/heart.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="193.0" fitWidth="203.0" layoutX="1023.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1046.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/abdomen.png" />
                      </image>
                   </ImageView>
+                  <TextField layoutX="14.0" layoutY="149.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
+                  <TextField layoutX="312.0" layoutY="149.0" prefHeight="25.0" prefWidth="250.0" promptText="Findings " />
+                  <TextField layoutX="607.0" layoutY="148.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
+                  <TreeTableView layoutX="14.0" layoutY="174.0" prefHeight="152.0" prefWidth="250.0" />
+                  <TableView layoutX="312.0" layoutY="174.0" prefHeight="152.0" prefWidth="250.0">
+                    <columns>
+                      <TableColumn prefWidth="250.0" text="C1" />
+                    </columns>
+                  </TableView>
+                  <TableView layoutX="607.0" layoutY="173.0" prefHeight="152.0" prefWidth="250.0">
+                    <columns>
+                      <TableColumn prefWidth="199.0" text="C1" />
+                    </columns>
+                  </TableView>
                 </children>
             </Pane>
 

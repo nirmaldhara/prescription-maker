@@ -80,7 +80,7 @@ public class PrintUtil {
         htmlBuilder.append("</table>");
         htmlBuilder.append("</body>");
         htmlBuilder.append("</html>");
-        try (FileOutputStream oS = new FileOutputStream(new File("bill.html"))) {
+        try (FileOutputStream oS = new FileOutputStream(new File("prescription.html"))) {
             oS.write(htmlBuilder.toString().getBytes());
             flag = true;
         } catch (IOException e) {

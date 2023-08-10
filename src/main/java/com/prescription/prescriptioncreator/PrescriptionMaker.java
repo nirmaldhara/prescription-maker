@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class PrescriptionMaker extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(PrescriptionMaker.class.getResource("/fxml/prescription-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Prescription Generator!");
+        stage.getIcons().add(new Image(PrescriptionMaker.class.getResourceAsStream("/img/prescription.png")));
         stage.setScene(scene);
         stage.show();
         stage.setMaximized(true);

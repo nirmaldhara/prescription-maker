@@ -174,7 +174,8 @@ public void addDataToPrescriptionTable(){
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
-        if(PrintUtil.createPrescription()){
+        PrintUtil printUtil =new PrintUtil();
+        if(printUtil.createPrescription()){
             PrintUtil.print();
 
         }

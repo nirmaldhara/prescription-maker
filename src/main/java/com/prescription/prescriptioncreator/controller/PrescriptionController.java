@@ -18,10 +18,13 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
 
 public class PrescriptionController {
+    @FXML
+    Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
     @FXML
     TextField  txtD1,txtD2,txtD3,txtD4,txtD5,txtD6,txtNote;
@@ -87,7 +90,7 @@ public void addDataToPrescriptionTable(){
 
     @FXML
     public void initialize() throws Exception {
-
+        lblPrintStatus.setVisible(false);
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
@@ -135,13 +138,17 @@ public void addDataToPrescriptionTable(){
 
     @FXML
     public void saveNPrintPrescription( ActionEvent event) throws Exception {
+        lblPrintStatus.setVisible(true);
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
         PrintUtil printUtil =new PrintUtil();
         if(printUtil.createPrescription()){
             PrintUtil.print();
-
+            TimeUnit.SECONDS.sleep(5);
+            lblPrintStatus.setText("Done");
+            TimeUnit.SECONDS.sleep(5);
+            lblPrintStatus.setText("");
         }
     }
 }

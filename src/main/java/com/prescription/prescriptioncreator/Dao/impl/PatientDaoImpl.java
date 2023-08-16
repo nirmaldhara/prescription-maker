@@ -70,11 +70,7 @@ public class PatientDaoImpl implements PatientDao {
         } catch (Exception e) {
             return false;
 
-
         }
-
-
-
 
     }
 }

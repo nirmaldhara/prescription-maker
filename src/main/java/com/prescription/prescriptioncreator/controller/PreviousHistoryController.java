@@ -30,7 +30,6 @@ import static com.prescription.prescriptioncreator.util.DBConnection.getConnecti
 public class PreviousHistoryController implements Initializable {
     @FXML
      TextField txtPHistory;
-
     Set<String> posibleWordSet = new HashSet<>();
     private AutoCompletionBinding<String>autoCompletionBinding;
     @FXML

@@ -42,7 +42,7 @@ public class PreviousHistoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String dbsql = "select previous_history from previous_history;";
+        String dbsql = "select * from previous_history;";
         PreparedStatement preparedStmt =null;
         String previousHistory =null;
         ResultSet rs = null;

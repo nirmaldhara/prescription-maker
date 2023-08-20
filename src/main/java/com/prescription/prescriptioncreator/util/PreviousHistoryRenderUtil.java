@@ -28,4 +28,25 @@ public class PreviousHistoryRenderUtil {
         tblPreviousHistory.setItems(data);
 
     }
+
+    public static void setPreviousHistoryDetailsSearchAutoComplete(PreviousHistoryService previousHistoryService, TextField txtPHistory) throws Exception {
+        ObservableList<PreviousHistoryDetails> autoCompleteData;
+        autoCompleteData= FXCollections.observableArrayList(previousHistoryService.getAutoSuggestPreviousHistory());
+        AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtPHistory ,autoCompleteData );
+        acb.setVisibleRowCount(5);
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<PreviousHistoryDetails>>()
+        {
+
+            @Override
+            public void handle(AutoCompletionBinding.AutoCompletionEvent<PreviousHistoryDetails> event)
+            {
+
+                PreviousHistoryDetails value = event.getCompletion();
+                txtPHistory.setText(value.getPrevious_history());
+                // acb.dispose();
+
+            }
+        });
+
+    }
 }

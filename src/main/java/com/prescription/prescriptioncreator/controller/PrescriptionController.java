@@ -1,26 +1,37 @@
 package com.prescription.prescriptioncreator.controller;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PatientDetails;
+import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 import com.prescription.prescriptioncreator.model.PreviousVisit;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
+import com.prescription.prescriptioncreator.service.PreviousHistoryService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import com.prescription.prescriptioncreator.service.impl.PreviousHistoryServiceImpl;
 import com.prescription.prescriptioncreator.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
+import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class PrescriptionController {
     @FXML
@@ -96,6 +107,22 @@ public void addDataToPrescriptionTable(){
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
+        PreviousHistoryRenderUtil.setPreviousHistoryDetailsSearchAutoComplete(previousHistoryService,txtPHistory);
+        autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
+        txtPHistory.setOnKeyPressed((KeyEvent e)->{
+            switch (e.getCode()){
+                case ENTER:
+                    try {
+                        addPreviousHistory(txtPHistory.getText());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);
@@ -151,4 +178,29 @@ public void addDataToPrescriptionTable(){
             lblPrintStatus.setText("");
         }
     }
+
+    ////
+    @FXML
+    TextField txtPHistory;
+    List<PreviousHistoryDetails> lstPreviousHistoryDetails= new ArrayList<>();
+    @FXML
+    TableView<PreviousHistoryDetails> tblPreviousHistory;
+    @FXML
+    TableColumn<PreviousHistoryDetails, String> clmnPreviousHistory;
+    PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+
+
+    Set<String> posibleWordSet = new HashSet<>();
+    private AutoCompletionBinding<String> autoCompletionBinding;
+    @FXML
+    public void addPreviousHistory(String text) throws Exception{
+        PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+        PreviousHistoryDetails previousHistoryDetails = new PreviousHistoryDetails();
+        previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+        previousHistoryService.addPreviousHistory(previousHistoryDetails);
+       // autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
+        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
+
+    }
+
 }

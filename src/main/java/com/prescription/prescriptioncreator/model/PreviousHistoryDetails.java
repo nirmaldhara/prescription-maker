@@ -10,4 +10,7 @@ public class PreviousHistoryDetails {
     public void setPrevious_history(String previous_history) {
         this.previous_history = previous_history;
     }
+    @Override
+    public String toString() {return this.getPrevious_history();
+    }
 }

@@ -61,7 +61,25 @@ public class PreviousHistoryController implements Initializable {
         } catch(Exception e){
             e.printStackTrace();
         }
-        TextFields.bindAutoCompletion(txtPHistory,previousHistory);
+        //TextFields.bindAutoCompletion(txtPHistory,previousHistory);
+        autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
+        txtPHistory.setOnKeyPressed((KeyEvent e)->{
+            switch (e.getCode()){
+                case ENTER:
+                    learnWord(txtPHistory.getText());
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    private void learnWord(String text) {
+        posibleWordSet.add(text);
+        if(autoCompletionBinding !=null){
+            autoCompletionBinding.dispose();
+        }
+        autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
     }
 
 }

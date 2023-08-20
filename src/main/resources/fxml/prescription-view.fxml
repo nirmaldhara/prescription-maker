@@ -172,7 +172,7 @@
                         <Image url="@../img/abdomen.png" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="3.0" layoutY="151.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
+                  <TextField fx:id="txtPHistory" layoutX="3.0" layoutY="151.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
                   <TextField layoutX="299.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Findings " />
                   <TextField layoutX="597.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
                   <TableView layoutX="299.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
@@ -185,9 +185,9 @@
                       <TableColumn prefWidth="249.0" text="Suggestions" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="3.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblPreviousHistory" layoutX="3.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
                      <columns>
-                        <TableColumn prefWidth="250.0" text="Previous History" />
+                        <TableColumn fx:id="clmnPreviousHistory" prefWidth="250.0" text="Previous History" />
                      </columns>
                   </TableView>
                   <TextField layoutX="465.0" layoutY="6.0" prefHeight="25.0" prefWidth="115.0" promptText="Weight" />

@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.PreviousHistoryDao;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
+import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
 import java.sql.Connection;
@@ -13,6 +14,24 @@ import java.util.List;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class PreviousHistoryDaoImpl implements PreviousHistoryDao {
+    /* @method addPreviousHistory
+     * @param previousHistoryDetails
+     * @throws Exception
+     * @description add Previous History data
+     * @developer Sukhendu
+     */
+
+    /* @method getAutoSuggestPreviousHistory
+     * @throws Exception
+     * @description to get auto suggestion
+     * @developer Sukhendu
+     */
+    /* @method addPreviousHistory
+     *@param previous_history
+     * @throws Exception
+     * @description to get tableview of Previous History
+     * @developer Sukhendu
+     */
     @Override
     public boolean addPreviousHistory(PreviousHistoryDetails previousHistoryDetails) throws Exception {
         String sql = " insert into previous_history (previous_history) values (?)";
@@ -54,5 +73,37 @@ public class PreviousHistoryDaoImpl implements PreviousHistoryDao {
 
         }
         return lstPreviousHistoryDetails;
+    }
+
+    @Override
+    public List<PreviousHistoryDetails> addPreviousHistory(String previous_history) throws Exception {
+        String dbsql = "select distinct  id ,previous_history from previous_history where previous_history = ?";
+        List<PreviousHistoryDetails> previousHistoryList=new ArrayList<>();
+        PreparedStatement preparedStmt =null;
+        ResultSet rs = null;
+        Connection conn = getConnection();
+        try{
+            preparedStmt=  conn.prepareStatement(dbsql);
+
+            preparedStmt.setString(1,previous_history);
+            rs = preparedStmt.executeQuery();
+            while(rs.next()){
+                PreviousHistoryDetails pd= new PreviousHistoryDetails();
+                pd.setId(rs.getInt("id"));
+                pd.setPrevious_history(rs.getString("previous_history"));
+
+                previousHistoryList.add(pd);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if(preparedStmt!=null)
+                preparedStmt.close();
+            if(rs!=null)
+                rs.close();
+
+        }
+        return previousHistoryList;
     }
 }

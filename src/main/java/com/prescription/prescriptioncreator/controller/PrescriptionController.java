@@ -107,8 +107,13 @@ public void addDataToPrescriptionTable(){
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
+        /* @method  PreviousHistoryRenderUtil.setPreviousHistoryDetailsSearchAutoComplete
+         * @param previousHistoryService,txtPHistory
+         * @throws Exception
+         * @description store and display auto complete Previous History
+         * @developer Sukhendu
+         */
         PreviousHistoryRenderUtil.setPreviousHistoryDetailsSearchAutoComplete(previousHistoryService,txtPHistory);
-        autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
         txtPHistory.setOnKeyPressed((KeyEvent e)->{
             switch (e.getCode()){
                 case ENTER:
@@ -180,6 +185,12 @@ public void addDataToPrescriptionTable(){
     }
 
     ////
+    /* @method addPreviousHistory
+     * @param text
+     * @throws Exception
+     * @description store and display auto complete Previous History
+     * @developer Sukhendu
+     */
     @FXML
     TextField txtPHistory;
     List<PreviousHistoryDetails> lstPreviousHistoryDetails= new ArrayList<>();
@@ -188,19 +199,16 @@ public void addDataToPrescriptionTable(){
     @FXML
     TableColumn<PreviousHistoryDetails, String> clmnPreviousHistory;
     PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
-
-
-    Set<String> posibleWordSet = new HashSet<>();
-    private AutoCompletionBinding<String> autoCompletionBinding;
     @FXML
     public void addPreviousHistory(String text) throws Exception{
+        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
         PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
         PreviousHistoryDetails previousHistoryDetails = new PreviousHistoryDetails();
         previousHistoryDetails.setPrevious_history(txtPHistory.getText());
         previousHistoryService.addPreviousHistory(previousHistoryDetails);
-       // autoCompletionBinding = TextFields.bindAutoCompletion(txtPHistory,posibleWordSet);
+        String historyDetails = txtPHistory.getText();
+        List<PreviousHistoryDetails> lstPreviousHistoryDetails = previousHistoryService.addPreviousHistory(historyDetails);
         PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
-
     }
 
 }

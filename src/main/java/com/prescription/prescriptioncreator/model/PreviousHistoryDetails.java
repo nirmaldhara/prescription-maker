@@ -13,4 +13,13 @@ public class PreviousHistoryDetails {
     @Override
     public String toString() {return this.getPrevious_history();
     }
+    ///
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    private int id;
 }

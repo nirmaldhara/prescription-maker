@@ -18,4 +18,9 @@ public class PreviousHistoryServiceImpl implements PreviousHistoryService {
     public List<PreviousHistoryDetails> getAutoSuggestPreviousHistory() throws Exception {
         return previousHistoryDao.getAutoSuggestPreviousHistory();
     }
+
+    @Override
+    public List<PreviousHistoryDetails> addPreviousHistory(String previous_history) throws Exception {
+        return previousHistoryDao.addPreviousHistory(previous_history);
+    }
 }

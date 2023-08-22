@@ -135,6 +135,21 @@ public void addDataToPrescriptionTable(){
             }
         });
 
+        SuggestionsRenderUtil.setSuggestionsSearchAutoComplete(suggestionsService,txtSuggestions);
+        txtSuggestions.setOnKeyPressed((KeyEvent e)->{
+            switch (e.getCode()){
+                case ENTER:
+                    try{
+                        addSuggestions(txtSuggestions.getText());
+                    }catch(Exception ex){
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);
@@ -238,4 +253,23 @@ public void addDataToPrescriptionTable(){
         FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
     }
 
+    @FXML
+    private TableColumn<SuggestionsDetails, String> clmnSuggestions;
+    @FXML
+    private TableView<SuggestionsDetails> tblSuggestions;
+    @FXML
+    private TextField txtSuggestions;
+    List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
+    SuggestionsService suggestionsService = new SuggestionsServiceImpl();
+
+    @FXML
+    public void addSuggestions(String text) throws Exception{
+        SuggestionsService suggestionsService = new SuggestionsServiceImpl();
+        SuggestionsDetails suggestionsDetails = new SuggestionsDetails();
+        suggestionsDetails.setSuggestions(txtSuggestions.getText());
+        suggestionsService.addSuggestions(suggestionsDetails);
+        String suggestions = txtSuggestions.getText();
+        List<SuggestionsDetails> lstSuggestionsDetails = suggestionsService.addSuggestions(suggestions);
+        SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails,tblSuggestions,clmnSuggestions);
+    }
 }

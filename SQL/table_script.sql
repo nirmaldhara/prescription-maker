@@ -11,7 +11,7 @@ CREATE TABLE `patient` (
   PRIMARY KEY (`id`),
   KEY `search` (`mobile_no`,`patient_id`)
 )
-/////
+
     CREATE TABLE `medicine` (
       `id` int NOT NULL AUTO_INCREMENT,
       `medicine_name` varchar(255) DEFAULT NULL,
@@ -43,6 +43,7 @@ CREATE TABLE `patient` (
       `dose6` VARCHAR(45) NULL,
       `note` VARCHAR(45) NULL,
       PRIMARY KEY (`id`));
+
      /* table script for lab_test */
       CREATE TABLE `lab_test` (
             `id` int NOT NULL AUTO_INCREMENT,
@@ -51,15 +52,24 @@ CREATE TABLE `patient` (
             `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`)
           )
+
       /* table script for previous_history */
       CREATE TABLE `previous_history` (
                   `id` int NOT NULL AUTO_INCREMENT,
             	  `previous_history` varchar(255) DEFAULT NULL,
                   PRIMARY KEY (`id`)
                 )
+
       /* table script for findings */
       CREATE TABLE `findings` (
                   `id` int NOT NULL AUTO_INCREMENT,
             	  `findings` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                )
+
+      /* table script for suggestions */
+      CREATE TABLE `suggestions` (
+                  `id` int NOT NULL AUTO_INCREMENT,
+            	  `suggestions` varchar(255) DEFAULT NULL,
                   PRIMARY KEY (`id`)
                 )

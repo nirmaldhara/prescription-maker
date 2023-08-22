@@ -174,15 +174,15 @@
                   </ImageView>
                   <TextField fx:id="txtPHistory" layoutX="3.0" layoutY="151.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
                   <TextField fx:id="txtFindings" layoutX="299.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Findings " />
-                  <TextField layoutX="597.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
+                  <TextField fx:id="txtSuggestions" layoutX="597.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
                   <TableView fx:id="tblFindings" layoutX="299.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
                     <columns>
                       <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="597.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblSuggestions" layoutX="597.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
                     <columns>
-                      <TableColumn prefWidth="249.0" text="Suggestions" />
+                      <TableColumn fx:id="clmnSuggestions" prefWidth="249.0" text="Suggestions" />
                     </columns>
                   </TableView>
                   <TableView fx:id="tblPreviousHistory" layoutX="3.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">

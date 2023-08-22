@@ -57,3 +57,9 @@ CREATE TABLE `patient` (
             	  `previous_history` varchar(255) DEFAULT NULL,
                   PRIMARY KEY (`id`)
                 )
+      /* table script for findings */
+      CREATE TABLE `findings` (
+                  `id` int NOT NULL AUTO_INCREMENT,
+            	  `findings` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                )

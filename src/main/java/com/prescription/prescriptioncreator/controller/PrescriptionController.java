@@ -1,16 +1,7 @@
 package com.prescription.prescriptioncreator.controller;
-import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.PatientDetails;
-import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
-import com.prescription.prescriptioncreator.model.PreviousVisit;
-import com.prescription.prescriptioncreator.service.MedicineService;
-import com.prescription.prescriptioncreator.service.PatientService;
-import com.prescription.prescriptioncreator.service.PrescriptionService;
-import com.prescription.prescriptioncreator.service.PreviousHistoryService;
-import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
-import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
-import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
-import com.prescription.prescriptioncreator.service.impl.PreviousHistoryServiceImpl;
+import com.prescription.prescriptioncreator.model.*;
+import com.prescription.prescriptioncreator.service.*;
+import com.prescription.prescriptioncreator.service.impl.*;
 import com.prescription.prescriptioncreator.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
@@ -128,6 +120,21 @@ public void addDataToPrescriptionTable(){
             }
         });
 
+        FindingsRenderUtil.setFindingsSearchAutoComplete(findingsService,txtFindings);
+        txtFindings.setOnKeyPressed((KeyEvent e)->{
+            switch (e.getCode()){
+                case ENTER:
+                    try{
+                        addFindings(txtFindings.getText());
+                    }catch(Exception ex){
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+
         ArrayList<String> days = new ArrayList<>();
         for(int i=1;i<=365;i++)
             days.add(""+i);
@@ -209,6 +216,26 @@ public void addDataToPrescriptionTable(){
         String historyDetails = txtPHistory.getText();
         List<PreviousHistoryDetails> lstPreviousHistoryDetails = previousHistoryService.addPreviousHistory(historyDetails);
         PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
+    }
+
+    @FXML
+    TableColumn<FindingsDetails, String> clmnFindings;
+    @FXML
+    TableView<FindingsDetails> tblFindings;
+    @FXML
+   TextField txtFindings;
+    List<FindingsDetails> lstFindingsDetails = new ArrayList<>();
+    FindingsService findingsService = new FindingsServiceImpl();
+    @FXML
+    public void addFindings(String text) throws Exception{
+        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
+        FindingsService findingsService = new FindingsServiceImpl();
+        FindingsDetails findingsDetails = new FindingsDetails();
+        findingsDetails.setFindings(txtFindings.getText());
+        findingsService.addFindings(findingsDetails);
+        String findings = txtFindings.getText();
+        List<FindingsDetails> lstFindingsDetails = findingsService.addFindings(findings);
+        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
     }
 
 }

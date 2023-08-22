@@ -51,3 +51,9 @@ CREATE TABLE `patient` (
             `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`)
           )
+      /* table script for previous_history */
+      CREATE TABLE `previous_history` (
+                  `id` int NOT NULL AUTO_INCREMENT,
+            	  `previous_history` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                )

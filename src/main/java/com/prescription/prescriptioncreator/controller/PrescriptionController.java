@@ -6,6 +6,7 @@ import com.prescription.prescriptioncreator.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,6 +62,34 @@ public class PrescriptionController {
     @FXML
     DatePicker txtCurrentDate;
 
+    ////
+    @FXML
+    TextField txtPHistory;
+    List<PreviousHistoryDetails> lstPreviousHistoryDetails= new ArrayList<>();
+    @FXML
+    TableView<PreviousHistoryDetails> tblPreviousHistory;
+    @FXML
+    TableColumn<PreviousHistoryDetails, String> clmnPreviousHistory;
+    PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+
+    @FXML
+    TableColumn<FindingsDetails, String> clmnFindings;
+    @FXML
+    TableView<FindingsDetails> tblFindings;
+    @FXML
+    TextField txtFindings;
+    List<FindingsDetails> lstFindingsDetails = new ArrayList<>();
+    FindingsService findingsService = new FindingsServiceImpl();
+
+    @FXML
+    private TableColumn<SuggestionsDetails, String> clmnSuggestions;
+    @FXML
+    private TableView<SuggestionsDetails> tblSuggestions;
+    @FXML
+    private TextField txtSuggestions;
+    List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
+    SuggestionsService suggestionsService = new SuggestionsServiceImpl();
+
 
     @FXML
     protected void onHelloButtonClick() {
@@ -99,9 +129,7 @@ public void addDataToPrescriptionTable(){
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
-        /* @method  PreviousHistoryRenderUtil.setPreviousHistoryDetailsSearchAutoComplete
-         * @param previousHistoryService,txtPHistory
-         * @throws Exception
+        /*
          * @description store and display auto complete Previous History
          * @developer Sukhendu
          */
@@ -110,7 +138,15 @@ public void addDataToPrescriptionTable(){
             switch (e.getCode()){
                 case ENTER:
                     try {
-                        addPreviousHistory(txtPHistory.getText());
+                        PreviousHistoryDetails previousHistoryDetails= new PreviousHistoryDetails();
+                        PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+                        previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+                        lstPreviousHistoryDetails=tblPreviousHistory.getItems();
+                        lstPreviousHistoryDetails.add(0,previousHistoryDetails);
+                        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
+
+                        previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+                        previousHistoryService.addPreviousHistory(previousHistoryDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -119,13 +155,24 @@ public void addDataToPrescriptionTable(){
                     break;
             }
         });
+        /*
+         * @description store and display auto complete findings
+         * @developer Sukhendu
+         */
 
         FindingsRenderUtil.setFindingsSearchAutoComplete(findingsService,txtFindings);
         txtFindings.setOnKeyPressed((KeyEvent e)->{
             switch (e.getCode()){
                 case ENTER:
                     try{
-                        addFindings(txtFindings.getText());
+                        FindingsService findingsService = new FindingsServiceImpl();
+                        FindingsDetails findingsDetails = new FindingsDetails();
+                        findingsDetails.setFindings(txtFindings.getText());
+                        lstFindingsDetails = tblFindings.getItems();
+                        lstFindingsDetails.add(0,findingsDetails);
+                        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
+                        findingsService.addFindings(findingsDetails);
+                        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
                     }catch(Exception ex){
                         throw new RuntimeException(ex);
                     }
@@ -134,13 +181,23 @@ public void addDataToPrescriptionTable(){
                     break;
             }
         });
+        /*
+         * @description store and display auto suggestions
+         * @developer Sukhendu
+         */
 
         SuggestionsRenderUtil.setSuggestionsSearchAutoComplete(suggestionsService,txtSuggestions);
         txtSuggestions.setOnKeyPressed((KeyEvent e)->{
             switch (e.getCode()){
                 case ENTER:
                     try{
-                        addSuggestions(txtSuggestions.getText());
+                        SuggestionsService suggestionsService = new SuggestionsServiceImpl();
+                        SuggestionsDetails suggestionsDetails = new SuggestionsDetails();
+                        suggestionsDetails.setSuggestions(txtSuggestions.getText());
+                        lstSuggestionsDetails = tblSuggestions.getItems();
+                        lstSuggestionsDetails.add(0,suggestionsDetails);
+                        SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails,tblSuggestions,clmnSuggestions);
+                        suggestionsService.addSuggestions(suggestionsDetails);
                     }catch(Exception ex){
                         throw new RuntimeException(ex);
                     }
@@ -164,11 +221,10 @@ public void addDataToPrescriptionTable(){
     }
 
 
-
     @FXML
     public void openAddPatient( ActionEvent event){
 
-        FXMLUtil.openChildWindow("/fxml/addpatient-view.fxml",540,220,"Add Patient");
+        FXMLUtil.openAddpatientWindow("/fxml/addpatient-view.fxml",540,220,"Add Patient");
     }
 
     @FXML
@@ -184,10 +240,9 @@ public void addDataToPrescriptionTable(){
     }
 
     @FXML
-    public void openAddMedicine( ActionEvent event){
+    public void openAddMedicine( ActionEvent event) throws IOException {
 
-        FXMLUtil.openChildWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
-
+        FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
     }
 
     @FXML
@@ -206,70 +261,4 @@ public void addDataToPrescriptionTable(){
         }
     }
 
-    ////
-    /* @method addPreviousHistory
-     * @param text
-     * @throws Exception
-     * @description store and display auto complete Previous History
-     * @developer Sukhendu
-     */
-    @FXML
-    TextField txtPHistory;
-    List<PreviousHistoryDetails> lstPreviousHistoryDetails= new ArrayList<>();
-    @FXML
-    TableView<PreviousHistoryDetails> tblPreviousHistory;
-    @FXML
-    TableColumn<PreviousHistoryDetails, String> clmnPreviousHistory;
-    PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
-    @FXML
-    public void addPreviousHistory(String text) throws Exception{
-        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
-        PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
-        PreviousHistoryDetails previousHistoryDetails = new PreviousHistoryDetails();
-        previousHistoryDetails.setPrevious_history(txtPHistory.getText());
-        previousHistoryService.addPreviousHistory(previousHistoryDetails);
-        String historyDetails = txtPHistory.getText();
-        List<PreviousHistoryDetails> lstPreviousHistoryDetails = previousHistoryService.addPreviousHistory(historyDetails);
-        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
-    }
-
-    @FXML
-    TableColumn<FindingsDetails, String> clmnFindings;
-    @FXML
-    TableView<FindingsDetails> tblFindings;
-    @FXML
-   TextField txtFindings;
-    List<FindingsDetails> lstFindingsDetails = new ArrayList<>();
-    FindingsService findingsService = new FindingsServiceImpl();
-    @FXML
-    public void addFindings(String text) throws Exception{
-        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
-        FindingsService findingsService = new FindingsServiceImpl();
-        FindingsDetails findingsDetails = new FindingsDetails();
-        findingsDetails.setFindings(txtFindings.getText());
-        findingsService.addFindings(findingsDetails);
-        String findings = txtFindings.getText();
-        List<FindingsDetails> lstFindingsDetails = findingsService.addFindings(findings);
-        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
-    }
-
-    @FXML
-    private TableColumn<SuggestionsDetails, String> clmnSuggestions;
-    @FXML
-    private TableView<SuggestionsDetails> tblSuggestions;
-    @FXML
-    private TextField txtSuggestions;
-    List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
-    SuggestionsService suggestionsService = new SuggestionsServiceImpl();
-
-    @FXML
-    public void addSuggestions(String text) throws Exception{
-        SuggestionsService suggestionsService = new SuggestionsServiceImpl();
-        SuggestionsDetails suggestionsDetails = new SuggestionsDetails();
-        suggestionsDetails.setSuggestions(txtSuggestions.getText());
-        suggestionsService.addSuggestions(suggestionsDetails);
-        String suggestions = txtSuggestions.getText();
-        List<SuggestionsDetails> lstSuggestionsDetails = suggestionsService.addSuggestions(suggestions);
-        SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails,tblSuggestions,clmnSuggestions);
-    }
 }

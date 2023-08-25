@@ -54,22 +54,33 @@ CREATE TABLE `patient` (
           )
 
       /* table script for previous_history */
-      CREATE TABLE `previous_history` (
-                  `id` int NOT NULL AUTO_INCREMENT,
-            	  `previous_history` varchar(255) DEFAULT NULL,
-                  PRIMARY KEY (`id`)
-                )
+      CREATE TABLE `prescription`.`previous_history` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `previous_history` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `previous_history_UNIQUE` (`previous_history` ASC) VISIBLE);
+
 
       /* table script for findings */
-      CREATE TABLE `findings` (
-                  `id` int NOT NULL AUTO_INCREMENT,
-            	  `findings` varchar(255) DEFAULT NULL,
-                  PRIMARY KEY (`id`)
-                )
+      CREATE TABLE `prescription`.`findings` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `findings` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `findings_UNIQUE` (`findings` ASC) VISIBLE);
+
 
       /* table script for suggestions */
-      CREATE TABLE `suggestions` (
-                  `id` int NOT NULL AUTO_INCREMENT,
-            	  `suggestions` varchar(255) DEFAULT NULL,
-                  PRIMARY KEY (`id`)
-                )
+      CREATE TABLE `prescription`.`suggestions` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `suggestions` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `suggestions_UNIQUE` (`suggestions` ASC) VISIBLE);
+
+
+      /* table script for p_previous_history */
+      CREATE TABLE `prescription`.`p_previous_history` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `previous_history_id` INT NOT NULL,
+        `visit_id` INT NOT NULL,
+        PRIMARY KEY (`id`));
+

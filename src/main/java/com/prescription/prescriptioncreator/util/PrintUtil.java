@@ -70,9 +70,9 @@ public class PrintUtil {
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
         htmlBuilder.append("<table>");
-        htmlBuilder.append("<tr><td nowrap colspan=2 width=100% valign=middle><center><img src='logo-png-bill.png' width=40/> <font size=4>Info Center</font></center></td></tr>");
-        htmlBuilder.append("<tr><td nowrap colspan=2 width=100%><font size=2>Demari, tamluk, mob- 9036494984</font></td></tr>");
-        htmlBuilder.append("<tr><td nowrap colspan=2 width=100%>~~~~~~~~~~~~~~~~~~~~~~~~~~~</td></tr>");
+        htmlBuilder.append("<tr><td nowrap> Patient's Id</td><td width>123456</td> <td>Date</td><td>10/08/2023</td></tr>");
+        htmlBuilder.append("<tr><td nowrap>Patient's Name :</td><td nowrap>Nirmal Dhara</td><td>Age <td><td>41</td><td>Gender</td><td>Male</td></tr>");
+        htmlBuilder.append("<tr><td><img src='rx.png'></td></tr>");
 
         htmlBuilder.append("<tr><td></tr>");
 

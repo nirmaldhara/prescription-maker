@@ -251,6 +251,10 @@ public void addDataToPrescriptionTable(){
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
+        P_Previous_HistoryService pPreviousHistoryService = new P_Previous_HistoryServiceImpl();//
+        int previousHistoryId = 0;//
+        int visitId = 0;//
+        pPreviousHistoryService.saveP_Previous_HistoryDao(previousHistoryId,visitId);//
         PrintUtil printUtil =new PrintUtil();
         if(printUtil.createPrescription()){
             PrintUtil.print();

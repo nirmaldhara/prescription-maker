@@ -215,7 +215,7 @@ public void addDataToPrescriptionTable(){
 
       //  prescriptionData = FXCollections.observableArrayList();
 
-        txtCurrentDate.setValue(DateUtil.NOW_LOCAL_DATE());
+        txtCurrentDate.setValue(DateUtil.NEXT_MONTH_DATE());
          // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
 
     }

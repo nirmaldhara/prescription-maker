@@ -255,6 +255,17 @@ public void addDataToPrescriptionTable(){
         int previousHistoryId = 0;//
         int visitId = 0;//
         pPreviousHistoryService.saveP_Previous_HistoryDao(previousHistoryId,visitId);//
+
+        P_FindingsService pFindingsService = new P_FindingsServiceImpl();//
+        int findingsId = 0;
+        int visitidP = 0;
+        pFindingsService.saveP_Findings(findingsId,visitidP);
+
+        P_SuggestionsService pSuggestionsService = new P_SuggestionsServiceImpl();
+        int suggestionsId = 0;
+        int visitIdPs = 0;
+        pSuggestionsService.saveP_Suggestions(suggestionsId,visitIdPs);
+
         PrintUtil printUtil =new PrintUtil();
         if(printUtil.createPrescription()){
             PrintUtil.print();

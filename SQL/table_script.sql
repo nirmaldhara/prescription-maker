@@ -83,4 +83,16 @@ CREATE TABLE `patient` (
         `previous_history_id` INT NOT NULL,
         `visit_id` INT NOT NULL,
         PRIMARY KEY (`id`));
+      /* table script for p_findings */
+      CREATE TABLE `prescription`.`p_findings` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `findings_id` INT NOT NULL,
+        `visit_id` INT NOT NULL,
+        PRIMARY KEY (`id`));
 
+    /* table script for p_suggestions */
+    CREATE TABLE `prescription`.`p_suggestions` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `suggestions_id` INT NOT NULL,
+      `visit_id` INT NOT NULL,
+      PRIMARY KEY (`id`));

@@ -10,8 +10,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -26,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
-
 public class PrescriptionController {
     @FXML
     Label lblPrintStatus;
@@ -172,7 +173,6 @@ public void addDataToPrescriptionTable(){
                         lstFindingsDetails.add(0,findingsDetails);
                         FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
                         findingsService.addFindings(findingsDetails);
-                        FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
                     }catch(Exception ex){
                         throw new RuntimeException(ex);
                     }
@@ -251,10 +251,11 @@ public void addDataToPrescriptionTable(){
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
+
         P_Previous_HistoryService pPreviousHistoryService = new P_Previous_HistoryServiceImpl();//
-        int previousHistoryId = 0;//
+        int previousHistoryId = 0;
         int visitId = 0;//
-        pPreviousHistoryService.saveP_Previous_HistoryDao(previousHistoryId,visitId);//
+        pPreviousHistoryService.saveP_Previous_HistoryDao(lstPreviousHistoryDetails,previousHistoryId);//
 
         P_FindingsService pFindingsService = new P_FindingsServiceImpl();//
         int findingsId = 0;

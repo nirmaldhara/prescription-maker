@@ -32,13 +32,32 @@ public class PreviousHistoryDaoImpl implements PreviousHistoryDao {
      * @description to get tableview of Previous History
      * @developer Sukhendu
      */
+    private int getLastPreviousHistoryId() throws Exception {
+        String dbsql = "select IFNULL(max(id),0)+1 id from previous_history;";
+        PreparedStatement preparedStmt =null;
+        ResultSet rs = null;
+        int previousHistoryId=0;
+        Connection conn = getConnection();
+        try{
+            preparedStmt=  conn.prepareStatement(dbsql);
+            rs = preparedStmt.executeQuery();
+            rs.next();
+            previousHistoryId=rs.getInt("id");
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return previousHistoryId;
+    }
     @Override
     public boolean addPreviousHistory(PreviousHistoryDetails previousHistoryDetails) throws Exception {
-        String sql = " insert into previous_history (previous_history) values (?)";
+        String sql = " insert into previous_history (id,previous_history) values (?,?)";
         Connection conn=getConnection();
+        int id = getLastPreviousHistoryId();
         try{
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setString(1,previousHistoryDetails.getPrevious_history());
+            preparedStmt.setInt(1,id);
+            preparedStmt.setString(2,previousHistoryDetails.getPrevious_history());
             preparedStmt.execute();
             return true;
         }catch(Exception e){

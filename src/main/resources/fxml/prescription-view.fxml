@@ -172,20 +172,20 @@
                         <Image url="@../img/abdomen.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="txtPHistory" layoutX="3.0" layoutY="151.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
-                  <TextField fx:id="txtFindings" layoutX="299.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Findings " />
-                  <TextField fx:id="txtSuggestions" layoutX="597.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
-                  <TableView fx:id="tblFindings" layoutX="299.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TextField fx:id="txtPHistory" layoutX="230.0" layoutY="151.0" prefHeight="25.0" prefWidth="200.0" promptText="Previous History" />
+                  <TextField fx:id="txtFindings" layoutX="438.0" layoutY="151.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
+                  <TextField fx:id="txtSuggestions" layoutX="645.0" layoutY="152.0" prefHeight="25.0" prefWidth="200.0" promptText="Suggestions" />
+                  <TableView fx:id="tblFindings" layoutX="438.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tblSuggestions" layoutX="597.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblSuggestions" layoutX="645.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmnSuggestions" prefWidth="249.0" text="Suggestions" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tblPreviousHistory" layoutX="3.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblPreviousHistory" layoutX="230.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="clmnPreviousHistory" prefWidth="250.0" text="Previous History" />
                      </columns>
@@ -205,6 +205,12 @@
                     </columns>
                   </TableView>
                   <TextField layoutX="3.0" layoutY="596.0" prefHeight="25.0" prefWidth="297.0" />
+                  <TextField fx:id="txtComplain" layoutX="10.0" layoutY="151.0" prefHeight="25.0" prefWidth="211.0" promptText="Complain Of" />
+                  <TableView fx:id="tblComplain" layoutX="9.0" layoutY="177.0" prefHeight="152.0" prefWidth="212.0">
+                    <columns>
+                      <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
+                    </columns>
+                  </TableView>
                 </children>
             </Pane>
 

@@ -6,26 +6,13 @@ import com.prescription.prescriptioncreator.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
-
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 public class PrescriptionController {
@@ -64,6 +51,14 @@ public class PrescriptionController {
     DatePicker txtCurrentDate;
 
     ////
+    @FXML
+    TableColumn<ComplainDetails, String> clmnComplain;
+    @FXML
+    TableView<ComplainDetails> tblComplain;
+    @FXML
+    TextField txtComplain;
+    ComplainService complainService = new ComplainServiceImpl();
+    List<ComplainDetails> lstComplainDetails = new ArrayList<>();
     @FXML
     TextField txtPHistory;
     List<PreviousHistoryDetails> lstPreviousHistoryDetails= new ArrayList<>();
@@ -120,8 +115,6 @@ public void addDataToPrescriptionTable(){
         addDataToPrescriptionTable();
 
     }
-
-
     @FXML
     public void initialize() throws Exception {
         lblPrintStatus.setVisible(false);
@@ -134,6 +127,28 @@ public void addDataToPrescriptionTable(){
          * @description store and display auto complete Previous History
          * @developer Sukhendu
          */
+        ComplainRenderUtil.setComplainDetailsSearchAutoComplete(complainService,txtComplain);
+        txtComplain.setOnKeyPressed((KeyEvent e)->{
+            switch (e.getCode()){
+                case ENTER:
+                    try{
+                        ComplainDetails complainDetails = new ComplainDetails();
+                        ComplainService complainService = new ComplainServiceImpl();
+                        complainDetails.setComplain(txtComplain.getText());
+                        lstComplainDetails = tblComplain.getItems();
+                        lstComplainDetails.add(0,complainDetails);
+                        ComplainRenderUtil.addToComplain(lstComplainDetails,tblComplain,clmnComplain);
+
+                        complainService.addComplain(complainDetails);
+                    }catch(Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+
         PreviousHistoryRenderUtil.setPreviousHistoryDetailsSearchAutoComplete(previousHistoryService,txtPHistory);
         txtPHistory.setOnKeyPressed((KeyEvent e)->{
             switch (e.getCode()){
@@ -244,7 +259,6 @@ public void addDataToPrescriptionTable(){
 
         FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml",540,220,"Add Medicine");
     }
-
     @FXML
     public void saveNPrintPrescription( ActionEvent event) throws Exception {
         lblPrintStatus.setVisible(true);

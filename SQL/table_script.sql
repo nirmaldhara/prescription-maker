@@ -96,3 +96,11 @@ CREATE TABLE `patient` (
       `suggestions_id` INT NOT NULL,
       `visit_id` INT NOT NULL,
       PRIMARY KEY (`id`));
+
+    /* table script for complain */
+      CREATE TABLE `prescription`.`complain` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `complain` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `complain_UNIQUE` (`complain` ASC) VISIBLE);
+

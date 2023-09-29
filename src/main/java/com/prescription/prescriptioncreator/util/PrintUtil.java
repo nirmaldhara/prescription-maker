@@ -68,15 +68,80 @@ public class PrintUtil {
         htmlBuilder.append("<html>");
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
-        htmlBuilder.append("<table>");
-        htmlBuilder.append("<tr><td nowrap> Patient's Id</td><td width>123456</td> <td>Date</td><td>10/08/2023</td></tr>");
-        htmlBuilder.append("<tr><td nowrap>Patient's Name :</td><td nowrap>Nirmal Dhara</td><td>Age <td><td>41</td><td>Gender</td><td>Male</td></tr>");
-        htmlBuilder.append("<tr><td><img src='rx.png'></td></tr>");
 
-        htmlBuilder.append("<tr><td></tr>");
-
-        htmlBuilder.append("<tr><td nowrap><center><img src='paid.png' width=70/></center></td></tr>");
+        htmlBuilder.append("<table style='width:100%;'>");
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>09/28/23, 3:26 AM</td>");
+        htmlBuilder.append("<td style='text-align: center;font-size:12;'>Prescription</td>");
+        htmlBuilder.append("</tr>");
         htmlBuilder.append("</table>");
+
+        htmlBuilder.append("<div style='padding-top:20px;'>");
+        htmlBuilder.append("<table>");
+        htmlBuilder.append("<tr><td nowrap> <b>Patient's Id :</b></td><td width>123456</td> <td nowrap><b>Patient's Name :</b></td><td nowrap>Sukhendu Bhowmik</td><td nowrap><b>Date :</b></td><td>10/08/2023</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='right'><b>Height :</b></td><td nowrap>167CM</td><td nowrap align='right'><b>Weight :</b></td><td nowrap>72KG</td><td nowrap><b>Age :</b></td><td>41</td><td nowrap><b>Gender :</b></td><td>Male</td></tr>");
+        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");//
+
+
+        //htmlBuilder.append("<tr><td nowrap><center><img src='paid.png' width=70/></center></td></tr>");
+        htmlBuilder.append("</table>");
+        htmlBuilder.append("</div>");
+
+        htmlBuilder.append("<div style='padding-left:30px;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 100%;border:none;'>");
+        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'>");
+        htmlBuilder.append("<th nowrap>Medicine Name</th>");
+        htmlBuilder.append("<th>Dose</th>");
+        htmlBuilder.append("<th>Duration</th>");
+        htmlBuilder.append("<th>Note</th>");
+        htmlBuilder.append("</tr>");
+
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<td nowrap>1.TAB DEMO MEDICINE1</td>");
+
+        htmlBuilder.append("<td>");
+        htmlBuilder.append("<div style='display:flex;align-items:center'>");
+        htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>7.5ml</div>");
+        htmlBuilder.append("-");
+        htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>0</div>");
+        htmlBuilder.append("-");
+        htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>7.5ml</div>");
+
+        htmlBuilder.append("</div>");
+        htmlBuilder.append("</td>");
+        htmlBuilder.append("<td nowrap>10 days</td>");
+        htmlBuilder.append("<td nowrap>Demo notes here</td>");
+        htmlBuilder.append("</tr>");
+        htmlBuilder.append("</table>");
+        htmlBuilder.append("</div>");
+
+        htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 100%;border:none;'>");
+        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black''>");
+        htmlBuilder.append("<th nowrap>Complain Of</th>");
+        htmlBuilder.append("<th nowrap>Previous History</th>");
+        htmlBuilder.append("<th nowrap>Findings</th>");
+        htmlBuilder.append("<th nowrap>Suggestions</th>");
+        htmlBuilder.append("</tr>")
+        ;
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<td nowrap>Demo Complain1</td>");
+        htmlBuilder.append("<td nowrap>Demo history1</td>");
+        htmlBuilder.append("<td nowrap>Demo Findings1</td>");
+        htmlBuilder.append("<td nowrap>Demo Suggestions1</td>");
+        htmlBuilder.append("</tr>");
+
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<td><img src='lungs.png' width=140 height = 153 style='padding-top:50px;'></td>");
+        htmlBuilder.append("<td><img src='heart.png' width=140 height = 153 style='padding-top:50px;'></td>");
+        htmlBuilder.append("<td><img src='abdomen.png' width=140 height = 153 style='padding-top:50px;'></td>");
+        htmlBuilder.append("<td><img src='kidney.png' width=140 height=153 style='padding-top:50px;'/></td>");
+        htmlBuilder.append("</tr>");
+
+        htmlBuilder.append("</table>");
+        htmlBuilder.append("</div>");
+
+
         htmlBuilder.append("</body>");
         htmlBuilder.append("</html>");
         try (FileOutputStream oS = new FileOutputStream(new File("prescription.html"))) {

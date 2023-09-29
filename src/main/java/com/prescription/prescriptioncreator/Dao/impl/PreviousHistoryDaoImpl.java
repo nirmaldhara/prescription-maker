@@ -1,8 +1,6 @@
 package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.PreviousHistoryDao;
-import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
 import java.sql.Connection;

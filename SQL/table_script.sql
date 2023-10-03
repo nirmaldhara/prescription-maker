@@ -103,4 +103,10 @@ CREATE TABLE `patient` (
         `complain` VARCHAR(255) NULL,
         PRIMARY KEY (`id`),
         UNIQUE INDEX `complain_UNIQUE` (`complain` ASC) VISIBLE);
+    /* table script for p_complain_of */
+        CREATE TABLE `prescription`.`p_complain_of` (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `complain_id` INT NOT NULL,
+                `visit_id` INT NOT NULL,
+                PRIMARY KEY (`id`))
 

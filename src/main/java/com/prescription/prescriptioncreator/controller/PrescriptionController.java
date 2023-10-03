@@ -274,15 +274,20 @@ public void addDataToPrescriptionTable(){
         P_FindingsService pFindingsService = new P_FindingsServiceImpl();//
         int findingsId = 0;
         int visitidP = 0;
-        pFindingsService.saveP_Findings(findingsId,visitidP);
+        pFindingsService.saveP_Findings(lstFindingsDetails,findingsId);
 
         P_SuggestionsService pSuggestionsService = new P_SuggestionsServiceImpl();
         int suggestionsId = 0;
         int visitIdPs = 0;
-        pSuggestionsService.saveP_Suggestions(suggestionsId,visitIdPs);
+        pSuggestionsService.saveP_Suggestions(lstSuggestionsDetails,suggestionsId);
+
+        P_ComplainService pComplainService = new P_ComplainServiceImpl();
+        int complainId = 0;
+        int visitIdC = 0;
+        pComplainService.saveP_ComplainDao(lstComplainDetails,complainId);
 
         PrintUtil printUtil =new PrintUtil();
-        if(printUtil.createPrescription()){
+        if(printUtil.createPrescription(patientDetails,lstMedicineDetails,lstComplainDetails,lstPreviousHistoryDetails,lstFindingsDetails,lstSuggestionsDetails)){
             PrintUtil.print();
             TimeUnit.SECONDS.sleep(5);
             lblPrintStatus.setText("Done");

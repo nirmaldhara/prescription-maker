@@ -67,15 +67,19 @@ public class PrintUtil {
     }
 
     public static boolean createPrescription(PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
         boolean flag = false;
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<html>");
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
 
-        htmlBuilder.append("<table style='width:100%;'>");
+
+        htmlBuilder.append("<table style='width:350px;'>");
         htmlBuilder.append("<tr>");
-        htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>10-03-2023 01:11 PM</td>");
+        htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>"+formattedDateTime+"</td>");
         htmlBuilder.append("<td style='text-align: center;font-size:12;'>Prescription</td>");
         htmlBuilder.append("</tr>");
         htmlBuilder.append("</table>");

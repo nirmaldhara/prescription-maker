@@ -123,38 +123,6 @@ public class PrintUtil {
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 
-        /*htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;'>");
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 600px;border:none;'>");
-        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black''>");
-        htmlBuilder.append("<th nowrap>Complain Of</th>");
-        htmlBuilder.append("<th nowrap>Previous History</th>");
-        htmlBuilder.append("<th nowrap>Findings</th>");
-        htmlBuilder.append("<th nowrap>Suggestions</th>");
-        htmlBuilder.append("</tr>");
-        for(ComplainDetails cd:lstComplainDetails) {
-            for (PreviousHistoryDetails phd : lstPreviousHistoryDetails) {
-                for (FindingsDetails fd : lstFindingsDetails) {
-                    for (SuggestionsDetails sd : lstSuggestionsDetails) {
-                        htmlBuilder.append("<tr>");
-                        htmlBuilder.append("<td nowrap>"+cd.getComplain()+"</td>");
-                        htmlBuilder.append("<td nowrap>" + phd.getPrevious_history() + "</td>");
-                        htmlBuilder.append("<td nowrap>" + fd.getFindings() + "</td>");
-                        htmlBuilder.append("<td nowrap>" + sd.getSuggestions() + "</td>");
-                        htmlBuilder.append("</tr>");
-                    }
-                }
-            }
-        }
-
-        htmlBuilder.append("<tr>");
-        htmlBuilder.append("<td><img src='lungs.png' width=140 height = 153 style='padding-top:50px;'></td>");
-        htmlBuilder.append("<td><img src='heart.png' width=140 height = 153 style='padding-top:50px;'></td>");
-        htmlBuilder.append("<td><img src='abdomen.png' width=140 height = 153 style='padding-top:50px;'></td>");
-        htmlBuilder.append("<td><img src='kidney.png' width=140 height=153 style='padding-top:50px;'/></td>");
-        htmlBuilder.append("</tr>");
-
-        htmlBuilder.append("</table>");
-        htmlBuilder.append("</div>");*/
         /////////////////////////////////////////////
         htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;display:flex;'>");
 

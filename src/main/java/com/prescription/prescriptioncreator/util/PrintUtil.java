@@ -76,7 +76,6 @@ public class PrintUtil {
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
 
-
         htmlBuilder.append("<table style='width:350px;'>");
         htmlBuilder.append("<tr>");
         htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>"+formattedDateTime+"</td>");

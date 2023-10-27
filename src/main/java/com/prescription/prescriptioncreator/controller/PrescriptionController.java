@@ -113,6 +113,7 @@ private void clearAddMedicine(){
     FXMLUtil.clearTextBox(txtD6);
     FXMLUtil.clearTextBox(txtNote);
     FXMLUtil.clearComboBox(cmbWhen);
+    FXMLUtil.clearComboBox(cmbNoOFDays);
 }
     @FXML
     private void addToPrescription( ActionEvent event){

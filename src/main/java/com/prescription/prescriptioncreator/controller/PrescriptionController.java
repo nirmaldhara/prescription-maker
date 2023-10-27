@@ -10,12 +10,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import static com.prescription.prescriptioncreator.appenum.Message.MOBILE_OR_PATIENT_ID_BLANK;
+
+import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
+import static com.prescription.prescriptioncreator.appenum.IntegerValue.ERROR;
+import static com.prescription.prescriptioncreator.appenum.Message.*;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 public class PrescriptionController {
+    Stage stage = new Stage();
     @FXML
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
@@ -97,6 +103,17 @@ public void addDataToPrescriptionTable(){
     PrescriptionRenderUtil.addToPrescription(lstMedicineDetails, tblPrescription, clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6,clmnWhen,clmnDays,clmnNote);
 
 }
+private void clearAddMedicine(){
+    FXMLUtil.clearTextBox(txtMedicineName);
+    FXMLUtil.clearTextBox(txtD1);
+    FXMLUtil.clearTextBox(txtD2);
+    FXMLUtil.clearTextBox(txtD3);
+    FXMLUtil.clearTextBox(txtD4);
+    FXMLUtil.clearTextBox(txtD5);
+    FXMLUtil.clearTextBox(txtD6);
+    FXMLUtil.clearTextBox(txtNote);
+    FXMLUtil.clearComboBox(cmbWhen);
+}
     @FXML
     private void addToPrescription( ActionEvent event){
         MedicineDetails medicineDetails= new MedicineDetails();
@@ -114,6 +131,7 @@ public void addDataToPrescriptionTable(){
         lstMedicineDetails.add(0,medicineDetails);
         addDataToPrescriptionTable();
 
+        clearAddMedicine();
     }
     @FXML
     public void initialize() throws Exception {
@@ -264,6 +282,9 @@ public void addDataToPrescriptionTable(){
         lblPrintStatus.setVisible(true);
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
+        if(patientDetails == null){
+            ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
+        }
         prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
 
         P_Previous_HistoryService pPreviousHistoryService = new P_Previous_HistoryServiceImpl();//

@@ -3,6 +3,9 @@ package com.prescription.prescriptioncreator.util;
 import com.prescription.prescriptioncreator.PrescriptionMaker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -43,5 +46,17 @@ public class FXMLUtil {
             Logger logger = Logger.getLogger(FXMLUtil.class.getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
+    }
+    public static void clearTextBox(TextField t1){
+        t1.clear();
+    }
+    public static void clearTextBox(TextField t1,String value){
+        t1.setText(value);
+    }
+    public static void clearTableColumn(TableColumn c1,String value){
+        c1.setText(value);
+    }
+    public static void clearComboBox(ComboBox<String> comboBox) {
+        comboBox.setValue("0");
     }
 }

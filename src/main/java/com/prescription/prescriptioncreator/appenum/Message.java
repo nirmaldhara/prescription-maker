@@ -14,7 +14,8 @@ public enum Message {
     ADD_TEST_SUCCESS("Test details added successfully"),
     ADD_TEST_ERROR("Can't add test details"),
     TEST_NAME_BLANK("Please provide test name"),
-    TEST_VALUE_BLANK("Please provide test value");
+    TEST_VALUE_BLANK("Please provide test value"),
+    PRINT_ERROR("Please select a patient");
     private String value;
 
     public String val() {

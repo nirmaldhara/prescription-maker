@@ -23,14 +23,6 @@
          <buttons>
             <ToolBar fx:id="tBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="6000.0">
               <items>
-                <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/test-tube.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
 
                   <Button mnemonicParsing="false" onAction="#openAddPatient" text="Registration">
                       <graphic>
@@ -41,6 +33,14 @@
                           </ImageView>
                       </graphic>
                   </Button>
+                <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/test-tube.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   <Button mnemonicParsing="false" onAction="#openAddMedicine" text="Add Medicine">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -211,8 +211,10 @@
                       <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false">
-                     <font>
+                  <!--<TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false" text="0">-->
+                    <TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false" >
+
+                    <font>
                         <Font size="10.0" />
                      </font>
                   </TextField>

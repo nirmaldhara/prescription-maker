@@ -1,4 +1,5 @@
 package com.prescription.prescriptioncreator.controller;
+import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.*;
 import com.prescription.prescriptioncreator.service.*;
 import com.prescription.prescriptioncreator.service.impl.*;
@@ -104,7 +105,7 @@ public void addDataToPrescriptionTable(){
 
 }
 private void clearAddMedicine(){
-        FXMLUtil.clearTextBox(txtId,"0");
+    FXMLUtil.clearTextBox(txtId,"0");
     FXMLUtil.clearTextBox(txtMedicineName);
     FXMLUtil.clearTextBox(txtD1);
     FXMLUtil.clearTextBox(txtD2);
@@ -120,29 +121,44 @@ private void clearAddMedicine(){
     FXMLUtil.clearComboBox(cmbNoOFDays,"");
 }
     @FXML
-    private void addToPrescription( ActionEvent event){
-        MedicineDetails medicineDetails= new MedicineDetails();
-        medicineDetails.setMedicineName(txtMedicineName.getText());
-        medicineDetails.setDose1(txtD1.getText());
-        medicineDetails.setDose2(txtD2.getText());
-        medicineDetails.setDose3(txtD3.getText());
-        medicineDetails.setDose4(txtD4.getText());
-        medicineDetails.setDose5(txtD5.getText());
-        medicineDetails.setDose6(txtD6.getText());
-        medicineDetails.setNote(txtNote.getText());
-        medicineDetails.setWhen(cmbWhen.getValue());
-        medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()==null? "0":cmbNoOFDays.getValue()));
-        lstMedicineDetails=tblPrescription.getItems();
-        lstMedicineDetails.add(0,medicineDetails);
-        addDataToPrescriptionTable();
+    private void addToPrescription( ActionEvent event) throws Exception {
+        //////
+        if(!(
+                ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BlANK.val()) ||
+                        ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
+                        ValidationUtil.isComboBoxBlank(cmbNoOFDays, Message.MEDICINE_DAYS_BLANK.val()))
+        ) {
+            MedicineDetails medicineDetails = new MedicineDetails();
+            medicineDetails.setMedicineName(txtMedicineName.getText());
+            medicineDetails.setDose1(txtD1.getText());
+            medicineDetails.setDose2(txtD2.getText());
+            medicineDetails.setDose3(txtD3.getText());
+            medicineDetails.setDose4(txtD4.getText());
+            medicineDetails.setDose5(txtD5.getText());
+            medicineDetails.setDose6(txtD6.getText());
+            medicineDetails.setNote(txtNote.getText());
+            medicineDetails.setWhen(cmbWhen.getValue());
+            medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue() == null ? "0" : cmbNoOFDays.getValue()));
+            lstMedicineDetails = tblPrescription.getItems();
+            lstMedicineDetails.add(0, medicineDetails);
+            addDataToPrescriptionTable();
 
-        System.out.println("Medicine Id : "+txtId.getText());
-        clearAddMedicine();
+            System.out.println("Medicine Id : " + txtId.getText());
+            long id = 0;
+            //id = Long.parseLong(txtId.getText().equals("")? "0":txtId.getText());///
+            id=Long.parseLong(txtId.getText());
+            if ((id == 0)) {
+                MedicineService medicineService = new MedicineServiceImpl();
+                medicineService.addMedicine(medicineDetails);
+            }
+            clearAddMedicine();
+        }
 
     }
     @FXML
     public void initialize() throws Exception {
         lblPrintStatus.setVisible(false);
+        txtId.setText("0");
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
@@ -163,7 +179,7 @@ private void clearAddMedicine(){
                         lstComplainDetails = tblComplain.getItems();
                         lstComplainDetails.add(0,complainDetails);
                         ComplainRenderUtil.addToComplain(lstComplainDetails,tblComplain,clmnComplain);
-
+                        FXMLUtil.clearTextBox(txtComplain);
                         complainService.addComplain(complainDetails);
                     }catch(Exception ex) {
                         throw new RuntimeException(ex);
@@ -186,7 +202,7 @@ private void clearAddMedicine(){
                         lstPreviousHistoryDetails.add(0,previousHistoryDetails);
                         PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
 
-                        previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+                        FXMLUtil.clearTextBox(txtPHistory);
                         previousHistoryService.addPreviousHistory(previousHistoryDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
@@ -212,6 +228,7 @@ private void clearAddMedicine(){
                         lstFindingsDetails = tblFindings.getItems();
                         lstFindingsDetails.add(0,findingsDetails);
                         FindingsRenderUtil.addToFindings(lstFindingsDetails,tblFindings,clmnFindings);
+                        FXMLUtil.clearTextBox(txtFindings);
                         findingsService.addFindings(findingsDetails);
                     }catch(Exception ex){
                         throw new RuntimeException(ex);
@@ -237,6 +254,7 @@ private void clearAddMedicine(){
                         lstSuggestionsDetails = tblSuggestions.getItems();
                         lstSuggestionsDetails.add(0,suggestionsDetails);
                         SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails,tblSuggestions,clmnSuggestions);
+                        FXMLUtil.clearTextBox(txtSuggestions);
                         suggestionsService.addSuggestions(suggestionsDetails);
                     }catch(Exception ex){
                         throw new RuntimeException(ex);

@@ -15,7 +15,10 @@ public enum Message {
     ADD_TEST_ERROR("Can't add test details"),
     TEST_NAME_BLANK("Please provide test name"),
     TEST_VALUE_BLANK("Please provide test value"),
-    PRINT_ERROR("Please select a patient");
+    PRINT_ERROR("Please select a patient"),
+    MEDICINE_NAME_BlANK("Please provide a medicine name"),
+    MEDICINE_TIME_BlANK("Select when you have to take the medicine"),
+    MEDICINE_DAYS_BLANK("Select no of days to take medicine");
     private String value;
 
     public String val() {

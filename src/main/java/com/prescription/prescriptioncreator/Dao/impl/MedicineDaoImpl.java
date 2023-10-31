@@ -56,6 +56,7 @@ public class MedicineDaoImpl implements MedicineDao {
             rs = preparedStmt.executeQuery();
             while(rs.next()){
                 MedicineDetails md= new MedicineDetails();
+                md.setId(rs.getLong("id"));
                 md.setMedicineName(rs.getString("medicine_name"));
                 md.setWhen(rs.getString("when_bf_af"));
                 md.setNoOfDays(rs.getInt("no_of_days"));

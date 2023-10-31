@@ -56,7 +56,7 @@ public class FXMLUtil {
     public static void clearTableColumn(TableColumn c1,String value){
         c1.setText(value);
     }
-    public static void clearComboBox(ComboBox<String> comboBox) {
-        comboBox.setValue("0");
+    public static void clearComboBox(ComboBox<String> comboBox,String value) {
+        comboBox.setValue(value);
     }
 }

@@ -26,7 +26,7 @@ public class PrescriptionController {
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails= new ArrayList<>();
     @FXML
-    TextField  txtD1,txtD2,txtD3,txtD4,txtD5,txtD6,txtNote;
+    TextField  txtId,txtD1,txtD2,txtD3,txtD4,txtD5,txtD6,txtNote;
     @FXML
     private ComboBox<String> cmbWhen,cmbNoOFDays;
     @FXML
@@ -104,6 +104,7 @@ public void addDataToPrescriptionTable(){
 
 }
 private void clearAddMedicine(){
+        FXMLUtil.clearTextBox(txtId,"0");
     FXMLUtil.clearTextBox(txtMedicineName);
     FXMLUtil.clearTextBox(txtD1);
     FXMLUtil.clearTextBox(txtD2);
@@ -112,8 +113,11 @@ private void clearAddMedicine(){
     FXMLUtil.clearTextBox(txtD5);
     FXMLUtil.clearTextBox(txtD6);
     FXMLUtil.clearTextBox(txtNote);
-    FXMLUtil.clearComboBox(cmbWhen);
-    FXMLUtil.clearComboBox(cmbNoOFDays);
+    FXMLUtil.clearComboBox(cmbWhen,"");
+    //FXMLUtil.clearComboBox(cmbNoOFDays);
+    //cmbNoOFDays.getSelectionModel().clearSelection();
+    //cmbNoOFDays.getPromptText();
+    FXMLUtil.clearComboBox(cmbNoOFDays,"");
 }
     @FXML
     private void addToPrescription( ActionEvent event){
@@ -132,7 +136,9 @@ private void clearAddMedicine(){
         lstMedicineDetails.add(0,medicineDetails);
         addDataToPrescriptionTable();
 
+        System.out.println("Medicine Id : "+txtId.getText());
         clearAddMedicine();
+
     }
     @FXML
     public void initialize() throws Exception {
@@ -140,7 +146,7 @@ private void clearAddMedicine(){
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(tblPreviousVisit, tblPrescription, clmnMedicineName, clmnD1, clmnD2, clmnD3, clmnD4, clmnD5, clmnD6, clmnWhen, clmnDays, clmnNote);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient,tblPreviousVisit,clmnPreviousVisit);
-        PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
+        PrescriptionRenderUtil.setMedicineSearchAutoComplete( medicineService,  txtMedicineName,txtId, txtD1,  txtD2,  txtD3, txtD4, txtD5, txtD6, txtNote);
 
         /*
          * @description store and display auto complete Previous History

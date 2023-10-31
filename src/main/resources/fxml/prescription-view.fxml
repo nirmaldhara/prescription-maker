@@ -211,6 +211,11 @@
                       <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
                     </columns>
                   </TableView>
+                  <TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </TextField>
                 </children>
             </Pane>
 

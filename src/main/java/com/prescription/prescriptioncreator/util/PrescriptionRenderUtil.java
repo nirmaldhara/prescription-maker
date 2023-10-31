@@ -68,7 +68,7 @@ public class PrescriptionRenderUtil {
 
     }
 
-    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName,TextField txtD1, TextField txtD2, TextField txtD3,TextField txtD4,TextField txtD5,TextField txtD6,TextField txtNote) throws Exception {
+    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName,TextField txtId,TextField txtD1, TextField txtD2, TextField txtD3,TextField txtD4,TextField txtD5,TextField txtD6,TextField txtNote) throws Exception {
         ObservableList<MedicineDetails> autoCompleteData;
         autoCompleteData= FXCollections.observableArrayList(medicineService.getAutoSuggestMedicine());
         AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtMedicineName ,autoCompleteData );
@@ -81,6 +81,7 @@ public class PrescriptionRenderUtil {
             {
 
                 MedicineDetails value = event.getCompletion();
+                txtId.setText(""+value.getId());
                 txtD1.setText(value.getDose1());
                 txtD2.setText(value.getDose2());
                 txtD3.setText(value.getDose3());

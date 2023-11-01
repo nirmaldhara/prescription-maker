@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.ComplainDao;
 import com.prescription.prescriptioncreator.model.ComplainDetails;
+import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
 import java.sql.*;
@@ -119,4 +120,6 @@ public class ComplainDaoImpl implements ComplainDao {
         }
         return complainList;
     }
+
+    /*-----------------------------------------------------------*/
 }

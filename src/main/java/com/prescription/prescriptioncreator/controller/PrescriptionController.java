@@ -122,7 +122,6 @@ private void clearAddMedicine(){
 }
     @FXML
     private void addToPrescription( ActionEvent event) throws Exception {
-        //////
         if(!(
                 ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BlANK.val()) ||
                         ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
@@ -145,7 +144,7 @@ private void clearAddMedicine(){
 
             System.out.println("Medicine Id : " + txtId.getText());
             long id = 0;
-            //id = Long.parseLong(txtId.getText().equals("")? "0":txtId.getText());///
+            //id = Long.parseLong(txtId.getText().equals("")? "0":txtId.getText());
             id=Long.parseLong(txtId.getText());
             if ((id == 0)) {
                 MedicineService medicineService = new MedicineServiceImpl();
@@ -335,7 +334,7 @@ private void clearAddMedicine(){
         pComplainService.saveP_ComplainDao(lstComplainDetails,complainId);
 
         PrintUtil printUtil =new PrintUtil();
-        if(printUtil.createPrescription(patientDetails,lstMedicineDetails,lstComplainDetails,lstPreviousHistoryDetails,lstFindingsDetails,lstSuggestionsDetails)){
+        if(printUtil.createPrescription(patientDetails,lstMedicineDetails,lstComplainDetails,lstPreviousHistoryDetails,lstFindingsDetails,lstSuggestionsDetails,txtCurrentDate)){
             PrintUtil.print();
             TimeUnit.SECONDS.sleep(5);
             lblPrintStatus.setText("Done");

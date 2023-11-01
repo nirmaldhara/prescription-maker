@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.print.*;
+import javafx.scene.control.DatePicker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -65,7 +66,7 @@ public class PrintUtil {
         }
     }
 
-    public static boolean createPrescription(PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
+    public static boolean createPrescription(PatientDetails patientDetails, List<MedicineDetails> lstMedicineDetails, List<ComplainDetails> lstComplainDetails, List<PreviousHistoryDetails> lstPreviousHistoryDetails, List<FindingsDetails> lstFindingsDetails, List<SuggestionsDetails> lstSuggestionsDetails, DatePicker txtCurrentDate) throws IOException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
@@ -89,8 +90,11 @@ public class PrintUtil {
         htmlBuilder.append("</table>");
         htmlBuilder.append("<table>");
         htmlBuilder.append("<tr><td nowrap align='right'><b>Mobile Number :</b></td><td nowrap>"+patientDetails.getMobile_no()+"</td><td nowrap align='right'><b>Address :</b></td><td nowrap>"+patientDetails.getAddress()+"</td><td nowrap><b>Age :</b></td><td>"+patientDetails.getAge()+"</td><td nowrap><b>Gender :</b></td><td>"+patientDetails.getSex()+"</td></tr>");
-        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
+        htmlBuilder.append("</table>");
 
+        htmlBuilder.append("<table width=100%>");
+        htmlBuilder.append("<tr><td nowrap><b>Next Visit :</b></td><td nowrap>"+txtCurrentDate.getValue()+"</td></tr>");
+        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 

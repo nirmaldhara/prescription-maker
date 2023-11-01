@@ -4,46 +4,59 @@ import com.prescription.prescriptioncreator.Dao.ComplainDao;
 import com.prescription.prescriptioncreator.model.ComplainDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class ComplainDaoImpl implements ComplainDao {
-    private int getLastComplainId() throws Exception {
-        String dbsql = "select IFNULL(max(id),0)+1 id from complain;";
-        PreparedStatement preparedStmt =null;
-        ResultSet rs = null;
-        int complainId=0;
-        Connection conn = getConnection();
-        try{
-            preparedStmt=  conn.prepareStatement(dbsql);
-            rs = preparedStmt.executeQuery();
-            rs.next();
-            complainId=rs.getInt("id");
 
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        return complainId;
-    }
     @Override
-    public boolean addComplain(ComplainDetails complainDetails) throws Exception {
-        String sql = " insert into complain (id,complain) values (?,?)";
+    public long addComplain(ComplainDetails complainDetails) throws Exception {
+        String sql = " insert into complain (complain) values (?)";
         Connection conn=getConnection();
-        int id = getLastComplainId();
+        PreparedStatement preparedStmt=null;
+        ResultSet generatedKeys=null;
+        ResultSet resultSet=null;
+        long id=-1;
         try{
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setInt(1,id);
-            preparedStmt.setString(2,complainDetails.getComplain());
-            preparedStmt.execute();
-            return true;
-        }catch(Exception e){
-            return false;
+             preparedStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            preparedStmt.setString(1,complainDetails.getComplain());
+            try {
+                preparedStmt.executeUpdate();
+
+                generatedKeys= preparedStmt.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                }
+            }
+            catch (SQLIntegrityConstraintViolationException e) {
+
+                String selectSql = "SELECT id FROM complain WHERE complain =  ?";
+                PreparedStatement selectStatement = conn.prepareStatement(selectSql);
+                selectStatement.setString(1, complainDetails.getComplain());
+                resultSet  = selectStatement.executeQuery();
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
+
+            }
+
+
+            System.out.println("complain id="+id);
+            return id;
         }
+        catch(Exception e){
+            return -1;
+        }
+        finally {
+            if  (preparedStmt!=null) preparedStmt.close();
+            if  (generatedKeys!=null)generatedKeys.close();
+           if  (resultSet!=null)resultSet.close();
+        }
+
     }
 
     @Override

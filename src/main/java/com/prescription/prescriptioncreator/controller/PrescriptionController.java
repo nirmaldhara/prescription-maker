@@ -178,9 +178,11 @@ private void clearAddMedicine(){
                         complainDetails.setComplain(txtComplain.getText());
                         lstComplainDetails = tblComplain.getItems();
                         lstComplainDetails.add(0,complainDetails);
+                        long id=complainService.addComplain(complainDetails);
+                        System.out.println(complainDetails.getComplain() +" id= "+id);
                         ComplainRenderUtil.addToComplain(lstComplainDetails,tblComplain,clmnComplain);
                         FXMLUtil.clearTextBox(txtComplain);
-                        complainService.addComplain(complainDetails);
+
                     }catch(Exception ex) {
                         throw new RuntimeException(ex);
                     }

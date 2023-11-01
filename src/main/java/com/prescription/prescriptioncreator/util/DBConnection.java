@@ -10,7 +10,7 @@ public class DBConnection {
     public static Connection getConnection() throws Exception {
         if (conn == null) {
             String url = "jdbc:mysql://localhost:3306/";
-            String dbName = "prescription?useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
+            String dbName = "prescription?useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useJDBCCompliantTimezoneShift=true";
             String driver = "com.mysql.cj.jdbc.Driver";
             String userName = "root";
             String password = "root";

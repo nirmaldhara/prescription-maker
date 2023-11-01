@@ -18,9 +18,9 @@ import java.util.List;
 
 public class ComplainRenderUtil {
     public static void addToComplain(List<ComplainDetails> lstComplainDetails,
-                                            TableView tblComplain,
-                                            TableColumn<ComplainDetails, String> clmnComplain
-    ){
+                                     TableView tblComplain,
+                                     TableColumn<ComplainDetails, String> clmnComplain
+    ) {
         ObservableList<ComplainDetails> data = FXCollections.observableArrayList(lstComplainDetails);
 
         clmnComplain.setCellValueFactory(new PropertyValueFactory("complain"));
@@ -30,15 +30,13 @@ public class ComplainRenderUtil {
 
     public static void setComplainDetailsSearchAutoComplete(ComplainService complainService, TextField txtComplain) throws Exception {
         ObservableList<ComplainDetails> autoCompleteData;
-        autoCompleteData= FXCollections.observableArrayList(complainService.getAutoSuggestComplain());
-        AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtComplain ,autoCompleteData );
+        autoCompleteData = FXCollections.observableArrayList(complainService.getAutoSuggestComplain());
+        AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtComplain, autoCompleteData);
         acb.setVisibleRowCount(5);
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<ComplainDetails>>()
-        {
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<ComplainDetails>>() {
 
             @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<ComplainDetails> event)
-            {
+            public void handle(AutoCompletionBinding.AutoCompletionEvent<ComplainDetails> event) {
 
                 ComplainDetails value = event.getCompletion();
                 txtComplain.setText(value.getComplain());

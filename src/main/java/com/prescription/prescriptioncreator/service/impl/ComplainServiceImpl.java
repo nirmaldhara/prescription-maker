@@ -10,7 +10,7 @@ import java.util.List;
 public class ComplainServiceImpl implements ComplainService {
     ComplainDao complainDao = new ComplainDaoImpl();
     @Override
-    public boolean addComplain(ComplainDetails complainDetails) throws Exception {
+    public long addComplain(ComplainDetails complainDetails) throws Exception {
         return complainDao.addComplain(complainDetails);
     }
 

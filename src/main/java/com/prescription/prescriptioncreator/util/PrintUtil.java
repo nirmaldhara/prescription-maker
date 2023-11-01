@@ -1,6 +1,5 @@
 package com.prescription.prescriptioncreator.util;
 
-import com.sun.javafx.print.Units;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +15,7 @@ import javafx.print.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import static com.sun.javafx.print.Units.MM;
+
 
 public class PrintUtil {
     public static void print() throws MalformedURLException {

@@ -8,8 +8,7 @@ public enum IntegerValue {
     LONG_FADE_OUT_DELAY(1000),
     SHORT_FADE_OUT_DELAY(500),
     SUCCESS(200),
-    ERROR(500)
-    ;
+    ERROR(500);
     private Integer value;
 
     public Integer val() {

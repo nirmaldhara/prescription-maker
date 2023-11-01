@@ -68,10 +68,10 @@ public class PrescriptionRenderUtil {
 
     }
 
-    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName,TextField txtD1, TextField txtD2, TextField txtD3,TextField txtD4,TextField txtD5,TextField txtD6,TextField txtNote) throws Exception {
-         ObservableList<MedicineDetails> autoCompleteData;
+    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName,TextField txtId,TextField txtD1, TextField txtD2, TextField txtD3,TextField txtD4,TextField txtD5,TextField txtD6,TextField txtNote) throws Exception {
+        ObservableList<MedicineDetails> autoCompleteData;
         autoCompleteData= FXCollections.observableArrayList(medicineService.getAutoSuggestMedicine());
-          AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtMedicineName ,autoCompleteData );
+        AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtMedicineName ,autoCompleteData );
         acb.setVisibleRowCount(5);
         acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<MedicineDetails>>()
         {
@@ -81,6 +81,7 @@ public class PrescriptionRenderUtil {
             {
 
                 MedicineDetails value = event.getCompletion();
+                txtId.setText(""+value.getId());
                 txtD1.setText(value.getDose1());
                 txtD2.setText(value.getDose2());
                 txtD3.setText(value.getDose3());
@@ -154,6 +155,30 @@ public class PrescriptionRenderUtil {
                     @Override
                     public void handle(ActionEvent event) {
                         tblPrescription.getItems().remove(row.getItem());
+                    }
+                });
+                contextMenu.getItems().add(removeMenuItem);
+                // Set context menu on row, but use a binding to make it only show for non-empty rows:
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                                .then((ContextMenu)null)
+                                .otherwise(contextMenu)
+                );
+                return row ;
+            }
+        });
+    }
+    public static  void removePatientRow(  TableView tblPatient){
+        tblPatient.setRowFactory(new Callback<TableView<PatientDetails>, TableRow<PatientDetails>>() {
+            @Override
+            public TableRow<PatientDetails> call(TableView<PatientDetails> tableView) {
+                final TableRow<PatientDetails> row = new TableRow<>();
+                final ContextMenu contextMenu = new ContextMenu();
+                final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        tblPatient.getItems().remove(row.getItem());
                     }
                 });
                 contextMenu.getItems().add(removeMenuItem);

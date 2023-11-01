@@ -11,7 +11,7 @@ CREATE TABLE `patient` (
   PRIMARY KEY (`id`),
   KEY `search` (`mobile_no`,`patient_id`)
 )
-/////
+
     CREATE TABLE `medicine` (
       `id` int NOT NULL AUTO_INCREMENT,
       `medicine_name` varchar(255) DEFAULT NULL,
@@ -28,22 +28,85 @@ CREATE TABLE `patient` (
       KEY `search` (`medicine_name`)
     )
 
-    /////
+    /* table script for prescription details */
+    CREATE TABLE `prescription`(
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `patientid` INT NULL,
+      `medicine_name` VARCHAR(45) NULL,
+      `when_bf_af` VARCHAR(45) NULL,
+      `no_of_days` VARCHAR(45) NULL,
+      `dose1` VARCHAR(45) NULL,
+      `dose2` VARCHAR(45) NULL,
+      `dose3` VARCHAR(45) NULL,
+      `dose4` VARCHAR(45) NULL,
+      `dose5` VARCHAR(45) NULL,
+      `dose6` VARCHAR(45) NULL,
+      `note` VARCHAR(45) NULL,
+      PRIMARY KEY (`id`));
 
-    CREATE TABLE `prescription` (
-      `id` int NOT NULL AUTO_INCREMENT,
-      `visit_id` int NOT NULL DEFAULT 0,
-     `patient_id` int NOT NULL DEFAULT 0,
-      `medicine_name` varchar(255) DEFAULT NULL,
-      `when_bf_af` varchar(10) DEFAULT NULL,
-      `no_of_days` int DEFAULT NULL,
-      `dose1` varchar(10) DEFAULT NULL,
-      `dose2` varchar(10) DEFAULT NULL,
-      `dose3` varchar(10) DEFAULT NULL,
-      `dose4` varchar(10) DEFAULT NULL,
-      `dose5` varchar(10) DEFAULT NULL,
-      `dose6` varchar(10) DEFAULT NULL,
-      `note` varchar(500) DEFAULT NULL,
-      `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (`id`)
-    )
+     /* table script for lab_test */
+      CREATE TABLE `lab_test` (
+            `id` int NOT NULL AUTO_INCREMENT,
+      	  `test_name` varchar(255) DEFAULT NULL,
+      	  `test_value` varchar(255) DEFAULT NULL,
+            `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+          )
+
+      /* table script for previous_history */
+      CREATE TABLE `prescription`.`previous_history` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `previous_history` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `previous_history_UNIQUE` (`previous_history` ASC) VISIBLE);
+
+
+      /* table script for findings */
+      CREATE TABLE `prescription`.`findings` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `findings` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `findings_UNIQUE` (`findings` ASC) VISIBLE);
+
+
+      /* table script for suggestions */
+      CREATE TABLE `prescription`.`suggestions` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `suggestions` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `suggestions_UNIQUE` (`suggestions` ASC) VISIBLE);
+
+
+      /* table script for p_previous_history */
+      CREATE TABLE `prescription`.`p_previous_history` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `previous_history_id` INT NOT NULL,
+        `visit_id` INT NOT NULL,
+        PRIMARY KEY (`id`));
+      /* table script for p_findings */
+      CREATE TABLE `prescription`.`p_findings` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `findings_id` INT NOT NULL,
+        `visit_id` INT NOT NULL,
+        PRIMARY KEY (`id`));
+
+    /* table script for p_suggestions */
+    CREATE TABLE `prescription`.`p_suggestions` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `suggestions_id` INT NOT NULL,
+      `visit_id` INT NOT NULL,
+      PRIMARY KEY (`id`));
+
+    /* table script for complain */
+      CREATE TABLE `prescription`.`complain` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `complain` VARCHAR(255) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `complain_UNIQUE` (`complain` ASC) VISIBLE);
+    /* table script for p_complain_of */
+        CREATE TABLE `prescription`.`p_complain_of` (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `complain_id` INT NOT NULL,
+                `visit_id` INT NOT NULL,
+                PRIMARY KEY (`id`))
+

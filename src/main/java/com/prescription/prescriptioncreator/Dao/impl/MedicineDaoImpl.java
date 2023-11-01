@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.MedicineDao;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,12 @@ import java.util.List;
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class MedicineDaoImpl implements MedicineDao {
+    /* @method addMedicine
+     * @param medicineDetails
+     * @throws Exception
+     * @description Adding medicine details for the patients in medicine table
+     * @developer Sukhendu
+     */
     public  boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
         String sql = " insert into medicine (medicine_name, dose1, dose2, dose3, dose4, dose5, dose6, when_bf_af, no_of_days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
         Connection conn=getConnection();
@@ -35,8 +42,6 @@ public class MedicineDaoImpl implements MedicineDao {
 
     }
 
-
-
     @Override
     public List<MedicineDetails> getAutoSuggestMedicine() throws Exception {
 
@@ -51,6 +56,7 @@ public class MedicineDaoImpl implements MedicineDao {
             rs = preparedStmt.executeQuery();
             while(rs.next()){
                 MedicineDetails md= new MedicineDetails();
+                md.setId(rs.getLong("id"));
                 md.setMedicineName(rs.getString("medicine_name"));
                 md.setWhen(rs.getString("when_bf_af"));
                 md.setNoOfDays(rs.getInt("no_of_days"));
@@ -61,7 +67,6 @@ public class MedicineDaoImpl implements MedicineDao {
                 md.setDose5(rs.getString("dose5"));
                 md.setDose6(rs.getString("dose6"));
                 md.setNote(rs.getString("note"));
-
                 lstMedicineDetails.add(md);
             }
         } catch(Exception e){

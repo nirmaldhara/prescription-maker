@@ -24,8 +24,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-
-
         return prescriptionDao.getVisitDetails(patientId);
     }
 }

@@ -1,6 +1,15 @@
 package com.prescription.prescriptioncreator.model;
 
 public class MedicineDetails {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private long id = 0;
     private String medicineName;
     private String Dose1;
     private String Dose2;
@@ -94,7 +103,6 @@ public class MedicineDetails {
 
     private String note;
     @Override
-    public String toString() {
-        return this.getMedicineName();
+    public String toString() {return this.getMedicineName();
     }
 }

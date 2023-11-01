@@ -17,20 +17,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1758.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1758.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
    <children>
       <ButtonBar fx:id="btnBar" layoutX="-9.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="6000.0">
          <buttons>
             <ToolBar fx:id="tBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="6000.0">
               <items>
-                <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/test-tube.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
 
                   <Button mnemonicParsing="false" onAction="#openAddPatient" text="Registration">
                       <graphic>
@@ -41,6 +33,14 @@
                           </ImageView>
                       </graphic>
                   </Button>
+                <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/test-tube.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   <Button mnemonicParsing="false" onAction="#openAddMedicine" text="Add Medicine">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -172,22 +172,22 @@
                         <Image url="@../img/abdomen.png" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="3.0" layoutY="151.0" prefHeight="25.0" prefWidth="250.0" promptText="Previous History" />
-                  <TextField layoutX="299.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Findings " />
-                  <TextField layoutX="597.0" layoutY="152.0" prefHeight="25.0" prefWidth="250.0" promptText="Suggestions" />
-                  <TableView layoutX="299.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TextField fx:id="txtPHistory" layoutX="230.0" layoutY="151.0" prefHeight="25.0" prefWidth="200.0" promptText="Previous History" />
+                  <TextField fx:id="txtFindings" layoutX="438.0" layoutY="151.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
+                  <TextField fx:id="txtSuggestions" layoutX="645.0" layoutY="152.0" prefHeight="25.0" prefWidth="200.0" promptText="Suggestions" />
+                  <TableView fx:id="tblFindings" layoutX="438.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="250.0" text="Findings" />
+                      <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="597.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblSuggestions" layoutX="645.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="249.0" text="Suggestions" />
+                      <TableColumn fx:id="clmnSuggestions" prefWidth="249.0" text="Suggestions" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="3.0" layoutY="177.0" prefHeight="152.0" prefWidth="250.0">
+                  <TableView fx:id="tblPreviousHistory" layoutX="230.0" layoutY="177.0" prefHeight="152.0" prefWidth="200.0">
                      <columns>
-                        <TableColumn prefWidth="250.0" text="Previous History" />
+                        <TableColumn fx:id="clmnPreviousHistory" prefWidth="250.0" text="Previous History" />
                      </columns>
                   </TableView>
                   <TextField layoutX="465.0" layoutY="6.0" prefHeight="25.0" prefWidth="115.0" promptText="Weight" />
@@ -205,6 +205,19 @@
                     </columns>
                   </TableView>
                   <TextField layoutX="3.0" layoutY="596.0" prefHeight="25.0" prefWidth="297.0" />
+                  <TextField fx:id="txtComplain" layoutX="10.0" layoutY="151.0" prefHeight="25.0" prefWidth="211.0" promptText="Complain Of" />
+                  <TableView fx:id="tblComplain" layoutX="9.0" layoutY="177.0" prefHeight="152.0" prefWidth="212.0">
+                    <columns>
+                      <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
+                    </columns>
+                  </TableView>
+                  <!--<TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false" text="0">-->
+                    <TextField fx:id="txtId" layoutX="393.0" layoutY="342.0" prefHeight="25.0" prefWidth="28.0" promptText="Id" visible="false" >
+
+                    <font>
+                        <Font size="10.0" />
+                     </font>
+                  </TextField>
                 </children>
             </Pane>
 

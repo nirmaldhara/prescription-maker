@@ -1,5 +1,6 @@
 package com.prescription.prescriptioncreator.controller;
 
+import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
@@ -42,7 +43,7 @@ public class MedicineController {
     public  void addMedicineDetails(ActionEvent event) throws Exception{
         MedicineService medicineService = new MedicineServiceImpl();
         MedicineDetails medicineDetails = new MedicineDetails();
-        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName,MEDICINE_NAME_BLANK.val()))) {
+        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BLANK.val()))) {
             medicineDetails.setMedicineName(txtMedicineName.getText());
             medicineDetails.setDose1(txtDose1.getText());
             medicineDetails.setDose2(txtDose2.getText());

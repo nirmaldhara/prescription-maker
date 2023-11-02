@@ -16,8 +16,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.fxml.FXML;
 import javafx.print.*;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -108,7 +110,7 @@ public class PrintUtil {
         htmlBuilder.append("<th>Note</th>");
         htmlBuilder.append("</tr>");
 
-        for(MedicineDetails pd:lstMedicineDetails) {
+        /*for(MedicineDetails pd:lstMedicineDetails) {
             htmlBuilder.append("<tr>");
             htmlBuilder.append("<td nowrap>"+pd.getMedicineName() +"</td>");
 
@@ -124,6 +126,37 @@ public class PrintUtil {
             htmlBuilder.append("</td>");
             htmlBuilder.append("<td nowrap>"+pd.getNoOfDays()+"</td>");
             htmlBuilder.append("<td nowrap>"+pd.getNote()+"</td>");
+            htmlBuilder.append("</tr>");
+        }*/
+        for(MedicineDetails pd:lstMedicineDetails) {
+            htmlBuilder.append("<tr>");
+            htmlBuilder.append("<td nowrap>"+pd.getMedicineName()+"</td>");
+            htmlBuilder.append("<td>");
+            htmlBuilder.append("<div style='display:flex;align:item:center'>");
+            if(!pd.getDose1().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose1()+"</div>");
+                htmlBuilder.append("-");
+            }
+            if(!pd.getDose2().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose2()+"</div>");
+            }
+            if(!pd.getDose3().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose3()+"</div>");
+                htmlBuilder.append("-");
+            }
+            if(!pd.getDose4().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>" + pd.getDose4() + "</div>");
+                htmlBuilder.append("-");
+            }
+            if(!pd.getDose5().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>" + pd.getDose5() + "</div>");
+                htmlBuilder.append("-");
+            }
+            if(!pd.getDose6().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>" + pd.getDose5() + "</div>");
+            }
+            htmlBuilder.append("</div>");
+            htmlBuilder.append("</td>");
             htmlBuilder.append("</tr>");
         }
         htmlBuilder.append("</table>");

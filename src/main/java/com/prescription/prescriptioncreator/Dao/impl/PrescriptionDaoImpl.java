@@ -38,11 +38,8 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
-    public void saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails,int patientId) throws Exception {
-
-
-
-        String sql = " insert into prescription (visit_id, patient_id , medicine_name, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note) values (?, ?, ?, ?, ?,?,?,?, ?, ?, ?, ?)";
+    public long saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails,int patientId) throws Exception {
+        String sql = "insert into prescription (visit_id, patient_id , medicine_name, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note) values (?, ?, ?, ?, ?,?,?,?, ?, ?, ?, ?)";
         Connection conn=getConnection();
         int visit_id=getLastVisitId();
         for(MedicineDetails pd:lstMedicineDetails) {
@@ -66,6 +63,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 throw new RuntimeException(e);
             }
         }
+        return visit_id;
     }
 
     @Override

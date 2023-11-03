@@ -3,6 +3,7 @@ package com.prescription.prescriptioncreator.service.impl;
 import com.prescription.prescriptioncreator.Dao.ComplainDao;
 import com.prescription.prescriptioncreator.Dao.impl.ComplainDaoImpl;
 import com.prescription.prescriptioncreator.model.ComplainDetails;
+import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.service.ComplainService;
 
 import java.util.List;
@@ -23,6 +24,11 @@ public class ComplainServiceImpl implements ComplainService {
     public void saveComplainToPrescription(List<ComplainDetails> lstComplainDetails, long visit_id) throws Exception {
         complainDao.saveComplainToPrescription(lstComplainDetails,visit_id);
     }
+@Override
+    public  List<ComplainDetails>  getComplainOFDetails(long visitId) throws Exception {
 
+return complainDao.getComplainOFDetails(visitId);
+
+    }
 
 }

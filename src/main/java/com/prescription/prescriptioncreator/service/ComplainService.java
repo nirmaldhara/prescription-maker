@@ -9,5 +9,5 @@ public interface ComplainService {
     List<ComplainDetails> getAutoSuggestComplain() throws Exception;
 
     public void saveComplainToPrescription(List<ComplainDetails> lstComplainDetails, long visit_id) throws Exception;
-
+    public  List<ComplainDetails>  getComplainOFDetails(long visitId) throws Exception;
 }

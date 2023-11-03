@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.ComplainDao;
 import com.prescription.prescriptioncreator.model.ComplainDetails;
+import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
 import java.sql.*;
@@ -104,6 +105,34 @@ public class ComplainDaoImpl implements ComplainDao {
             }
         }
     }
+    @Override
+    public  List<ComplainDetails>  getComplainOFDetails(long visitId) throws Exception{
+        String dbsql = "SELECT p1.id,p1.complain FROM p_complain_of p, complain p1  where p.visit_id=? and p1.id=p.complain_id";
+        List<ComplainDetails> lstComplainyDetails = new ArrayList<>();
+        PreparedStatement preparedStmt =null;
+        ResultSet rs = null;
+        Connection conn = getConnection();
+        try{
+            preparedStmt=  conn.prepareStatement(dbsql);
+            preparedStmt.setLong(1,visitId);
+            rs = preparedStmt.executeQuery();
+            while(rs.next()){
+                ComplainDetails cd= new ComplainDetails();
+                cd.setComplain(rs.getString("complain"));
+                cd.setId(rs.getInt("id"));
+                lstComplainyDetails.add(cd);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if(preparedStmt!=null)
+                preparedStmt.close();
+            if(rs!=null)
+                rs.close();
 
+        }
+        return lstComplainyDetails;
+    }
 
 }

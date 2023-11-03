@@ -1,12 +1,11 @@
 package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.FindingsDao;
+import com.prescription.prescriptioncreator.model.ComplainDetails;
 import com.prescription.prescriptioncreator.model.FindingsDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +13,48 @@ import static com.prescription.prescriptioncreator.util.DBConnection.getConnecti
 
 public class FindingsDaoImpl implements FindingsDao {
     @Override
-    public boolean addFindings(FindingsDetails findingsDetails) throws Exception {
+    public long addFindings(String findings) throws Exception {
         String sql = " insert into findings (findings) values (?)";
         Connection conn=getConnection();
+        PreparedStatement preparedStmt=null;
+        ResultSet generatedKeys=null;
+        ResultSet resultSet=null;
+        long id=-1;
         try{
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setString(1,findingsDetails.getFindings());
-            preparedStmt.execute();
-            return true;
-        }catch(Exception e){
-            return false;
+            preparedStmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStmt.setString(1,findings);
+            try {
+                preparedStmt.executeUpdate();
+
+                generatedKeys= preparedStmt.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                }
+            }
+            catch (SQLIntegrityConstraintViolationException e) {
+
+                String selectSql = "SELECT id FROM findings WHERE findings =  ?";
+                PreparedStatement selectStatement = conn.prepareStatement(selectSql);
+                selectStatement.setString(1, findings);
+                resultSet  = selectStatement.executeQuery();
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
+
+            }
+
+
+            System.out.println("findings id="+id);
+            return id;
+        }
+        catch(Exception e){
+            return -1;
+        }
+        finally {
+            if  (preparedStmt!=null) preparedStmt.close();
+            if  (generatedKeys!=null)generatedKeys.close();
+            if  (resultSet!=null)resultSet.close();
         }
     }
 
@@ -57,23 +88,38 @@ public class FindingsDaoImpl implements FindingsDao {
     }
 
     @Override
-    public List<FindingsDetails> addFindings(String findings) throws Exception {
-        String dbsql = "select distinct  id ,findings from findings where findings = ?";
-        List<FindingsDetails> findingsList = new ArrayList<>();
+    public void saveFindingsToPrescription(List<FindingsDetails> lstFindingsDetails, long visit_id) throws Exception {
+        String sql = " insert into p_findings (findings_id, visit_id) values (?, ?)";
+        //int previous_history_id = getLastPreviousHistoryId();
+        Connection conn=getConnection();
+        for(FindingsDetails fd:lstFindingsDetails) {
+            try {
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setLong(1, fd.getId());
+                preparedStmt.setLong(2, visit_id);
+                preparedStmt.execute();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public List<FindingsDetails> getFindingsOFDetails(long visitId) throws Exception {
+        String dbsql = "SELECT p1.id,p1.findings FROM p_findings p, findings p1  where p.visit_id=? and p1.id=p.findings_id";
+        List<FindingsDetails> lstFindingsDetails = new ArrayList<>();
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         Connection conn = getConnection();
         try{
             preparedStmt=  conn.prepareStatement(dbsql);
-
-            preparedStmt.setString(1,findings);
+            preparedStmt.setLong(1,visitId);
             rs = preparedStmt.executeQuery();
             while(rs.next()){
                 FindingsDetails fd= new FindingsDetails();
-                fd.setId(rs.getInt("id"));
                 fd.setFindings(rs.getString("findings"));
-
-                findingsList.add(fd);
+                fd.setId(rs.getInt("id"));
+                lstFindingsDetails.add(fd);
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -85,6 +131,7 @@ public class FindingsDaoImpl implements FindingsDao {
                 rs.close();
 
         }
-        return findingsList;
+        return lstFindingsDetails;
     }
+
 }

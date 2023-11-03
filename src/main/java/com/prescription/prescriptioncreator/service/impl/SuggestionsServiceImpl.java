@@ -9,9 +9,10 @@ import java.util.List;
 
 public class SuggestionsServiceImpl implements SuggestionsService {
     SuggestionsDao suggestionsDao = new SuggestionsDaoImpl();
+
     @Override
-    public boolean addSuggestions(SuggestionsDetails suggestionsDetails) throws Exception {
-        return suggestionsDao.addSuggestions(suggestionsDetails);
+    public long addSuggestions(String suggestions) throws Exception {
+        return suggestionsDao.addSuggestions(suggestions);
     }
 
     @Override
@@ -20,7 +21,12 @@ public class SuggestionsServiceImpl implements SuggestionsService {
     }
 
     @Override
-    public List<SuggestionsDetails> addSuggestions(String suggestions) throws Exception {
-        return suggestionsDao.addSuggestions(suggestions);
+    public void saveSuggestionsToPrescription(List<SuggestionsDetails> lstSuggestionsDetails, long visit_id) throws Exception {
+        suggestionsDao.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
+    }
+
+    @Override
+    public List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
+        return suggestionsDao.getSuggestionsOFDetails(visitId);
     }
 }

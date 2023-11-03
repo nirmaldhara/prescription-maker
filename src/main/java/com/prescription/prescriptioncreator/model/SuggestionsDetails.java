@@ -1,16 +1,17 @@
 package com.prescription.prescriptioncreator.model;
 
 public class SuggestionsDetails {
-    private int id;
-    private String suggestions;
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
+
+    private long id;
+    private String suggestions;
+
 
     public String getSuggestions() {
         return suggestions;

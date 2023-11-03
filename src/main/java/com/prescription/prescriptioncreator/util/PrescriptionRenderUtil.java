@@ -1,11 +1,8 @@
 package com.prescription.prescriptioncreator.util;
 
 import com.prescription.prescriptioncreator.model.*;
-import com.prescription.prescriptioncreator.service.ComplainService;
-import com.prescription.prescriptioncreator.service.MedicineService;
-import com.prescription.prescriptioncreator.service.PrescriptionService;
-import com.prescription.prescriptioncreator.service.impl.ComplainServiceImpl;
-import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
+import com.prescription.prescriptioncreator.service.*;
+import com.prescription.prescriptioncreator.service.impl.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,6 +66,19 @@ public class PrescriptionRenderUtil {
         return cs.getComplainOFDetails(visitId);
 
     }
+    public static List<PreviousHistoryDetails>   getPreviousHistoryOFDetails(int visitId) throws Exception {
+        PreviousHistoryService phs = new PreviousHistoryServiceImpl();
+        return phs.getPreviousHistoryOFDetails(visitId);
+
+    }
+    public static  List<FindingsDetails> getFindingsOFDetails(long visitId) throws Exception {
+        FindingsService fd = new FindingsServiceImpl();
+        return fd.getFindingsOFDetails(visitId);
+    }
+    public static List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
+        SuggestionsService sd = new SuggestionsServiceImpl();
+        return sd.getSuggestionsOFDetails(visitId);
+    }
     public static List<MedicineDetails>  getPrescriptionDetailsByVisitId(int visitId) throws Exception {
         PrescriptionService ps= new PrescriptionServiceImpl();
         return  ps.getPrescriptionDetailsByVisitId(visitId);
@@ -116,7 +126,16 @@ public class PrescriptionRenderUtil {
                                                TableColumn<MedicineDetails, String> clmnNote,
                                                 List<ComplainDetails> lstComplainDetails,
                                                 TableView tblComplain,
-                                                TableColumn<ComplainDetails, String> clmnComplain
+                                                TableColumn<ComplainDetails, String> clmnComplain,
+                                                List<PreviousHistoryDetails> lstPreviousHistoryDetails,
+                                                TableView tblPreviousHistory,
+                                                TableColumn<PreviousHistoryDetails, String> clmnPreviousHistory,
+                                                List<FindingsDetails> lstFindingsDetails,
+                                                TableView tblFindings,
+                                                TableColumn<FindingsDetails, String> clmnFindings,
+                                                List<SuggestionsDetails> lstSuggestionsDetails,
+                                                TableView tblSuggestions,
+                                                TableColumn<SuggestionsDetails, String> clmnSuggestions
 
     ){
         System.out.println("load history data");
@@ -130,7 +149,9 @@ public class PrescriptionRenderUtil {
                     try {
                         addToPrescription(getPrescriptionDetailsByVisitId(clickedRow.getVisitId()),tblPrescription,clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6, clmnWhen,clmnDays,clmnNote);
                         ComplainRenderUtil.addToComplain(getComplainOFDetails(clickedRow.getVisitId()),tblComplain,clmnComplain);
-
+                        PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()),tblPreviousHistory,clmnPreviousHistory);
+                        FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()),tblFindings,clmnFindings);
+                        SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()),tblSuggestions,clmnSuggestions);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

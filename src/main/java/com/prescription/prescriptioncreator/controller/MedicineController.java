@@ -55,7 +55,7 @@ public class MedicineController {
             medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue()==null?"0":cmbNoOFDays.getValue()));
             medicineDetails.setNote(txtNote.getText());
 
-            if(medicineService.addMedicine(medicineDetails)==true){
+            if(medicineService.addMedicine(medicineDetails)!=0){
                 ToastUtil.makeText(stage, ADD_MEDICINE_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
             }
             else {

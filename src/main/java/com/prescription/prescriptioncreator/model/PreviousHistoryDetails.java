@@ -10,17 +10,16 @@ public class PreviousHistoryDetails {
     public void setPrevious_history(String previous_history) {
         this.previous_history = previous_history;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-    private long id;
-
     @Override
     public String toString() {return this.getPrevious_history();
     }
+    ///
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    private int id;
 }

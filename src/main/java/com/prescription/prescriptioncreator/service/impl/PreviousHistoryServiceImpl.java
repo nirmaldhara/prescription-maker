@@ -10,7 +10,7 @@ import java.util.List;
 public class PreviousHistoryServiceImpl implements PreviousHistoryService {
     PreviousHistoryDao previousHistoryDao = new PreviousHistoryDaoImpl();
     @Override
-    public long addPreviousHistory(String previousHistoryDetails) throws Exception {
+    public boolean addPreviousHistory(PreviousHistoryDetails previousHistoryDetails) throws Exception {
         return previousHistoryDao.addPreviousHistory(previousHistoryDetails);
     }
 
@@ -20,8 +20,7 @@ public class PreviousHistoryServiceImpl implements PreviousHistoryService {
     }
 
     @Override
-    public void savePreviousHistoryToPrescription(List<PreviousHistoryDetails> lstPreviousHistoryDetails, long visit_Id) throws Exception {
-        previousHistoryDao.savePreviousHistoryToPrescription(lstPreviousHistoryDetails,visit_Id);
+    public List<PreviousHistoryDetails> addPreviousHistory(String previous_history) throws Exception {
+        return previousHistoryDao.addPreviousHistory(previous_history);
     }
-
 }

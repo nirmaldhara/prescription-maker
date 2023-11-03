@@ -1,11 +1,10 @@
 package com.prescription.prescriptioncreator.util;
 
-import com.prescription.prescriptioncreator.model.MedicineDetails;
-import com.prescription.prescriptioncreator.model.PatientDetails;
-import com.prescription.prescriptioncreator.model.PrescriptionDetails;
-import com.prescription.prescriptioncreator.model.PreviousVisit;
+import com.prescription.prescriptioncreator.model.*;
+import com.prescription.prescriptioncreator.service.ComplainService;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
+import com.prescription.prescriptioncreator.service.impl.ComplainServiceImpl;
 import com.prescription.prescriptioncreator.service.impl.PrescriptionServiceImpl;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -51,7 +50,7 @@ public class PrescriptionRenderUtil {
             clmnWhen.setCellValueFactory(new PropertyValueFactory("when"));
             clmnDays.setCellValueFactory(new PropertyValueFactory("noOfDays"));
             clmnNote.setCellValueFactory(new PropertyValueFactory("note"));
-
+            System.out.println("addToPrescription :---------called");
             tblPrescription.setItems(data);
 
 
@@ -60,6 +59,14 @@ public class PrescriptionRenderUtil {
     public static List<PreviousVisit>  getVisitDetails(int patientID) throws Exception {
         PrescriptionService ps= new PrescriptionServiceImpl();
         return  ps.getVisitDetails(patientID);
+
+    }
+
+
+
+    public static List<ComplainDetails>  getComplainOFDetails(int visitId) throws Exception {
+        ComplainService cs= new ComplainServiceImpl();
+        return cs.getComplainOFDetails(visitId);
 
     }
     public static List<MedicineDetails>  getPrescriptionDetailsByVisitId(int visitId) throws Exception {
@@ -79,7 +86,6 @@ public class PrescriptionRenderUtil {
             @Override
             public void handle(AutoCompletionBinding.AutoCompletionEvent<MedicineDetails> event)
             {
-
                 MedicineDetails value = event.getCompletion();
                 txtId.setText(""+value.getId());
                 txtD1.setText(value.getDose1());
@@ -95,7 +101,8 @@ public class PrescriptionRenderUtil {
         });
 
     }
-    public static void displayVisitHistoryInPrescriptionTable( TableView<PreviousVisit> tblPreviousVisit,
+    public static void displayVisitHistoryInPrescriptionTable(
+                                                TableView<PreviousVisit> tblPreviousVisit,
                                                TableView tblPrescription,
                                                TableColumn<MedicineDetails, String> clmnMedicineName,
                                                TableColumn<MedicineDetails, String>clmnD1,
@@ -106,7 +113,12 @@ public class PrescriptionRenderUtil {
                                                TableColumn<MedicineDetails, String> clmnD6,
                                                TableColumn<MedicineDetails, String> clmnWhen,
                                                TableColumn<MedicineDetails, String> clmnDays,
-                                               TableColumn<MedicineDetails, String> clmnNote){
+                                               TableColumn<MedicineDetails, String> clmnNote,
+                                                List<ComplainDetails> lstComplainDetails,
+                                                TableView tblComplain,
+                                                TableColumn<ComplainDetails, String> clmnComplain
+
+    ){
         System.out.println("load history data");
         tblPreviousVisit.setRowFactory(tv -> {
             TableRow<PreviousVisit> row = new TableRow<>();
@@ -117,6 +129,8 @@ public class PrescriptionRenderUtil {
                     PreviousVisit clickedRow = row.getItem();
                     try {
                         addToPrescription(getPrescriptionDetailsByVisitId(clickedRow.getVisitId()),tblPrescription,clmnMedicineName,clmnD1,clmnD2,clmnD3,clmnD4,clmnD5,clmnD6, clmnWhen,clmnDays,clmnNote);
+                        ComplainRenderUtil.addToComplain(getComplainOFDetails(clickedRow.getVisitId()),tblComplain,clmnComplain);
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -134,7 +148,9 @@ public class PrescriptionRenderUtil {
 
                     PatientDetails clickedRow = row.getItem();
                     try {
+                        System.out.println("displayDataInVisitHistoryTable :: --");
                         PatientRenderUtil.displayPreviousVisitDetails( getVisitDetails(clickedRow.getId()),tblPreviousVisit,clmnPreviousVisit);
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

@@ -6,7 +6,9 @@ import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 import java.util.List;
 
 public interface PreviousHistoryDao {
-    public long addPreviousHistory(String previousHistoryDetails) throws Exception;
+    public boolean addPreviousHistory(PreviousHistoryDetails previousHistoryDetails) throws Exception;
     List<PreviousHistoryDetails> getAutoSuggestPreviousHistory() throws Exception;
-    public void savePreviousHistoryToPrescription(List<PreviousHistoryDetails> lstPreviousHistoryDetails,long visit_Id) throws Exception;
+
+    List<PreviousHistoryDetails> addPreviousHistory(String previous_history) throws Exception;
+
 }

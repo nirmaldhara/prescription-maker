@@ -10,8 +10,8 @@ import java.util.List;
 public class ComplainServiceImpl implements ComplainService {
     ComplainDao complainDao = new ComplainDaoImpl();
     @Override
-    public long addComplain(ComplainDetails complainDetails) throws Exception {
-        return complainDao.addComplain(complainDetails);
+    public long addComplain(String comdetails) throws Exception {
+        return complainDao.addComplain(comdetails);
     }
 
     @Override
@@ -20,7 +20,9 @@ public class ComplainServiceImpl implements ComplainService {
     }
 
     @Override
-    public List<ComplainDetails> addComplain(String complain) throws Exception {
-        return complainDao.addComplain(complain);
+    public void saveComplainToPrescription(List<ComplainDetails> lstComplainDetails, long visit_id) throws Exception {
+        complainDao.saveComplainToPrescription(lstComplainDetails,visit_id);
     }
+
+
 }

@@ -5,8 +5,9 @@ import com.prescription.prescriptioncreator.model.ComplainDetails;
 import java.util.List;
 
 public interface ComplainService {
-    public long addComplain(ComplainDetails complainDetails) throws Exception;
+    public long addComplain(String complain) throws Exception;
     List<ComplainDetails> getAutoSuggestComplain() throws Exception;
 
-    List<ComplainDetails> addComplain(String complain) throws Exception;
+    public void saveComplainToPrescription(List<ComplainDetails> lstComplainDetails, long visit_id) throws Exception;
+
 }

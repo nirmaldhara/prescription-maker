@@ -174,10 +174,12 @@ private void clearAddMedicine(){
                     try{
                         ComplainDetails complainDetails = new ComplainDetails();
                         ComplainService complainService = new ComplainServiceImpl();
+                        long id=complainService.addComplain(txtComplain.getText());
                         complainDetails.setComplain(txtComplain.getText());
+                        complainDetails.setId(id);
                         lstComplainDetails = tblComplain.getItems();
                         lstComplainDetails.add(0,complainDetails);
-                        long id=complainService.addComplain(complainDetails);
+
                         System.out.println(complainDetails.getComplain() +" id= "+id);
                         ComplainRenderUtil.addToComplain(lstComplainDetails,tblComplain,clmnComplain);
                         FXMLUtil.clearTextBox(txtComplain);
@@ -308,30 +310,12 @@ private void clearAddMedicine(){
         lblPrintStatus.setVisible(true);
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService= new PrescriptionServiceImpl();
+        ComplainService cs= new ComplainServiceImpl();
         if(patientDetails == null){
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
-        prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
-
-        P_Previous_HistoryService pPreviousHistoryService = new P_Previous_HistoryServiceImpl();//
-        int previousHistoryId = 0;
-        int visitId = 0;//
-        pPreviousHistoryService.saveP_Previous_HistoryDao(lstPreviousHistoryDetails,previousHistoryId);//
-
-        P_FindingsService pFindingsService = new P_FindingsServiceImpl();//
-        int findingsId = 0;
-        int visitidP = 0;
-        pFindingsService.saveP_Findings(lstFindingsDetails,findingsId);
-
-        P_SuggestionsService pSuggestionsService = new P_SuggestionsServiceImpl();
-        int suggestionsId = 0;
-        int visitIdPs = 0;
-        pSuggestionsService.saveP_Suggestions(lstSuggestionsDetails,suggestionsId);
-
-        P_ComplainService pComplainService = new P_ComplainServiceImpl();
-        int complainId = 0;
-        int visitIdC = 0;
-        pComplainService.saveP_ComplainDao(lstComplainDetails,complainId);
+        long visit_id=prescriptionService.saveNPrintPrescription(lstMedicineDetails,patientDetails.getId());
+     cs.saveComplainToPrescription(lstComplainDetails,visit_id);
 
         PrintUtil printUtil =new PrintUtil();
         if(printUtil.createPrescription(patientDetails,lstMedicineDetails,lstComplainDetails,lstPreviousHistoryDetails,lstFindingsDetails,lstSuggestionsDetails,txtCurrentDate)){

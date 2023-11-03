@@ -12,8 +12,8 @@ import java.util.List;
 public class PrescriptionServiceImpl implements PrescriptionService {
     PrescriptionDao prescriptionDao= new PrescriptionDaoImpl();
     @Override
-    public void saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails, int patientId) throws Exception {
-        prescriptionDao.saveNPrintPrescription(lstMedicineDetails,patientId);
+    public long saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails, int patientId) throws Exception {
+       return prescriptionDao.saveNPrintPrescription(lstMedicineDetails,patientId);
     }
 
     @Override

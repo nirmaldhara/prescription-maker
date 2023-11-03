@@ -2,7 +2,6 @@ package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.ComplainDao;
 import com.prescription.prescriptioncreator.model.ComplainDetails;
-import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
 import java.sql.*;
@@ -14,7 +13,7 @@ import static com.prescription.prescriptioncreator.util.DBConnection.getConnecti
 public class ComplainDaoImpl implements ComplainDao {
 
     @Override
-    public long addComplain(ComplainDetails complainDetails) throws Exception {
+    public long addComplain(String complain) throws Exception {
         String sql = " insert into complain (complain) values (?)";
         Connection conn=getConnection();
         PreparedStatement preparedStmt=null;
@@ -23,7 +22,7 @@ public class ComplainDaoImpl implements ComplainDao {
         long id=-1;
         try{
              preparedStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            preparedStmt.setString(1,complainDetails.getComplain());
+            preparedStmt.setString(1,complain);
             try {
                 preparedStmt.executeUpdate();
 
@@ -37,7 +36,7 @@ public class ComplainDaoImpl implements ComplainDao {
 
                 String selectSql = "SELECT id FROM complain WHERE complain =  ?";
                 PreparedStatement selectStatement = conn.prepareStatement(selectSql);
-                selectStatement.setString(1, complainDetails.getComplain());
+                selectStatement.setString(1, complain);
                 resultSet  = selectStatement.executeQuery();
                 if (resultSet.next()) {
                     id = resultSet.getLong("id");
@@ -90,36 +89,21 @@ public class ComplainDaoImpl implements ComplainDao {
     }
 
     @Override
-    public List<ComplainDetails> addComplain(String complain) throws Exception {
-        String dbsql = "select distinct  id ,complain from complain where previous_history = ?";
-        List<ComplainDetails> complainList=new ArrayList<>();
-        PreparedStatement preparedStmt =null;
-        ResultSet rs = null;
-        Connection conn = getConnection();
-        try{
-            preparedStmt=  conn.prepareStatement(dbsql);
-
-            preparedStmt.setString(1,complain);
-            rs = preparedStmt.executeQuery();
-            while(rs.next()){
-                ComplainDetails cd= new ComplainDetails();
-                cd.setId(rs.getInt("id"));
-                cd.setComplain(rs.getString("complain"));
-
-                complainList.add(cd);
+    public void saveComplainToPrescription(List<ComplainDetails> lstComplainDetails, long visit_id) throws Exception {
+        String sql = " insert into p_complain_of (complain_id, visit_id) values (?, ?)";
+        //int previous_history_id = getLastPreviousHistoryId();
+        Connection conn=getConnection();
+        for(ComplainDetails cd:lstComplainDetails) {
+            try {
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setLong(1, cd.getId());
+                preparedStmt.setLong(2, visit_id);
+                preparedStmt.execute();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch(Exception e){
-            e.printStackTrace();
         }
-        finally {
-            if(preparedStmt!=null)
-                preparedStmt.close();
-            if(rs!=null)
-                rs.close();
-
-        }
-        return complainList;
     }
 
-    /*-----------------------------------------------------------*/
+
 }

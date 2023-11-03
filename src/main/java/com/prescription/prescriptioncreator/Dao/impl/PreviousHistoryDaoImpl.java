@@ -3,63 +3,56 @@ package com.prescription.prescriptioncreator.Dao.impl;
 import com.prescription.prescriptioncreator.Dao.PreviousHistoryDao;
 import com.prescription.prescriptioncreator.model.PreviousHistoryDetails;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class PreviousHistoryDaoImpl implements PreviousHistoryDao {
-    /* @method addPreviousHistory
-     * @param previousHistoryDetails
-     * @throws Exception
-     * @description add Previous History data
-     * @developer Sukhendu
-     */
-
-    /* @method getAutoSuggestPreviousHistory
-     * @throws Exception
-     * @description to get auto suggestion
-     * @developer Sukhendu
-     */
-    /* @method addPreviousHistory
-     *@param previous_history
-     * @throws Exception
-     * @description to get tableview of Previous History
-     * @developer Sukhendu
-     */
-    private int getLastPreviousHistoryId() throws Exception {
-        String dbsql = "select IFNULL(max(id),0)+1 id from previous_history;";
-        PreparedStatement preparedStmt =null;
-        ResultSet rs = null;
-        int previousHistoryId=0;
-        Connection conn = getConnection();
-        try{
-            preparedStmt=  conn.prepareStatement(dbsql);
-            rs = preparedStmt.executeQuery();
-            rs.next();
-            previousHistoryId=rs.getInt("id");
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        return previousHistoryId;
-    }
     @Override
-    public boolean addPreviousHistory(PreviousHistoryDetails previousHistoryDetails) throws Exception {
-        String sql = " insert into previous_history (id,previous_history) values (?,?)";
+    public long addPreviousHistory(String previousHistoryDetails) throws Exception {
+        String sql = " insert into previous_history (previous_history) values (?)";
         Connection conn=getConnection();
-        int id = getLastPreviousHistoryId();
+        PreparedStatement preparedStmt=null;
+        ResultSet generatedKeys=null;
+        ResultSet resultSet=null;
+        long id=-1;
         try{
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setInt(1,id);
-            preparedStmt.setString(2,previousHistoryDetails.getPrevious_history());
-            preparedStmt.execute();
-            return true;
-        }catch(Exception e){
-            return false;
+            preparedStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            preparedStmt.setString(1,previousHistoryDetails);
+            try {
+                preparedStmt.executeUpdate();
+
+                generatedKeys= preparedStmt.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                }
+            }
+            catch (SQLIntegrityConstraintViolationException e) {
+
+                String selectSql = "SELECT id FROM previous_history WHERE previous_history =  ?";
+                PreparedStatement selectStatement = conn.prepareStatement(selectSql);
+                selectStatement.setString(1, previousHistoryDetails);
+                resultSet  = selectStatement.executeQuery();
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
+
+            }
+
+
+            System.out.println("previous_history id="+id);
+            return id;
+        }
+        catch(Exception e){
+            return -1;
+        }
+        finally {
+            if  (preparedStmt!=null) preparedStmt.close();
+            if  (generatedKeys!=null)generatedKeys.close();
+            if  (resultSet!=null)resultSet.close();
         }
     }
 
@@ -93,34 +86,19 @@ public class PreviousHistoryDaoImpl implements PreviousHistoryDao {
     }
 
     @Override
-    public List<PreviousHistoryDetails> addPreviousHistory(String previous_history) throws Exception {
-        String dbsql = "select distinct  id ,previous_history from previous_history where previous_history = ?";
-        List<PreviousHistoryDetails> previousHistoryList=new ArrayList<>();
-        PreparedStatement preparedStmt =null;
-        ResultSet rs = null;
+    public void savePreviousHistoryToPrescription(List<PreviousHistoryDetails> lstPreviousHistoryDetails, long visit_Id) throws Exception {
+        String sql = "insert into p_previous_history(previous_history_id,visit_id) values(?,?)";
         Connection conn = getConnection();
-        try{
-            preparedStmt=  conn.prepareStatement(dbsql);
-
-            preparedStmt.setString(1,previous_history);
-            rs = preparedStmt.executeQuery();
-            while(rs.next()){
-                PreviousHistoryDetails pd= new PreviousHistoryDetails();
-                pd.setId(rs.getInt("id"));
-                pd.setPrevious_history(rs.getString("previous_history"));
-
-                previousHistoryList.add(pd);
+        for(PreviousHistoryDetails phd : lstPreviousHistoryDetails){
+            try{
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setLong(1,phd.getId());
+                preparedStmt.setLong(2,visit_Id);
+            }catch(Exception e){
+                throw new RuntimeException(e);
             }
-        } catch(Exception e){
-            e.printStackTrace();
         }
-        finally {
-            if(preparedStmt!=null)
-                preparedStmt.close();
-            if(rs!=null)
-                rs.close();
 
-        }
-        return previousHistoryList;
     }
+
 }

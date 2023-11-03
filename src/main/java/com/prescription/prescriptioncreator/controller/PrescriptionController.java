@@ -200,13 +200,15 @@ private void clearAddMedicine(){
                     try {
                         PreviousHistoryDetails previousHistoryDetails= new PreviousHistoryDetails();
                         PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+                        long id = previousHistoryService.addPreviousHistory(txtPHistory.getText());
                         previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+                        previousHistoryDetails.setId(id);
                         lstPreviousHistoryDetails=tblPreviousHistory.getItems();
                         lstPreviousHistoryDetails.add(0,previousHistoryDetails);
-                        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
 
+                        System.out.println(previousHistoryDetails.getPrevious_history()+" id= "+id);
+                        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails,tblPreviousHistory,clmnPreviousHistory);
                         FXMLUtil.clearTextBox(txtPHistory);
-                        previousHistoryService.addPreviousHistory(previousHistoryDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

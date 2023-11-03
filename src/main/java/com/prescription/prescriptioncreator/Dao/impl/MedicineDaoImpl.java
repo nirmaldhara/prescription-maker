@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,11 @@ public class MedicineDaoImpl implements MedicineDao {
      * @description Adding medicine details for the patients in medicine table
      * @developer Sukhendu
      */
-    public  boolean addMedicine(MedicineDetails medicineDetails) throws Exception {
+    public  long addMedicine(MedicineDetails medicineDetails) throws Exception {
         String sql = " insert into medicine (medicine_name, dose1, dose2, dose3, dose4, dose5, dose6, when_bf_af, no_of_days, note) values (?, ?, ?, ?, ?,?,?,?,?,?)";
         Connection conn=getConnection();
         try {
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            PreparedStatement preparedStmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStmt.setString (1, medicineDetails.getMedicineName());
             preparedStmt.setString (2, medicineDetails.getDose1());
             preparedStmt.setString (3, medicineDetails.getDose2());
@@ -34,10 +35,15 @@ public class MedicineDaoImpl implements MedicineDao {
             preparedStmt.setString(8,  medicineDetails.getWhen());
             preparedStmt.setInt(9,  medicineDetails.getNoOfDays());
             preparedStmt.setString(10,  medicineDetails.getNote());
-            preparedStmt.execute();
-            return  true;
+            preparedStmt.executeUpdate();
+            ResultSet generatedKeys=   preparedStmt.getGeneratedKeys();
+            long id=0;
+            if (generatedKeys.next()) {
+                id = generatedKeys.getLong(1);
+            }
+            return  id;
         } catch (Exception e) {
-            return false;
+            return 0;
         }
 
     }

@@ -135,6 +135,7 @@ public class PrescriptionController {
         ) {
             MedicineDetails medicineDetails = new MedicineDetails();
             medicineDetails.setMedicineName(txtMedicineName.getText());
+
             medicineDetails.setDose1(txtD1.getText());
             medicineDetails.setDose2(txtD2.getText());
             medicineDetails.setDose3(txtD3.getText());
@@ -144,9 +145,7 @@ public class PrescriptionController {
             medicineDetails.setNote(txtNote.getText());
             medicineDetails.setWhen(cmbWhen.getValue());
             medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue() == null ? "0" : cmbNoOFDays.getValue()));
-            lstMedicineDetails = tblPrescription.getItems();
-            lstMedicineDetails.add(0, medicineDetails);
-            addDataToPrescriptionTable();
+
 
             System.out.println("Medicine Id : " + txtId.getText());
             long id = 0;
@@ -154,8 +153,12 @@ public class PrescriptionController {
             id = Long.parseLong(txtId.getText());
             if ((id == 0)) {
                 MedicineService medicineService = new MedicineServiceImpl();
-                medicineService.addMedicine(medicineDetails);
+               id= medicineService.addMedicine(medicineDetails);
             }
+            medicineDetails.setMedicineID(id);
+            lstMedicineDetails = tblPrescription.getItems();
+            lstMedicineDetails.add(0, medicineDetails);
+            addDataToPrescriptionTable();
             clearAddMedicine();
         }
 
@@ -331,6 +334,7 @@ public class PrescriptionController {
     @FXML
     public void saveNPrintPrescription(ActionEvent event) throws Exception {
         lblPrintStatus.setVisible(true);
+        lblPrintStatus.setText("Printing....");
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService = new PrescriptionServiceImpl();
         ComplainService cs = new ComplainServiceImpl();
@@ -345,9 +349,9 @@ public class PrescriptionController {
         PrintUtil printUtil = new PrintUtil();
         if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("Done");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("");
         }
     }

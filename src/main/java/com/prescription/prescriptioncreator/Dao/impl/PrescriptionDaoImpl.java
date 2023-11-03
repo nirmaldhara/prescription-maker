@@ -39,7 +39,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
 
     @Override
     public long saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails,int patientId) throws Exception {
-        String sql = "insert into prescription (visit_id, patient_id , medicine_name, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note) values (?, ?, ?, ?, ?,?,?,?, ?, ?, ?, ?)";
+        String sql = "insert into prescription (visit_id, patient_id , medicine_id, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note) values (?, ?, ?, ?, ?,?,?,?, ?, ?, ?, ?)";
         Connection conn=getConnection();
         int visit_id=getLastVisitId();
         for(MedicineDetails pd:lstMedicineDetails) {
@@ -47,7 +47,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 PreparedStatement preparedStmt = conn.prepareStatement(sql);
                 preparedStmt.setInt(1, visit_id);
                 preparedStmt.setInt(2,patientId );
-                preparedStmt.setString(3, pd.getMedicineName());
+                preparedStmt.setLong(3, pd.getMedicineID());
                 preparedStmt.setString(4, pd.getWhen());
                 preparedStmt.setInt(5, pd.getNoOfDays());
                 preparedStmt.setString(6,pd.getDose1());
@@ -68,7 +68,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
 
     @Override
     public List<MedicineDetails> getPrescriptionDetailsByVisitId(Integer visitID) throws Exception {
-        String dbsql = "select visit_id, patient_id , medicine_name, when_bf_af, no_of_days,dose1,dose2,dose3,dose4,dose5,dose6,note from prescription where visit_id=?";
+        String dbsql = "select m.medicine_name,visit_id, patient_id , medicine_id, p.when_bf_af, p.no_of_days,p.dose1,p.dose2,p.dose3,p.dose4,p.dose5,p.dose6,p.note from prescription p, medicine m where visit_id=? and m.id=p.medicine_id";
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         Connection conn = getConnection();
@@ -81,6 +81,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             while(  rs.next())
             {
                 MedicineDetails medicineDetails =  new MedicineDetails();
+                medicineDetails.setMedicineID(rs.getLong("medicine_id"));
                 medicineDetails.setMedicineName(rs.getString("medicine_name"));
                 medicineDetails.setWhen(rs.getString("when_bf_af"));
                 medicineDetails.setNoOfDays(rs.getInt("no_of_days"));

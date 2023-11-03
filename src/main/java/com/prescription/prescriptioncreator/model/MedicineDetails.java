@@ -10,6 +10,16 @@ public class MedicineDetails {
     }
 
     private long id = 0;
+
+    public long getMedicineID() {
+        return medicineID;
+    }
+
+    public void setMedicineID(long medicineID) {
+        this.medicineID = medicineID;
+    }
+
+    private long medicineID;
     private String medicineName;
     private String Dose1;
     private String Dose2;

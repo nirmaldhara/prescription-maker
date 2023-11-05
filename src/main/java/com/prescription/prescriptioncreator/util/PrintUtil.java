@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.print.*;
+import javafx.scene.control.DatePicker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -65,7 +66,7 @@ public class PrintUtil {
         }
     }
 
-    public static boolean createPrescription(PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
+    public static boolean createPrescription(PatientDetails patientDetails, List<MedicineDetails> lstMedicineDetails, List<ComplainDetails> lstComplainDetails, List<PreviousHistoryDetails> lstPreviousHistoryDetails, List<FindingsDetails> lstFindingsDetails, List<SuggestionsDetails> lstSuggestionsDetails, DatePicker txtCurrentDate) throws IOException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
@@ -89,8 +90,11 @@ public class PrintUtil {
         htmlBuilder.append("</table>");
         htmlBuilder.append("<table>");
         htmlBuilder.append("<tr><td nowrap align='right'><b>Mobile Number :</b></td><td nowrap>"+patientDetails.getMobile_no()+"</td><td nowrap align='right'><b>Address :</b></td><td nowrap>"+patientDetails.getAddress()+"</td><td nowrap><b>Age :</b></td><td>"+patientDetails.getAge()+"</td><td nowrap><b>Gender :</b></td><td>"+patientDetails.getSex()+"</td></tr>");
-        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
+        htmlBuilder.append("</table>");
 
+        htmlBuilder.append("<table width=100%>");
+        htmlBuilder.append("<tr><td nowrap><b>Next Visit :</b></td><td nowrap>"+txtCurrentDate.getValue()+"</td></tr>");
+        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 
@@ -104,24 +108,57 @@ public class PrintUtil {
         htmlBuilder.append("<th>Note</th>");
         htmlBuilder.append("</tr>");
 
-        for(MedicineDetails pd:lstMedicineDetails) {
+        for (MedicineDetails pd : lstMedicineDetails) {
             htmlBuilder.append("<tr>");
-            htmlBuilder.append("<td nowrap>"+pd.getMedicineName() +"</td>");
+            htmlBuilder.append("<td nowrap>" + pd.getMedicineName() + "</td>");
 
             htmlBuilder.append("<td>");
-            htmlBuilder.append("<div style='display:flex;align-items:center'>");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose1()+"</div>");
-            htmlBuilder.append("-");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose2()+"</div>");
-            htmlBuilder.append("-");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose3()+"</div>");
+            htmlBuilder.append("<div style='display:flex; align-items:center'>");
+
+            // Check and display Dose 1 if it has a value
+            if (!pd.getDose1().isEmpty()) {
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose1() + "</div>");
+            }
+
+            // Check and display Dose 2 if it has a value
+            if (!pd.getDose2().isEmpty()) {
+                htmlBuilder.append("-");
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose2() + "</div>");
+            }
+
+            // Check and display Dose 3 if it has a value
+            if (!pd.getDose3().isEmpty()) {
+                htmlBuilder.append("-");
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose3() + "</div>");
+            }
+
+            // Check and display Dose 4 if it has a value
+            if (!pd.getDose4().isEmpty()) {
+                htmlBuilder.append("-");
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose4() + "</div>");
+            }
+
+            // Check and display Dose 5 if it has a value
+            if (!pd.getDose5().isEmpty()) {
+                htmlBuilder.append("-");
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose5() + "</div>");
+            }
+
+            // Check and display Dose 6 if it has a value
+            if (!pd.getDose6().isEmpty()) {
+                htmlBuilder.append("-");
+                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose6() + "</div>");
+            }
 
             htmlBuilder.append("</div>");
             htmlBuilder.append("</td>");
-            htmlBuilder.append("<td nowrap>"+pd.getNoOfDays()+"</td>");
-            htmlBuilder.append("<td nowrap>"+pd.getNote()+"</td>");
+            htmlBuilder.append("<td nowrap>" + pd.getNoOfDays() + "</td>");
+            htmlBuilder.append("<td nowrap>" + pd.getNote() + "</td>");
             htmlBuilder.append("</tr>");
         }
+
+
+
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 

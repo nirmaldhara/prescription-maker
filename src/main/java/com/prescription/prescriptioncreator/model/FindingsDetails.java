@@ -10,6 +10,7 @@ public class FindingsDetails {
     }
 
     private long id;
+
     public String getFindings() {
         return findings;
     }
@@ -21,6 +22,7 @@ public class FindingsDetails {
     private String findings;
 
     @Override
-    public String toString() {return this.getFindings();
+    public String toString() {
+        return this.getFindings();
     }
 }

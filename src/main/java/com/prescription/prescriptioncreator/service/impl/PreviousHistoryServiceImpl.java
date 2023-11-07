@@ -9,6 +9,7 @@ import java.util.List;
 
 public class PreviousHistoryServiceImpl implements PreviousHistoryService {
     PreviousHistoryDao previousHistoryDao = new PreviousHistoryDaoImpl();
+
     @Override
     public long addPreviousHistory(String previous_history) throws Exception {
         return previousHistoryDao.addPreviousHistory(previous_history);

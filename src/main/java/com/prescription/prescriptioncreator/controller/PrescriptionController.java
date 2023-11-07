@@ -153,7 +153,7 @@ public class PrescriptionController {
             id = Long.parseLong(txtId.getText());
             if ((id == 0)) {
                 MedicineService medicineService = new MedicineServiceImpl();
-               id= medicineService.addMedicine(medicineDetails);
+                id = medicineService.addMedicine(medicineDetails);
             }
             medicineDetails.setMedicineID(id);
             lstMedicineDetails = tblPrescription.getItems();
@@ -243,7 +243,6 @@ public class PrescriptionController {
                         System.out.println(previousHistoryDetails.getPrevious_history() + " id = " + id);
                         PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails, tblPreviousHistory, clmnPreviousHistory);
                         FXMLUtil.clearTextBox(txtPHistory);
-
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -270,10 +269,9 @@ public class PrescriptionController {
                         lstFindingsDetails = tblFindings.getItems();
                         lstFindingsDetails.add(findingsDetails);
 
-                        System.out.println(findingsDetails.getFindings()+ " id = " +id);
+                        System.out.println(findingsDetails.getFindings() + " id = " + id);
                         FindingsRenderUtil.addToFindings(lstFindingsDetails, tblFindings, clmnFindings);
                         FXMLUtil.clearTextBox(txtFindings);
-
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -300,10 +298,9 @@ public class PrescriptionController {
                         lstSuggestionsDetails = tblSuggestions.getItems();
                         lstSuggestionsDetails.add(suggestionsDetails);
 
-                        System.out.println(suggestionsDetails.getSuggestions() +" id = "+ id);
+                        System.out.println(suggestionsDetails.getSuggestions() + " id = " + id);
                         SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails, tblSuggestions, clmnSuggestions);
                         FXMLUtil.clearTextBox(txtSuggestions);
-
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -365,22 +362,23 @@ public class PrescriptionController {
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
-        lstMedicineDetails=tblPrescription.getItems();
+        lstMedicineDetails = tblPrescription.getItems();
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
-        lstComplainDetails=tblComplain.getItems();
+
+        lstComplainDetails = tblComplain.getItems();
         cs.saveComplainToPrescription(lstComplainDetails, visit_id);
 
-        lstPreviousHistoryDetails=tblPreviousHistory.getItems();
-        phs.savePreviousHistoryToPrescription(lstPreviousHistoryDetails,visit_id);
+        lstPreviousHistoryDetails = tblPreviousHistory.getItems();
+        phs.savePreviousHistoryToPrescription(lstPreviousHistoryDetails, visit_id);
 
-        lstFindingsDetails=tblFindings.getItems();
-        fd.saveFindingsToPrescription(lstFindingsDetails,visit_id);
+        lstFindingsDetails = tblFindings.getItems();
+        fd.saveFindingsToPrescription(lstFindingsDetails, visit_id);
 
-        lstSuggestionsDetails=tblSuggestions.getItems();
+        lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
         PrintUtil printUtil = new PrintUtil();
-        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails,txtCurrentDate)) {
+        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
             TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("Done");

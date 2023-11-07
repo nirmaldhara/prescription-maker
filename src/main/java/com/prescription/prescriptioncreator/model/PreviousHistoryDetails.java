@@ -21,5 +21,6 @@ public class PreviousHistoryDetails {
     public void setId(long id) {
         this.id = id;
     }
+
     private long id;
 }

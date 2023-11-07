@@ -379,7 +379,7 @@ public class PrescriptionController {
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
         PrintUtil printUtil = new PrintUtil();
-        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
+        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails,txtCurrentDate)) {
             PrintUtil.print();
             TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("Done");

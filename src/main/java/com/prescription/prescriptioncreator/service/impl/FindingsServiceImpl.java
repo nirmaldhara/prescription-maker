@@ -9,9 +9,10 @@ import java.util.List;
 
 public class FindingsServiceImpl implements FindingsService {
     FindingsDao findingsDao = new FindingsDaoImpl();
+
     @Override
-    public boolean addFindings(FindingsDetails findingsDetails) throws Exception {
-        return findingsDao.addFindings(findingsDetails);
+    public long addFindings(String findings) throws Exception {
+        return findingsDao.addFindings(findings);
     }
 
     @Override
@@ -20,7 +21,12 @@ public class FindingsServiceImpl implements FindingsService {
     }
 
     @Override
-    public List<FindingsDetails> addFindings(String findings) throws Exception {
-        return findingsDao.addFindings(findings);
+    public void saveFindingsToPrescription(List<FindingsDetails> lstFindingsDetails, long visit_id) throws Exception {
+        findingsDao.saveFindingsToPrescription(lstFindingsDetails, visit_id);
+    }
+
+    @Override
+    public List<FindingsDetails> getFindingsOFDetails(long visitId) throws Exception {
+        return findingsDao.getFindingsOFDetails(visitId);
     }
 }

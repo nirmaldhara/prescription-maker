@@ -1,16 +1,18 @@
 package com.prescription.prescriptioncreator.model;
 
 public class SuggestionsDetails {
-    private int id;
-    private String suggestions;
+    private long id;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
+
+    private String suggestions;
+
 
     public String getSuggestions() {
         return suggestions;
@@ -19,7 +21,9 @@ public class SuggestionsDetails {
     public void setSuggestions(String suggestions) {
         this.suggestions = suggestions;
     }
+
     @Override
-    public String toString() {return this.getSuggestions();
+    public String toString() {
+        return this.getSuggestions();
     }
 }

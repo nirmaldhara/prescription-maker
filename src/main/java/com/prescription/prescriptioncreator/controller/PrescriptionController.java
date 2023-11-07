@@ -153,7 +153,7 @@ public class PrescriptionController {
             id = Long.parseLong(txtId.getText());
             if ((id == 0)) {
                 MedicineService medicineService = new MedicineServiceImpl();
-               id= medicineService.addMedicine(medicineDetails);
+                id = medicineService.addMedicine(medicineDetails);
             }
             medicineDetails.setMedicineID(id);
             lstMedicineDetails = tblPrescription.getItems();
@@ -184,7 +184,16 @@ public class PrescriptionController {
                 clmnNote,
                 lstComplainDetails,
                 tblComplain,
-                clmnComplain);
+                clmnComplain,
+                lstPreviousHistoryDetails,
+                tblPreviousHistory,
+                clmnPreviousHistory,
+                lstFindingsDetails,
+                tblFindings,
+                clmnFindings,
+                lstSuggestionsDetails,
+                tblSuggestions,
+                clmnSuggestions);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote);
 
@@ -225,13 +234,15 @@ public class PrescriptionController {
                     try {
                         PreviousHistoryDetails previousHistoryDetails = new PreviousHistoryDetails();
                         PreviousHistoryService previousHistoryService = new PreviousHistoryServiceImpl();
+                        long id = previousHistoryService.addPreviousHistory(txtPHistory.getText());
                         previousHistoryDetails.setPrevious_history(txtPHistory.getText());
+                        previousHistoryDetails.setId(id);
                         lstPreviousHistoryDetails = tblPreviousHistory.getItems();
                         lstPreviousHistoryDetails.add(0, previousHistoryDetails);
-                        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails, tblPreviousHistory, clmnPreviousHistory);
 
+                        System.out.println(previousHistoryDetails.getPrevious_history() + " id = " + id);
+                        PreviousHistoryRenderUtil.addToPreviousHistory(lstPreviousHistoryDetails, tblPreviousHistory, clmnPreviousHistory);
                         FXMLUtil.clearTextBox(txtPHistory);
-                        previousHistoryService.addPreviousHistory(previousHistoryDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -252,12 +263,15 @@ public class PrescriptionController {
                     try {
                         FindingsService findingsService = new FindingsServiceImpl();
                         FindingsDetails findingsDetails = new FindingsDetails();
+                        long id = findingsService.addFindings(txtFindings.getText());
                         findingsDetails.setFindings(txtFindings.getText());
+                        findingsDetails.setId(id);
                         lstFindingsDetails = tblFindings.getItems();
-                        lstFindingsDetails.add(0, findingsDetails);
+                        lstFindingsDetails.add(findingsDetails);
+
+                        System.out.println(findingsDetails.getFindings() + " id = " + id);
                         FindingsRenderUtil.addToFindings(lstFindingsDetails, tblFindings, clmnFindings);
                         FXMLUtil.clearTextBox(txtFindings);
-                        findingsService.addFindings(findingsDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -278,12 +292,15 @@ public class PrescriptionController {
                     try {
                         SuggestionsService suggestionsService = new SuggestionsServiceImpl();
                         SuggestionsDetails suggestionsDetails = new SuggestionsDetails();
+                        long id = suggestionsService.addSuggestions(txtSuggestions.getText());
                         suggestionsDetails.setSuggestions(txtSuggestions.getText());
+                        suggestionsDetails.setId(id);
                         lstSuggestionsDetails = tblSuggestions.getItems();
-                        lstSuggestionsDetails.add(0, suggestionsDetails);
+                        lstSuggestionsDetails.add(suggestionsDetails);
+
+                        System.out.println(suggestionsDetails.getSuggestions() + " id = " + id);
                         SuggestionsRenderUtil.addToSuggestions(lstSuggestionsDetails, tblSuggestions, clmnSuggestions);
                         FXMLUtil.clearTextBox(txtSuggestions);
-                        suggestionsService.addSuggestions(suggestionsDetails);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
@@ -338,13 +355,27 @@ public class PrescriptionController {
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService = new PrescriptionServiceImpl();
         ComplainService cs = new ComplainServiceImpl();
+        PreviousHistoryService phs = new PreviousHistoryServiceImpl();
+        FindingsService fd = new FindingsServiceImpl();
+        SuggestionsService sd = new SuggestionsServiceImpl();
+
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
-        lstMedicineDetails=tblPrescription.getItems();
+        lstMedicineDetails = tblPrescription.getItems();
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
-        lstComplainDetails=tblComplain.getItems();
+
+        lstComplainDetails = tblComplain.getItems();
         cs.saveComplainToPrescription(lstComplainDetails, visit_id);
+
+        lstPreviousHistoryDetails = tblPreviousHistory.getItems();
+        phs.savePreviousHistoryToPrescription(lstPreviousHistoryDetails, visit_id);
+
+        lstFindingsDetails = tblFindings.getItems();
+        fd.saveFindingsToPrescription(lstFindingsDetails, visit_id);
+
+        lstSuggestionsDetails = tblSuggestions.getItems();
+        sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
         PrintUtil printUtil = new PrintUtil();
         if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {

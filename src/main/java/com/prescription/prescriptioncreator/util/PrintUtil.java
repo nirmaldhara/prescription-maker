@@ -65,10 +65,10 @@ public class PrintUtil {
             //Logger.getLogger(ElectricBillController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //6 parameters
+    //7 parameters
     public static boolean createPrescription(PatientDetails patientDetails, List<MedicineDetails> lstMedicineDetails, List<ComplainDetails> lstComplainDetails, List<PreviousHistoryDetails> lstPreviousHistoryDetails, List<FindingsDetails> lstFindingsDetails, List<SuggestionsDetails> lstSuggestionsDetails, DatePicker txtCurrentDate) throws IOException {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDateTime = now.format(formatter);
         boolean flag = false;
         StringBuilder htmlBuilder = new StringBuilder();
@@ -86,7 +86,7 @@ public class PrintUtil {
         htmlBuilder.append("<div style='padding-top:20px;'>");
         htmlBuilder.append("<table width=100%>");
 
-        htmlBuilder.append("<tr><td nowrap> <b>Patient's Id :</b></td><td width>"+"100"+patientDetails.getId()+"</td> <td nowrap><b>Patient's Name :</b></td><td nowrap>"+patientDetails.getFirst_name()+"</td><td nowrap><b>Date :</b></td><td>10/08/2023</td><td></td></tr>");
+        htmlBuilder.append("<tr><td nowrap> <b>Patient's Id :</b></td><td width>"+"100"+patientDetails.getId()+"</td> <td nowrap><b>Patient's Name :</b></td><td nowrap>"+patientDetails.getFirst_name()+"</td><td nowrap><b>Date :</b></td><td nowrap>"+formattedDateTime+"</td><td></td></tr>");
         htmlBuilder.append("</table>");
         htmlBuilder.append("<table>");
         htmlBuilder.append("<tr><td nowrap align='right'><b>Mobile Number :</b></td><td nowrap>"+patientDetails.getMobile_no()+"</td><td nowrap align='right'><b>Address :</b></td><td nowrap>"+patientDetails.getAddress()+"</td><td nowrap><b>Age :</b></td><td>"+patientDetails.getAge()+"</td><td nowrap><b>Gender :</b></td><td>"+patientDetails.getSex()+"</td></tr>");

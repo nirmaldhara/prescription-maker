@@ -64,7 +64,7 @@ public class PrintUtil {
             //Logger.getLogger(ElectricBillController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    //6 parameters
     public static boolean createPrescription(PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

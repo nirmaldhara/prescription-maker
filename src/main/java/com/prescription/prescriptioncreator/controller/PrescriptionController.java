@@ -354,6 +354,7 @@ public class PrescriptionController {
         lblPrintStatus.setText("Printing....");
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         PrescriptionService prescriptionService = new PrescriptionServiceImpl();
+
         ComplainService cs = new ComplainServiceImpl();
         PreviousHistoryService phs = new PreviousHistoryServiceImpl();
         FindingsService fd = new FindingsServiceImpl();

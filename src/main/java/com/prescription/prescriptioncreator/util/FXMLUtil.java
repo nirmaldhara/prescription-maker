@@ -4,6 +4,7 @@ import com.prescription.prescriptioncreator.PrescriptionMaker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -57,6 +58,19 @@ public class FXMLUtil {
         c1.setText(value);
     }
     public static void clearComboBox(ComboBox<String> comboBox,String value) {
-        comboBox.setValue(value);
+        comboBox.getSelectionModel().clearSelection();
+
+        comboBox.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if (empty || item == null) {
+                    setText(value);
+                } else {
+                    setText(item);
+                }
+            }
+        });
+        comboBox.setPromptText(value);
     }
 }

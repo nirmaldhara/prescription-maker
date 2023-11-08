@@ -141,7 +141,7 @@
                     </ComboBox>
                     <ComboBox fx:id="cmbNoOFDays" layoutX="662.0" layoutY="377.0" prefHeight="25.0" prefWidth="82.0" promptText="Days" />
                     <TextField fx:id="txtNote" layoutX="3.0" layoutY="407.0" prefHeight="25.0" prefWidth="375.0" promptText="Note" />
-                    <Button layoutX="751.0" layoutY="377.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="57.0" prefWidth="94.0" text="Add">
+                    <Button layoutX="750.0" layoutY="377.0" mnemonicParsing="false" onAction="#addToPrescription" prefHeight="57.0" prefWidth="97.0" text="Add">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -170,14 +170,14 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="txtPHistory" layoutX="226.0" layoutY="194.0" prefHeight="25.0" prefWidth="201.0" promptText="Previous History" />
-                  <TextField fx:id="txtFindings" layoutX="436.0" layoutY="194.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
-                  <TextField fx:id="txtSuggestions" layoutX="645.0" layoutY="195.0" prefHeight="25.0" prefWidth="200.0" promptText="Suggestions" />
-                  <TableView fx:id="tblFindings" layoutX="436.0" layoutY="220.0" prefHeight="152.0" prefWidth="200.0">
+                  <TextField fx:id="txtFindings" layoutX="437.0" layoutY="194.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
+                  <TextField fx:id="txtSuggestions" layoutX="647.0" layoutY="195.0" prefHeight="25.0" prefWidth="200.0" promptText="Suggestions" />
+                  <TableView fx:id="tblFindings" layoutX="437.0" layoutY="220.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tblSuggestions" layoutX="645.0" layoutY="220.0" prefHeight="152.0" prefWidth="200.0">
+                  <TableView fx:id="tblSuggestions" layoutX="647.0" layoutY="220.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmnSuggestions" prefWidth="249.0" text="Suggestions" />
                     </columns>

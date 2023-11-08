@@ -29,9 +29,10 @@ public class PrescriptionController {
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails = new ArrayList<>();
     @FXML
-    TextField txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote;
+    TextField txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote, txtD11, txtD21, txtD31, txtD41, txtD51, txtD61;
+
     @FXML
-    private ComboBox<String> cmbWhen, cmbNoOFDays;
+    private ComboBox<String> cmbWhen, cmbNoOFDays,cmbWhen1, cmbNoOFDays1;
     @FXML
     TableView tblPrescription;
     @FXML
@@ -108,7 +109,7 @@ public class PrescriptionController {
 
     }
 
-    private void clearAddMedicine() {
+    private void clearAddMedicine( TextField txtId,TextField txtMedicineName,TextField txtD1,TextField txtD2,TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote, ComboBox<String> cmbWhen, ComboBox<String> cmbNoOFDays) {
         FXMLUtil.clearTextBox(txtId, "0");
         FXMLUtil.clearTextBox(txtMedicineName);
         FXMLUtil.clearTextBox(txtD1);
@@ -118,11 +119,11 @@ public class PrescriptionController {
         FXMLUtil.clearTextBox(txtD5);
         FXMLUtil.clearTextBox(txtD6);
         FXMLUtil.clearTextBox(txtNote);
-        FXMLUtil.clearComboBox(cmbWhen, "");
+        FXMLUtil.clearComboBox(cmbWhen, "When");
         //FXMLUtil.clearComboBox(cmbNoOFDays);
         //cmbNoOFDays.getSelectionModel().clearSelection();
         //cmbNoOFDays.getPromptText();
-        FXMLUtil.clearComboBox(cmbNoOFDays, "");
+        FXMLUtil.clearComboBox(cmbNoOFDays, "Days");
     }
 
     @FXML
@@ -147,6 +148,7 @@ public class PrescriptionController {
             medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue() == null ? "0" : cmbNoOFDays.getValue()));
 
 
+
             System.out.println("Medicine Id : " + txtId.getText());
             long id = 0;
             //id = Long.parseLong(txtId.getText().equals("")? "0":txtId.getText());///
@@ -158,8 +160,29 @@ public class PrescriptionController {
             medicineDetails.setMedicineID(id);
             lstMedicineDetails = tblPrescription.getItems();
             lstMedicineDetails.add(0, medicineDetails);
-            addDataToPrescriptionTable();
-            clearAddMedicine();
+
+
+            String medname=txtMedicineName.getText().trim();
+            if(!medname.equals("")) {
+                addDataToPrescriptionTable();
+                medicineDetails = new MedicineDetails();
+                medicineDetails.setMedicineID(id);
+                medicineDetails.setMedicineName(txtMedicineName.getText());
+                medicineDetails.setDose1(txtD11.getText());
+                medicineDetails.setDose2(txtD21.getText());
+                medicineDetails.setDose3(txtD31.getText());
+                medicineDetails.setDose4(txtD41.getText());
+                medicineDetails.setDose5(txtD51.getText());
+                medicineDetails.setDose6(txtD61.getText());
+                medicineDetails.setNote(txtNote.getText());
+                medicineDetails.setWhen(cmbWhen1.getValue());
+                medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays1.getValue() == null ? "0" : cmbNoOFDays1.getValue()));
+                lstMedicineDetails = tblPrescription.getItems();
+                lstMedicineDetails.add(1, medicineDetails);
+                addDataToPrescriptionTable();
+            }
+            clearAddMedicine( txtId, txtMedicineName, txtD1, txtD2, txtD3,  txtD4,  txtD5,  txtD6,  txtNote,  cmbWhen,  cmbNoOFDays);
+            clearAddMedicine( txtId, txtMedicineName, txtD11, txtD21, txtD31,  txtD41,  txtD51,  txtD61,  txtNote,  cmbWhen1,  cmbNoOFDays1);
         }
 
     }
@@ -315,6 +338,7 @@ public class PrescriptionController {
             days.add("" + i);
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
         cmbNoOFDays.setItems(listDays);
+        cmbNoOFDays1.setItems(listDays);
 
         //  prescriptionData = FXCollections.observableArrayList();
 

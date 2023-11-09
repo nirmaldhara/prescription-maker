@@ -1,5 +1,7 @@
 package com.prescription.prescriptioncreator.model;
 
+import java.util.Date;
+
 public class PatientDetails {
     public int getId() {
         return id;
@@ -10,12 +12,31 @@ public class PatientDetails {
     }
 
     private int id;
-    private  String first_name;
-    private  String last_name;
+    private String first_name;
+    private String last_name;
     private String patientId;
-    private int age;
-    private  String sex;
-    private  String mobile_no;
+    private String sex;
+    private String mobile_no;
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    private String age;
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    private Date dob;
 
     public String getFirst_name() {
         return first_name;
@@ -41,13 +62,6 @@ public class PatientDetails {
         this.patientId = patientId;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getSex() {
         return sex;
@@ -73,8 +87,7 @@ public class PatientDetails {
         this.address = address;
     }
 
-    private  String address;
-
+    private String address;
 
 
 }

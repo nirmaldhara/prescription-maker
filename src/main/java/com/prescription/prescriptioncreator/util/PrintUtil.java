@@ -65,7 +65,7 @@ public class PrintUtil {
         }
     }
     //6 parameters
-    public static boolean createPrescription(PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
+    public static boolean createPrescription(String visitDate,String nextVisit,PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
@@ -75,28 +75,23 @@ public class PrintUtil {
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
 
-        htmlBuilder.append("<table style='width:350px;'>");
-        htmlBuilder.append("<tr>");
-        htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>"+formattedDateTime+"</td>");
-        htmlBuilder.append("<td style='text-align: center;font-size:12;'>Prescription</td>");
-        htmlBuilder.append("</tr>");
-        htmlBuilder.append("</table>");
-
         htmlBuilder.append("<div style='padding-top:20px;'>");
-        htmlBuilder.append("<table width=100%>");
+        htmlBuilder.append("<table border=0 style='width:595px; font-size: 12px;'>");
 
-        htmlBuilder.append("<tr><td nowrap> <b>Patient's Id :</b></td><td width>"+patientDetails.getPatientId()+"</td> <td nowrap><b>Patient's Name :</b></td><td nowrap>"+patientDetails.getFirst_name()+"</td><td nowrap><b>Date :</b></td><td>10/08/2023</td><td></td></tr>");
-        htmlBuilder.append("</table>");
-        htmlBuilder.append("<table>");
-        htmlBuilder.append("<tr><td nowrap align='right'><b>Mobile Number :</b></td><td nowrap>"+patientDetails.getMobile_no()+"</td><td nowrap align='right'><b>Address :</b></td><td nowrap>"+patientDetails.getAddress()+"</td><td nowrap><b>Age :</b></td><td>"+patientDetails.getAge()+"</td><td nowrap><b>Gender :</b></td><td>"+patientDetails.getSex()+"</td></tr>");
-        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
+        htmlBuilder.append("<tr><td nowrap style='width: 100px;'> <b>Patient's Id :</b></td><td  nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+(1000+patientDetails.getId())+"</td> <td nowrap style='width: 100px;'><b>Patient's Name :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 295px;'>"+patientDetails.getFirst_name()+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap><b>Age :</b></td><td style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getAge()+"</td><td nowrap><b>Mobile Number :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getMobile_no()+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='left' ><b>Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+visitDate+"</td> <td nowrap align='left' ><b>Next Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;' >"+nextVisit+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='left' ><b>Address :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 400px;' colspan='3'>"+patientDetails.getAddress()+"</td></tr>");
+
 
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 
 
         htmlBuilder.append("<div style='padding-left:30px;'>");
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 600px;border:none;'>");
+        htmlBuilder.append("<img src='rx.png' width=20 height = 20 style='padding-top:50px; padding-bottom:10px'>");
+
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 595px;border:none; font-size: 10px;'>");
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'>");
         htmlBuilder.append("<th nowrap>Medicine Name</th>");
         htmlBuilder.append("<th>Dose</th>");
@@ -105,16 +100,29 @@ public class PrintUtil {
         htmlBuilder.append("</tr>");
 
         for(MedicineDetails pd:lstMedicineDetails) {
+            String d1=pd.getDose1();
+            String d2=pd.getDose2();
+            String d3=pd.getDose3();
+            String d4=pd.getDose4();
+            String d5=pd.getDose5();
+            String d6=pd.getDose6();
             htmlBuilder.append("<tr>");
             htmlBuilder.append("<td nowrap>"+pd.getMedicineName() +"</td>");
 
             htmlBuilder.append("<td>");
             htmlBuilder.append("<div style='display:flex;align-items:center'>");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose1()+"</div>");
-            htmlBuilder.append("-");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose2()+"</div>");
-            htmlBuilder.append("-");
-            htmlBuilder.append("<div style='width:30px;height:30px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:30px;margin-right: 5px;font-size:10;'>"+pd.getDose3()+"</div>");
+            if(d1!=null && !d1.equals("0") && !d1.equals(""))
+            htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d1+"</div> <div><img src='line.png' width=10 style='padding-right:4px'></div>");
+            if(d2!=null && !d2.equals("0") && !d2.equals(""))
+                htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d2+"</div><div><img src='line.png' width=10 style='padding-right:4px'></div>");
+            if(d3!=null && !d3.equals("0") && !d3.equals(""))
+                htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d3+"</div> <div><img src='line.png' width=10 style='padding-right:4px'></div>");
+            if(d4!=null && !d4.equals("0") && !d4.equals(""))
+                htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d4+"</div><div><img src='line.png' width=10 style='padding-right:4px'></div>");
+            if(d5!=null && !d5.equals("0") && !d5.equals(""))
+                htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d6+"</div><div><img src='line.png' width=10 style='padding-right:4px'></div>");
+            if(d6!=null && !d6.equals("0") && !d6.equals(""))
+                htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>"+d6+"</div><div><img src='line.png' width=10 style='padding-right:4px'></div>");
 
             htmlBuilder.append("</div>");
             htmlBuilder.append("</td>");
@@ -148,7 +156,7 @@ public class PrintUtil {
         htmlBuilder.append("</div>");////
 
         htmlBuilder.append("<div style='width:150px'>");////
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
             htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Findings</th></tr>");
         for(FindingsDetails fd:lstFindingsDetails) {
             htmlBuilder.append("<tr><td nowrap>"+fd.getFindings()+"</td></tr>");

@@ -114,3 +114,9 @@ CREATE TABLE `patient` (
                 `visit_id` INT NOT NULL,
                 PRIMARY KEY (`id`))
 
+CREATE TABLE `prescription`.`visit_history` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `visit_id` INT NOT NULL,
+  `visit_date` DATETIME NOT NULL,
+  `next_visit` DATETIME NOT NULL,
+  PRIMARY KEY (`id`));

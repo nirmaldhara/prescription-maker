@@ -19,42 +19,43 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1758.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
    <children>
 
-            <ToolBar fx:id="tBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="6000.0">
-              <items>
-                  <Button mnemonicParsing="false" onAction="#openAddPatient" text="Registration">
-                      <graphic>
-                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../img/registration.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                  </Button>
-                <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/test-tube.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Button mnemonicParsing="false" onAction="#openAddMedicine" text="Add Medicine">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/medicine.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-              </items>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-            </ToolBar>
+
 <!--      <ScrollPane layoutX="8.0" layoutY="42.0" prefHeight="615.0" prefWidth="1300.0">-->
 <!--        <content>-->
             <Pane prefHeight="1050.0" prefWidth="1290.0">
                 <children>
+                    <ToolBar fx:id="tBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="6000.0">
+                        <items>
+                            <Button mnemonicParsing="false" onAction="#openAddPatient" text="Registration">
+                                <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../img/registration.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
+                                <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../img/test-tube.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic></Button>
+                            <Button mnemonicParsing="false" onAction="#openAddMedicine" text="Add Medicine">
+                                <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../img/medicine.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic></Button>
+                        </items>
+                        <cursor>
+                            <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                    </ToolBar>
                     <TextField fx:id="txtMobileNo" layoutX="3.0" layoutY="48.0" promptText="Mobile No" />
                     <Button fx:id="btnPatientSearch" layoutX="314.0" layoutY="44.0" mnemonicParsing="false" onAction="#searchPatientDetails" text="Search">
                      <graphic>

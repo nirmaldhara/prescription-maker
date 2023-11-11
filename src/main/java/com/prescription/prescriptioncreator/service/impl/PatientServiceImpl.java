@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PatientServiceImpl implements PatientService {
     @Override
-    public List<PatientDetails> searchPatientDetails(String mobile_no, String patient_id) throws Exception {
+    public List<PatientDetails> searchPatientDetails(String mobile_no, int patient_id) throws Exception {
         PatientDao patientDao= new PatientDaoImpl();
         return patientDao.searchPatientDetails(mobile_no,patient_id);
     }

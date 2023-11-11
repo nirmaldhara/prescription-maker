@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +60,7 @@ public class PrescriptionController {
     VBox mainVBox;
 
     @FXML
-    DatePicker txtCurrentDate;
+    DatePicker txtVisitDate,txtNextVisitDate;
 
     ////
     @FXML
@@ -162,8 +163,8 @@ public class PrescriptionController {
             lstMedicineDetails.add(0, medicineDetails);
 
 
-            String medname=txtMedicineName.getText().trim();
-            if(!medname.equals("")) {
+          //  String medname=txtMedicineName.getText().trim();
+            if(!txtD11.getText().equals("") || !txtD21.getText().equals("") || !txtD31.getText().equals("") || !txtD41.getText().equals("")  || !txtD51.getText().equals("") || !txtD61.getText().equals("") ) {
                 addDataToPrescriptionTable();
                 medicineDetails = new MedicineDetails();
                 medicineDetails.setMedicineID(id);
@@ -179,8 +180,9 @@ public class PrescriptionController {
                 medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays1.getValue() == null ? "0" : cmbNoOFDays1.getValue()));
                 lstMedicineDetails = tblPrescription.getItems();
                 lstMedicineDetails.add(1, medicineDetails);
-                addDataToPrescriptionTable();
             }
+                addDataToPrescriptionTable();
+
             clearAddMedicine( txtId, txtMedicineName, txtD1, txtD2, txtD3,  txtD4,  txtD5,  txtD6,  txtNote,  cmbWhen,  cmbNoOFDays);
             clearAddMedicine( txtId, txtMedicineName, txtD11, txtD21, txtD31,  txtD41,  txtD51,  txtD61,  txtNote,  cmbWhen1,  cmbNoOFDays1);
         }
@@ -342,7 +344,8 @@ public class PrescriptionController {
 
         //  prescriptionData = FXCollections.observableArrayList();
 
-        txtCurrentDate.setValue(DateUtil.NEXT_MONTH_DATE());
+        txtNextVisitDate.setValue(DateUtil.NEXT_MONTH_DATE());
+        txtVisitDate.setValue(DateUtil.NOW_LOCAL_DATE());
         // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
 
     }
@@ -358,9 +361,10 @@ public class PrescriptionController {
     public void searchPatientDetails(ActionEvent event) throws Exception {
         PatientService patientService = new PatientServiceImpl();
         String mobileNo = txtMobileNo.getText();
-        String patientId = txtPatientId.getText();
+        int patientId = Integer.parseInt(txtPatientId.getText().equals("")? "0": txtPatientId.getText());
         if ((!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val())) || (!ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val()))) {
             List<PatientDetails> lstPatient = patientService.searchPatientDetails(mobileNo, patientId);
+
             PatientRenderUtil.displayPatientDetails(lstPatient, tblPatient, tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId);
             System.out.println("Search" + mobileNo);
         }
@@ -372,22 +376,14 @@ public class PrescriptionController {
         FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml", 540, 220, "Add Medicine");
     }
 
-    @FXML
-    public void saveNPrintPrescription(ActionEvent event) throws Exception {
-        lblPrintStatus.setVisible(true);
-        lblPrintStatus.setText("Printing....");
-        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
-        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
 
+    private boolean save() throws Exception {
+        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
         ComplainService cs = new ComplainServiceImpl();
         PreviousHistoryService phs = new PreviousHistoryServiceImpl();
         FindingsService fd = new FindingsServiceImpl();
         SuggestionsService sd = new SuggestionsServiceImpl();
-
-        if (patientDetails == null) {
-            ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
-        }
-        lstMedicineDetails = tblPrescription.getItems();
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
         lstComplainDetails = tblComplain.getItems();
@@ -401,15 +397,44 @@ public class PrescriptionController {
 
         lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
+        return true;
+    }
 
+    private boolean print() throws IOException, InterruptedException {
+        lblPrintStatus.setVisible(true);
+        lblPrintStatus.setText("Printing....");
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+
+        if (patientDetails == null) {
+            ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
+        }
+       // lstMedicineDetails = tblPrescription.getItems();
         PrintUtil printUtil = new PrintUtil();
-        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails,txtCurrentDate)) {
+        List<MedicineDetails> lstMedicineDetails1 = new ArrayList<>();
+        lstMedicineDetails1=tblPrescription.getItems();
+        Collections.sort(lstMedicineDetails1, new Comparator<MedicineDetails>() {
+            public int compare(MedicineDetails m1, MedicineDetails m2) {
+                // notice the cast to (Integer) to invoke compareTo
+                return (m1.getMedicineName()).compareTo(m2.getMedicineName());
+            }
+        });
+
+        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails1, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
-            TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("Done");
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(4);
             lblPrintStatus.setText("");
         }
+        return true;
+    }
+    @FXML
+    public void printPrescription(ActionEvent event) throws Exception {
+        print();
+    }
+    @FXML
+    public void saveNPrintPrescription(ActionEvent event) throws Exception {
+       save();
+       print();
     }
 
 }

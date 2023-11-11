@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.print.*;
-import javafx.scene.control.DatePicker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -65,42 +64,35 @@ public class PrintUtil {
             //Logger.getLogger(ElectricBillController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //7 parameters
-    public static boolean createPrescription(PatientDetails patientDetails, List<MedicineDetails> lstMedicineDetails, List<ComplainDetails> lstComplainDetails, List<PreviousHistoryDetails> lstPreviousHistoryDetails, List<FindingsDetails> lstFindingsDetails, List<SuggestionsDetails> lstSuggestionsDetails, DatePicker txtCurrentDate) throws IOException {
+    //6 parameters
+    public static boolean createPrescription(String visitDate,String nextVisit,PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
         boolean flag = false;
         StringBuilder htmlBuilder = new StringBuilder();
+        String preMedName="";
         htmlBuilder.append("<html>");
         htmlBuilder.append("<head><title>Info Center</title></head>");
         htmlBuilder.append("<body width=100%>");
 
-        htmlBuilder.append("<table style='width:350px;'>");
-        htmlBuilder.append("<tr>");
-        htmlBuilder.append("<td nowrap style='text-align: left;font-size:12;'>"+formattedDateTime+"</td>");
-        htmlBuilder.append("<td style='text-align: center;font-size:12;'>Prescription</td>");
-        htmlBuilder.append("</tr>");
-        htmlBuilder.append("</table>");
-
         htmlBuilder.append("<div style='padding-top:20px;'>");
-        htmlBuilder.append("<table width=100%>");
+        htmlBuilder.append("<table border=0 style='width:595px; font-size: 12px;'>");
 
-        htmlBuilder.append("<tr><td nowrap> <b>Patient's Id :</b></td><td width>"+"100"+patientDetails.getId()+"</td> <td nowrap><b>Patient's Name :</b></td><td nowrap>"+patientDetails.getFirst_name()+"</td><td nowrap><b>Date :</b></td><td nowrap>"+formattedDateTime+"</td><td></td></tr>");
-        htmlBuilder.append("</table>");
-        htmlBuilder.append("<table>");
-        htmlBuilder.append("<tr><td nowrap align='right'><b>Mobile Number :</b></td><td nowrap>"+patientDetails.getMobile_no()+"</td><td nowrap align='right'><b>Address :</b></td><td nowrap>"+patientDetails.getAddress()+"</td><td nowrap><b>Age :</b></td><td>"+patientDetails.getAge()+"</td><td nowrap><b>Gender :</b></td><td>"+patientDetails.getSex()+"</td></tr>");
-        htmlBuilder.append("</table>");
+        htmlBuilder.append("<tr><td nowrap style='width: 100px;'> <b>Patient's Id :</b></td><td  nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+(1000+patientDetails.getId())+"</td> <td nowrap style='width: 100px;'><b>Patient's Name :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 295px;'>"+patientDetails.getFirst_name()+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap><b>Age :</b></td><td style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getAge()+"</td><td nowrap><b>Mobile Number :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getMobile_no()+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='left' ><b>Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+visitDate+"</td> <td nowrap align='left' ><b>Next Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;' >"+nextVisit+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='left' ><b>Address :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 400px;' colspan='3'>"+patientDetails.getAddress()+"</td></tr>");
 
-        htmlBuilder.append("<table width=100%>");
-        htmlBuilder.append("<tr><td nowrap><b>Next Visit :</b></td><td nowrap>"+txtCurrentDate.getValue()+"</td></tr>");
-        htmlBuilder.append("<tr><td><img src='rx.png' width=30 height = 40 style='padding-top:50px;'></td></tr>");
+
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
 
 
         htmlBuilder.append("<div style='padding-left:30px;'>");
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 600px;border:none;'>");
+        htmlBuilder.append("<img src='rx.png' width=20 height = 20 style='padding-top:50px; padding-bottom:10px'>");
+
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 595px;border:none; font-size: 10px;'>");
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'>");
         htmlBuilder.append("<th nowrap>Medicine Name</th>");
         htmlBuilder.append("<th>Dose</th>");
@@ -108,53 +100,79 @@ public class PrintUtil {
         htmlBuilder.append("<th>Note</th>");
         htmlBuilder.append("</tr>");
 
-        for (MedicineDetails pd : lstMedicineDetails) {
-            htmlBuilder.append("<tr>");
-            htmlBuilder.append("<td nowrap>" + (pd.getMedicineName() != null ? pd.getMedicineName() : "")  + "</td>");
+        for(MedicineDetails pd:lstMedicineDetails) {
+            String d1=pd.getDose1();
+            String d2=pd.getDose2();
+            String d3=pd.getDose3();
+            String d4=pd.getDose4();
+            String d5=pd.getDose5();
+            String d6=pd.getDose6();
 
-            htmlBuilder.append("<td>");
-            htmlBuilder.append("<div style='display:flex; align-items:center'>");
+            String medName=pd.getMedicineName();
 
-            // Check and display Dose 1 if it has a value
-            if (pd.getDose1() != null && !pd.getDose1().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose1() + "</div>");
-                htmlBuilder.append("-");
+            if(!preMedName.equals(medName)) {
+                htmlBuilder.append("<tr>");
+                htmlBuilder.append("<td nowrap>" + medName + "</td>");
+                preMedName = medName;
+
+
+                htmlBuilder.append("<td>");
+                htmlBuilder.append("<div style='display:flex;align-items:center'>");
+                if (d1 != null && !d1.equals("0") && !d1.equals(""))
+                    htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d1 + "</div> ");
+                if (d2 != null && !d2.equals("0") && !d2.equals(""))
+
+                        htmlBuilder.append(" <div><img src='line.png' width=10 style='padding-right:4px'></div> <div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d2 + "</div>");
+
+                if (d3 != null && !d3.equals("0") && !d3.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d3 + "</div> ");
+                if (d4 != null && !d4.equals("0") && !d4.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d4 + "</div>");
+                if (d5 != null && !d5.equals("0") && !d5.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d6 + "</div>");
+                if (d6 != null && !d6.equals("0") && !d6.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d6 + "</div>");
+
+                htmlBuilder.append("</div>");
+                htmlBuilder.append("</td>");
+                htmlBuilder.append("<td nowrap>" + pd.getNoOfDays() + "</td>");
+                htmlBuilder.append("<td nowrap>" + pd.getNote() + "</td>");
+                htmlBuilder.append("</tr>");
+            }
+            else{
+
+                htmlBuilder.append("<tr><td>&nbsp;</td></tr>");
+                htmlBuilder.append("<tr>");
+                htmlBuilder.append("<td nowrap> &nbsp;</td>");
+                htmlBuilder.append("<td nowrap> <img src='arrow-down.png' width=5/></td>");
+                htmlBuilder.append("</tr>");
+
+                htmlBuilder.append("<tr>");
+                htmlBuilder.append("<td nowrap> &nbsp;</td>");
+                htmlBuilder.append("<td>");
+                htmlBuilder.append("<div style='display:flex;align-items:center'>");
+                if (d1 != null && !d1.equals("0") && !d1.equals(""))
+                    htmlBuilder.append("<div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d1 + "</div> ");
+                if (d2 != null && !d2.equals("0") && !d2.equals(""))
+
+                    htmlBuilder.append(" <div><img src='line.png' width=10 style='padding-right:4px'></div> <div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d2 + "</div>");
+
+                if (d3 != null && !d3.equals("0") && !d3.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d3 + "</div> ");
+                if (d4 != null && !d4.equals("0") && !d4.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d4 + "</div>");
+                if (d5 != null && !d5.equals("0") && !d5.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d6 + "</div>");
+                if (d6 != null && !d6.equals("0") && !d6.equals(""))
+                    htmlBuilder.append("<div><img src='line.png' width=10 style='padding-right:4px'></div><div style='width:15px;height:15px;text-align:center;border-radius:50%;border:1px solid black;color:black;line-height:15px;margin-right: 5px;font-size:10;'>" + d6 + "</div>");
+
+                htmlBuilder.append("</div>");
+                htmlBuilder.append("</td>");
+                htmlBuilder.append("<td nowrap>" + pd.getNoOfDays() + "</td>");
+                htmlBuilder.append("<td nowrap>" + pd.getNote() + "</td>");
+                htmlBuilder.append("</tr>");
             }
 
-            // Check and display Dose 2 if it has a value
-            if (pd.getDose2() != null && !pd.getDose2().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose2() + "</div>");
-                htmlBuilder.append("-");
-            }
-
-            // Check and display Dose 3 if it has a value
-            if (pd.getDose3() != null && !pd.getDose3().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose3() + "</div>");
-                htmlBuilder.append("-");
-            }
-
-            // Check and display Dose 4 if it has a value
-            if (pd.getDose4() != null && !pd.getDose4().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose4() + "</div>");
-                htmlBuilder.append("-");
-            }
-
-            // Check and display Dose 5 if it has a value
-            if (pd.getDose5() != null && !pd.getDose5().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose5() + "</div>");
-                htmlBuilder.append("-");
-            }
-
-            // Check and display Dose 6 if it has a value
-            if (pd.getDose6() != null && !pd.getDose6().isEmpty()) {
-                htmlBuilder.append("<div style='width:30px; height:30px; text-align:center; border-radius:50%; border:1px solid black; color:black; line-height:30px; margin-right: 5px; font-size:10;'>" + pd.getDose6() + "</div>");
-            }
-
-            htmlBuilder.append("</div>");
-            htmlBuilder.append("</td>");
-            htmlBuilder.append("<td nowrap>" + pd.getNoOfDays() + "</td>");
-            htmlBuilder.append("<td nowrap>" + pd.getNote() + "</td>");
-            htmlBuilder.append("</tr>");
         }
         htmlBuilder.append("</table>");
         htmlBuilder.append("</div>");
@@ -163,7 +181,7 @@ public class PrintUtil {
         htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;display:flex;'>");
 
         htmlBuilder.append("<div style='width:150px'>");////
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;font-size: 10px;'>");
 
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Complain Of</th></tr>");
         for(ComplainDetails cd:lstComplainDetails) {
@@ -173,7 +191,7 @@ public class PrintUtil {
         htmlBuilder.append("</div>");////
 
         htmlBuilder.append("<div style='width:150px'>");////
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Previous History</th></tr>");
         for(PreviousHistoryDetails phd:lstPreviousHistoryDetails) {
             htmlBuilder.append("<tr><td nowrap>"+phd.getPrevious_history()+"</td></tr>");
@@ -182,7 +200,7 @@ public class PrintUtil {
         htmlBuilder.append("</div>");////
 
         htmlBuilder.append("<div style='width:150px'>");////
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
             htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Findings</th></tr>");
         for(FindingsDetails fd:lstFindingsDetails) {
             htmlBuilder.append("<tr><td nowrap>"+fd.getFindings()+"</td></tr>");
@@ -191,7 +209,7 @@ public class PrintUtil {
         htmlBuilder.append("</div>");////
 
         htmlBuilder.append("<div style='width:150px'>");////
-        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;'>");
+        htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;font-size: 10px;'>");
             htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Suggestions</th></tr>");
         for(SuggestionsDetails sd:lstSuggestionsDetails) {
             htmlBuilder.append("<tr><td nowrap>"+sd.getSuggestions()+"</td></tr>");
@@ -201,8 +219,8 @@ public class PrintUtil {
 
         htmlBuilder.append("</div>");
 
-        htmlBuilder.append("<div style='padding-left:30px;padding-top:50px'>");
-        htmlBuilder.append("<table>");
+        htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;'>");
+        htmlBuilder.append("<table style='font-size: 10px;'>");
         htmlBuilder.append("<tr>");
         htmlBuilder.append("<td><img src='lungs.png' width=140 height = 153></td>");
         htmlBuilder.append("<td><img src='heart.png' width=140 height = 153></td>");

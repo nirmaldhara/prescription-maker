@@ -1,6 +1,6 @@
 package com.prescription.prescriptioncreator.model;
 
-public class MedicineDetails {
+public class MedicineDetails implements Comparable<MedicineDetails>{
     public long getId() {
         return id;
     }
@@ -121,4 +121,9 @@ public class MedicineDetails {
     }
 
 
+    @Override
+    public int compareTo(MedicineDetails o) {
+
+         return this.getMedicineName().compareTo(o.getMedicineName());
+    }
 }

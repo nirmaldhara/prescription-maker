@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -23,9 +24,11 @@ import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 
 public class PatientController {
     @FXML
-    TextField txtFName,txtLName,txtAge,txtMobileNo;
+    TextField txtFName,txtLName,txtMobileNo;
     @FXML
     TextArea txtAddress;
+    @FXML
+    DatePicker dob;
     @FXML
     ComboBox<String> cmbSex;
     Stage stage = new Stage();
@@ -34,7 +37,6 @@ public class PatientController {
         if(!(
                 ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) &&
                 ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) &&
-                ValidationUtil.isTextFieldBlank(txtAge, Message.PATIENT_AGE_BlANK.val()) &&
                 ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()))
         ){
             PatientService patientService = new PatientServiceImpl();
@@ -44,7 +46,7 @@ public class PatientController {
             patientDetails.setSex(cmbSex.getValue());
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
-            patientDetails.setAge(Integer.parseInt(txtAge.getText()));
+            patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
             if(patientService.addPatient(patientDetails)==true){
                 ToastUtil.makeText(stage, ADD_PATIENT_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
 
@@ -62,16 +64,5 @@ public class PatientController {
 
         Scene scne= new Scene(new VBox());
         stage.setScene(scne);
-        txtAge.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (newValue.matches("\\d*")) {
-                    int value = Integer.parseInt(newValue);
-                } else {
-                    txtAge.setText(oldValue);
-                }
-            }
-        });
     }
 }

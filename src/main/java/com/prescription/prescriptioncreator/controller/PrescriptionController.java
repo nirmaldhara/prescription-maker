@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.Date;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +41,8 @@ public class PrescriptionController {
     TableView<PreviousVisit> tblPreviousVisit;
     @FXML
     TableView<PatientDetails> tblPatient;
-
+@FXML
+    TextField txtWeight,txtHeight;
     @FXML
     TextField txtMobileNo, txtPatientId, txtMedicineName;
     @FXML
@@ -160,7 +162,7 @@ public class PrescriptionController {
             }
             medicineDetails.setMedicineID(id);
             lstMedicineDetails = tblPrescription.getItems();
-            lstMedicineDetails.add(0, medicineDetails);
+            lstMedicineDetails.add(medicineDetails);
 
 
           //  String medname=txtMedicineName.getText().trim();
@@ -179,7 +181,7 @@ public class PrescriptionController {
                 medicineDetails.setWhen(cmbWhen1.getValue());
                 medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays1.getValue() == null ? "0" : cmbNoOFDays1.getValue()));
                 lstMedicineDetails = tblPrescription.getItems();
-                lstMedicineDetails.add(1, medicineDetails);
+                lstMedicineDetails.add( medicineDetails);
             }
                 addDataToPrescriptionTable();
 
@@ -384,6 +386,7 @@ public class PrescriptionController {
         FindingsService fd = new FindingsServiceImpl();
         SuggestionsService sd = new SuggestionsServiceImpl();
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+        lstMedicineDetails = tblPrescription.getItems();
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
         lstComplainDetails = tblComplain.getItems();
@@ -397,6 +400,8 @@ public class PrescriptionController {
 
         lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
+
+        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()),Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         return true;
     }
 
@@ -408,18 +413,16 @@ public class PrescriptionController {
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
-       // lstMedicineDetails = tblPrescription.getItems();
+        lstMedicineDetails = tblPrescription.getItems();
         PrintUtil printUtil = new PrintUtil();
-        List<MedicineDetails> lstMedicineDetails1 = new ArrayList<>();
-        lstMedicineDetails1=tblPrescription.getItems();
-        Collections.sort(lstMedicineDetails1, new Comparator<MedicineDetails>() {
+        Collections.sort(lstMedicineDetails, new Comparator<MedicineDetails>() {
             public int compare(MedicineDetails m1, MedicineDetails m2) {
                 // notice the cast to (Integer) to invoke compareTo
                 return (m1.getMedicineName()).compareTo(m2.getMedicineName());
             }
         });
 
-        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails1, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
+        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
             lblPrintStatus.setText("Done");
             TimeUnit.SECONDS.sleep(4);

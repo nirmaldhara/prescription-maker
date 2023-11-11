@@ -163,8 +163,8 @@ public class PrescriptionController {
             lstMedicineDetails.add(0, medicineDetails);
 
 
-            String medname=txtMedicineName.getText().trim();
-            if(!medname.equals("")) {
+          //  String medname=txtMedicineName.getText().trim();
+            if(!txtD11.getText().equals("") || !txtD21.getText().equals("") || !txtD31.getText().equals("") || !txtD41.getText().equals("")  || !txtD51.getText().equals("") || !txtD61.getText().equals("") ) {
                 addDataToPrescriptionTable();
                 medicineDetails = new MedicineDetails();
                 medicineDetails.setMedicineID(id);
@@ -180,8 +180,9 @@ public class PrescriptionController {
                 medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays1.getValue() == null ? "0" : cmbNoOFDays1.getValue()));
                 lstMedicineDetails = tblPrescription.getItems();
                 lstMedicineDetails.add(1, medicineDetails);
-                addDataToPrescriptionTable();
             }
+                addDataToPrescriptionTable();
+
             clearAddMedicine( txtId, txtMedicineName, txtD1, txtD2, txtD3,  txtD4,  txtD5,  txtD6,  txtNote,  cmbWhen,  cmbNoOFDays);
             clearAddMedicine( txtId, txtMedicineName, txtD11, txtD21, txtD31,  txtD41,  txtD51,  txtD61,  txtNote,  cmbWhen1,  cmbNoOFDays1);
         }
@@ -407,9 +408,18 @@ public class PrescriptionController {
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
-        lstMedicineDetails = tblPrescription.getItems();
+       // lstMedicineDetails = tblPrescription.getItems();
         PrintUtil printUtil = new PrintUtil();
-        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
+        List<MedicineDetails> lstMedicineDetails1 = new ArrayList<>();
+        lstMedicineDetails1=tblPrescription.getItems();
+        Collections.sort(lstMedicineDetails1, new Comparator<MedicineDetails>() {
+            public int compare(MedicineDetails m1, MedicineDetails m2) {
+                // notice the cast to (Integer) to invoke compareTo
+                return (m1.getMedicineName()).compareTo(m2.getMedicineName());
+            }
+        });
+
+        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails1, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
             lblPrintStatus.setText("Done");
             TimeUnit.SECONDS.sleep(4);

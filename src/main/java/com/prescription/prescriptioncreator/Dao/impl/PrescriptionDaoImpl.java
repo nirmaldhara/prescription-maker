@@ -85,6 +85,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 medicineDetails.setMedicineName(rs.getString("medicine_name"));
                 medicineDetails.setWhen(rs.getString("when_bf_af"));
                 medicineDetails.setNoOfDays(rs.getInt("no_of_days"));
+                medicineDetails.setDose1(rs.getString("dose1"));
                 medicineDetails.setDose2(rs.getString("dose2"));
                 medicineDetails.setDose3(rs.getString("dose3"));
                 medicineDetails.setDose4(rs.getString("dose4"));

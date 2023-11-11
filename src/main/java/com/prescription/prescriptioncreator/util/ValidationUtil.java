@@ -42,5 +42,10 @@ public class ValidationUtil {
 
         return false;
     }
+    private boolean isValidMobileNumber(String text)
+    {
+        return text.matches("[0-9]*");
+    }
+
 
 }

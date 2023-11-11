@@ -115,9 +115,15 @@ CREATE TABLE `patient` (
                 `visit_id` INT NOT NULL,
                 PRIMARY KEY (`id`))
 
-CREATE TABLE `prescription`.`visit_history` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `visit_id` INT NOT NULL,
-  `visit_date` DATETIME NOT NULL,
-  `next_visit` DATETIME NOT NULL,
-  PRIMARY KEY (`id`));
+CREATE TABLE `visit_history` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `patient_id` int NOT NULL,
+  `visit_id` int NOT NULL,
+  `visit_date` datetime NOT NULL,
+  `next_visit` datetime NOT NULL,
+  `weight` float DEFAULT '0',
+  `height` float DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
+)
+

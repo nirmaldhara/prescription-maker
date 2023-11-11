@@ -82,6 +82,8 @@ public class PrintUtil {
         htmlBuilder.append("<tr><td nowrap style='width: 100px;'> <b>Patient's Id :</b></td><td  nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+(1000+patientDetails.getId())+"</td> <td nowrap style='width: 100px;'><b>Patient's Name :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 295px;'>"+patientDetails.getFirst_name()+"</td></tr>");
         htmlBuilder.append("<tr><td nowrap><b>Age :</b></td><td style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getAge()+"</td><td nowrap><b>Mobile Number :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+patientDetails.getMobile_no()+"</td></tr>");
         htmlBuilder.append("<tr><td nowrap align='left' ><b>Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+visitDate+"</td> <td nowrap align='left' ><b>Next Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;' >"+nextVisit+"</td></tr>");
+        htmlBuilder.append("<tr><td nowrap align='left' ><b>Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;'>"+visitDate+"</td> <td nowrap align='left' ><b>Next Visit Date :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 100px;' >"+nextVisit+"</td></tr>");
+
         htmlBuilder.append("<tr><td nowrap align='left' ><b>Address :</b></td><td nowrap style='border-bottom: 1px solid #C0C0C0; width: 400px;' colspan='3'>"+patientDetails.getAddress()+"</td></tr>");
 
 
@@ -140,8 +142,6 @@ public class PrintUtil {
                 htmlBuilder.append("</tr>");
             }
             else{
-
-                htmlBuilder.append("<tr><td>&nbsp;</td></tr>");
                 htmlBuilder.append("<tr>");
                 htmlBuilder.append("<td nowrap> &nbsp;</td>");
                 htmlBuilder.append("<td nowrap> <img src='arrow-down.png' width=5/></td>");

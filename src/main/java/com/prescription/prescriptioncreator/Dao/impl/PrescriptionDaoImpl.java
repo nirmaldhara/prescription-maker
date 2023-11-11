@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
@@ -104,8 +105,29 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
+    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height) throws Exception {
+
+        String sql = "insert into visit_history (patient_id,visit_id, visit_date , next_visit, weight, height) values (?, ?, ?, ?, ?,?)";
+        Connection conn=getConnection();
+            try {
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setLong(1,patient_id);
+                preparedStmt.setLong(2, visit_id);
+                preparedStmt.setDate(3,visitDate );
+                preparedStmt.setDate(4, nextVisitDate);
+                preparedStmt.setFloat(5, weight);
+                preparedStmt.setFloat(6,height);
+                preparedStmt.execute();
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        return 0;
+    }
+
+    @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-        String dbsql = "select  DATE_FORMAT(date,'%d/%m/%Y') AS visitdate, visit_id  from prescription where patient_id=?  group by DATE_FORMAT(date,'%d/%m/%Y'),visit_id";
+        String dbsql = "select  DATE_FORMAT(visit_date,'%d/%m/%Y') AS visit_date, visit_id from visit_history where patient_id=?";
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         int visitId=0;
@@ -118,7 +140,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             rs = preparedStmt.executeQuery();
             while(rs.next()) {
                 PreviousVisit pv= new PreviousVisit();
-                pv.setPreviousVisit(rs.getString("visitdate"));
+                pv.setPreviousVisit(rs.getString("visit_date"));
            //     pv.setId(rs.getInt("id"));
                 pv.setVisitId(rs.getInt("visit_id"));
                 visitList.add(pv);

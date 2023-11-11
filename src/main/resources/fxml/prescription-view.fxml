@@ -187,8 +187,8 @@
                         <TableColumn fx:id="clmnPreviousHistory" prefWidth="250.0" text="Previous History" />
                      </columns>
                   </TableView>
-                  <TextField layoutX="401.0" layoutY="48.0" prefHeight="25.0" prefWidth="97.0" promptText="Weight in KG" />
-                  <TextField layoutX="505.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Height in CM" />
+                  <TextField fx:id="txtWeight" layoutX="401.0" layoutY="48.0" prefHeight="25.0" prefWidth="97.0" promptText="Weight in KG" />
+                  <TextField fx:id="txtHeight" layoutX="505.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Height in CM" />
                   <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1078.0" layoutY="561.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/kidney.png" />

@@ -35,9 +35,11 @@ public class PatientController {
     @FXML
     public void addPatientDetails ( ActionEvent event) throws Exception {
         if(!(
-                ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) &&
-                ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) &&
-                ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()))
+                ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) ||
+                ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) ||
+                ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()) ||
+                ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val()) ||
+                ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()))
         ){
             PatientService patientService = new PatientServiceImpl();
             PatientDetails patientDetails = new PatientDetails();

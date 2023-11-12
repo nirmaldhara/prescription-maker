@@ -134,6 +134,7 @@ public class PrescriptionController {
         //////
         if (!(
                 ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BlANK.val()) ||
+                        ValidationUtil.isTextFieldBlank(txtD1, Message.MEDICINE_DOSE_BLANK.val()) ||
                         ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
                         ValidationUtil.isComboBoxBlank(cmbNoOFDays, Message.MEDICINE_DAYS_BLANK.val()))
         ) {
@@ -365,6 +366,7 @@ public class PrescriptionController {
         String mobileNo = txtMobileNo.getText();
         int patientId = Integer.parseInt(txtPatientId.getText().equals("")? "0": txtPatientId.getText());
         if ((!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val())) || (!ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val()))) {
+
             List<PatientDetails> lstPatient = patientService.searchPatientDetails(mobileNo, patientId);
 
             PatientRenderUtil.displayPatientDetails(lstPatient, tblPatient, tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId);

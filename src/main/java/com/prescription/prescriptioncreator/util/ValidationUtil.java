@@ -51,7 +51,7 @@ public class ValidationUtil {
         Matcher match = pattern.matcher(text.getText());
 
         if (match.matches()) {
-            // Reset styles and tooltip when the input is valid
+            // Reset
             text.setStyle("");
             text.setTooltip(null);
             return false; // Valid input

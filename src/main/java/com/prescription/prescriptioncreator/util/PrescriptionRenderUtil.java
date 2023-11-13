@@ -135,7 +135,9 @@ public class PrescriptionRenderUtil {
             TableColumn<FindingsDetails, String> clmnFindings,
             List<SuggestionsDetails> lstSuggestionsDetails,
             TableView tblSuggestions,
-            TableColumn<SuggestionsDetails, String> clmnSuggestions
+            TableColumn<SuggestionsDetails, String> clmnSuggestions,
+            TextField txtWeight,
+            TextField txtHeight
 
     ) {
         System.out.println("load history data");
@@ -152,7 +154,8 @@ public class PrescriptionRenderUtil {
                         PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()), tblPreviousHistory, clmnPreviousHistory);
                         FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()), tblFindings, clmnFindings);
                         SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
-
+                        txtWeight.setText(""+clickedRow.getWeight());
+                        txtHeight.setText(""+clickedRow.getHeight());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -162,7 +165,7 @@ public class PrescriptionRenderUtil {
         });
     }
 
-    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit) {
+    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit, TextField txtWeight,TextField txtHeight) {
         tblPatient.setRowFactory(tv -> {
             TableRow<PatientDetails> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -172,7 +175,8 @@ public class PrescriptionRenderUtil {
                     PatientDetails clickedRow = row.getItem();
                     try {
                         System.out.println("displayDataInVisitHistoryTable :: --");
-                        PatientRenderUtil.displayPreviousVisitDetails(getVisitDetails(clickedRow.getId()), tblPreviousVisit, clmnPreviousVisit);
+                        List<PreviousVisit> lstPreHistory=getVisitDetails(clickedRow.getId());
+                        PatientRenderUtil.displayPreviousVisitDetails(lstPreHistory, tblPreviousVisit, clmnPreviousVisit);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);

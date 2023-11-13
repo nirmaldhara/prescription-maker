@@ -127,7 +127,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
 
     @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-        String dbsql = "select  DATE_FORMAT(visit_date,'%d/%m/%Y') AS visit_date, visit_id from visit_history where patient_id=?";
+        String dbsql = "select  DATE_FORMAT(visit_date,'%d/%m/%Y') AS visit_date, visit_id, DATE_FORMAT(next_visit,'%d/%m/%Y') AS next_visit, weight, height from visit_history where patient_id=?";
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         int visitId=0;
@@ -141,6 +141,9 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             while(rs.next()) {
                 PreviousVisit pv= new PreviousVisit();
                 pv.setPreviousVisit(rs.getString("visit_date"));
+                pv.setNextVisit(rs.getString("next_visit"));
+                pv.setWeight(rs.getFloat("weight"));
+                pv.setHeight(rs.getFloat("height"));
            //     pv.setId(rs.getInt("id"));
                 pv.setVisitId(rs.getInt("visit_id"));
                 visitList.add(pv);

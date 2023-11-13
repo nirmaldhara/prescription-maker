@@ -54,7 +54,7 @@ public class PatientController {
 
             }
             else {
-                ToastUtil.makeText(stage, ADD_PATIENT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
+                ToastUtil.makeText(stage, ADD_PATIENT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
             }
         }
 

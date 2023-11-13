@@ -18,7 +18,10 @@ public enum Message {
     PRINT_ERROR("Please select a patient"),
     MEDICINE_NAME_BlANK("Please provide a medicine name"),
     MEDICINE_TIME_BlANK("Select when you have to take the medicine"),
-    MEDICINE_DAYS_BLANK("Select no of days to take medicine");
+    MEDICINE_DAYS_BLANK("Select no of days to take medicine"),
+    PATIENT_MOBILE_NO_MISMATCH("Provide 10 digits valid mobile number"),
+    MEDICINE_DOSE_BLANK("Please provide dose1"),
+    DATEPICKER_BLANK("Select date of birth");
     private String value;
 
     public String val() {

@@ -43,7 +43,11 @@ public class MedicineController {
     public  void addMedicineDetails(ActionEvent event) throws Exception{
         MedicineService medicineService = new MedicineServiceImpl();
         MedicineDetails medicineDetails = new MedicineDetails();
-        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BLANK.val()))) {
+        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BLANK.val()) ||
+                ValidationUtil.isTextFieldBlank(txtDose1, Message.MEDICINE_DOSE_BLANK.val()) ||
+                ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
+                ValidationUtil.isComboBoxBlank(cmbNoOFDays, Message.MEDICINE_DAYS_BLANK.val()))
+        ) {
             medicineDetails.setMedicineName(txtMedicineName.getText());
             medicineDetails.setDose1(txtDose1.getText());
             medicineDetails.setDose2(txtDose2.getText());

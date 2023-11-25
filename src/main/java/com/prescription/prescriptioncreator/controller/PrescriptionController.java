@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Date;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.ERROR;
@@ -221,8 +221,10 @@ public class PrescriptionController {
                 clmnFindings,
                 lstSuggestionsDetails,
                 tblSuggestions,
-                clmnSuggestions);
-        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit);
+                clmnSuggestions,
+                txtWeight,
+                txtHeight);
+        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote);
 
         /*
@@ -365,13 +367,17 @@ public class PrescriptionController {
         PatientService patientService = new PatientServiceImpl();
         String mobileNo = txtMobileNo.getText();
         int patientId = Integer.parseInt(txtPatientId.getText().equals("")? "0": txtPatientId.getText());
-        if ((!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val())) || (!ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val()))) {
-
+        if (!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val()) || !ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val())) {
+            ValidationUtil.removeValidation(txtMobileNo);
+            ValidationUtil.removeValidation(txtPatientId);
             List<PatientDetails> lstPatient = patientService.searchPatientDetails(mobileNo, patientId);
 
             PatientRenderUtil.displayPatientDetails(lstPatient, tblPatient, tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId);
+           if(lstPatient==null || lstPatient.size()==0)
+                ToastUtil.makeText(stage, PATIENT_NOT_FOUND.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
             System.out.println("Search" + mobileNo);
         }
+
     }
 
     @FXML
@@ -389,6 +395,8 @@ public class PrescriptionController {
         SuggestionsService sd = new SuggestionsServiceImpl();
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         lstMedicineDetails = tblPrescription.getItems();
+        patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
+        patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
         lstComplainDetails = tblComplain.getItems();
@@ -403,7 +411,7 @@ public class PrescriptionController {
         lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
-        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()),Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
+        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight());
         return true;
     }
 
@@ -415,7 +423,14 @@ public class PrescriptionController {
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
         }
+        patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
+        patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         lstMedicineDetails = tblPrescription.getItems();
+        lstComplainDetails=tblComplain.getItems();
+        lstPreviousHistoryDetails=tblPreviousHistory.getItems();
+        lstFindingsDetails=tblFindings.getItems();
+        lstSuggestionsDetails=tblSuggestions.getItems();
+
         PrintUtil printUtil = new PrintUtil();
         Collections.sort(lstMedicineDetails, new Comparator<MedicineDetails>() {
             public int compare(MedicineDetails m1, MedicineDetails m2) {
@@ -427,7 +442,7 @@ public class PrescriptionController {
         if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
             lblPrintStatus.setText("Done");
-            TimeUnit.SECONDS.sleep(4);
+           // TimeUnit.SECONDS.sleep(4);
             lblPrintStatus.setText("");
         }
         return true;

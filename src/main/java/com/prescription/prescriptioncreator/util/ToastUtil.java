@@ -26,12 +26,12 @@ public class ToastUtil
         if(msgType==200) {
             text.setFill(Color.GREEN);
 
-            root.setStyle("-fx-background-radius: 5; -fx-background-color: #8af569; -fx-padding: 5px; -fx-border-style: solid; -fx-border-width: 2; -fx-border-color: #165c01;");
+            root.setStyle("-fx-background-radius: 5; -fx-background-color: #d8ffcc; -fx-padding: 5px; -fx-border-style: solid; -fx-border-width: 2; -fx-border-color: #165c01;");
 
         }
         else if(msgType==500) {
 
-            root.setStyle("-fx-background-radius: 5; -fx-background-color: #9ACD32; -fx-padding: 5px;  -fx-border-style: solid; -fx-border-width: 2; -fx-border-color: #165c01;");
+            root.setStyle("-fx-background-radius: 5; -fx-background-color: #f78888; -fx-padding: 5px;  -fx-border-style: solid; -fx-border-width: 2; -fx-border-color: #f54a3b;");
 
             text.setFill(Color.RED);
         }

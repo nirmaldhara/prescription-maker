@@ -10,6 +10,11 @@ import java.util.regex.Pattern;
 
 public class ValidationUtil {
 
+    public static boolean removeValidation(TextField textField){
+         textField .setStyle("");
+
+         return true;
+    }
     public static boolean isTextFieldBlank(TextField textField,String message){
         if(textField!=null)
        if(textField.getText().trim().equals(""))

@@ -249,7 +249,7 @@
                   <ComboBox fx:id="cmbNoOFDays1" layoutX="662.0" layoutY="409.0" prefHeight="25.0" prefWidth="82.0" promptText="Days" />
             <Label layoutX="612.0" layoutY="51.0" text="Visit Date" />
             <DatePicker fx:id="txtVisitDate" editable="false" layoutX="666.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
-            <Button layoutX="540.0" layoutY="678.0" mnemonicParsing="false" onAction="#printPrescription" text="Print">
+            <Button layoutX="978.0" layoutY="681.0" mnemonicParsing="false" onAction="#printPrescription" text="Print">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -259,19 +259,20 @@
                </graphic>
             </Button>
             <Label fx:id="lblPrintStatus" layoutX="658.0" layoutY="680.0" prefHeight="17.0" prefWidth="176.0" text="Printing Please wait ..." />
+      
+      <!--        </content>-->
+          <!--  </ScrollPane> -->
+             <Button layoutX="346.0" layoutY="680.0" mnemonicParsing="false" onAction="#saveNPrintPrescription" text="Save &amp; Print">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/printer.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
                 </children>
             </Pane>
-
-<!--        </content>-->
-    <!--  </ScrollPane> -->
-       <Button layoutX="393.0" layoutY="678.0" mnemonicParsing="false" onAction="#saveNPrintPrescription" text="Print &amp; Save">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/printer.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
 
    </children>
 

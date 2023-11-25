@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Date;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.ERROR;
@@ -426,6 +426,11 @@ public class PrescriptionController {
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         lstMedicineDetails = tblPrescription.getItems();
+        lstComplainDetails=tblComplain.getItems();
+        lstPreviousHistoryDetails=tblPreviousHistory.getItems();
+        lstFindingsDetails=tblFindings.getItems();
+        lstSuggestionsDetails=tblSuggestions.getItems();
+
         PrintUtil printUtil = new PrintUtil();
         Collections.sort(lstMedicineDetails, new Comparator<MedicineDetails>() {
             public int compare(MedicineDetails m1, MedicineDetails m2) {
@@ -437,7 +442,7 @@ public class PrescriptionController {
         if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
             lblPrintStatus.setText("Done");
-            TimeUnit.SECONDS.sleep(4);
+           // TimeUnit.SECONDS.sleep(4);
             lblPrintStatus.setText("");
         }
         return true;

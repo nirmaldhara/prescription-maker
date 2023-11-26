@@ -41,8 +41,8 @@ public class PrescriptionController {
     TableView<PreviousVisit> tblPreviousVisit;
     @FXML
     TableView<PatientDetails> tblPatient;
-@FXML
-    TextField txtWeight,txtHeight;
+    @FXML
+    TextField txtWeight,txtHeight,txtBP,txtPulse;
     @FXML
     TextField txtMobileNo, txtPatientId, txtMedicineName;
     @FXML
@@ -131,7 +131,6 @@ public class PrescriptionController {
 
     @FXML
     private void addToPrescription(ActionEvent event) throws Exception {
-        //////
         if (!(
                 ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BlANK.val()) ||
                         ValidationUtil.isTextFieldBlank(txtD1, Message.MEDICINE_DOSE_BLANK.val()) ||
@@ -232,8 +231,10 @@ private void makeInputInUpper(){
                 tblSuggestions,
                 clmnSuggestions,
                 txtWeight,
-                txtHeight);
-        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight);
+                txtHeight,
+                txtBP,
+                txtPulse);
+        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight,txtBP,txtPulse);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote);
 
         /*
@@ -406,6 +407,9 @@ private void makeInputInUpper(){
         lstMedicineDetails = tblPrescription.getItems();
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
+        patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
+        patientDetails.setPulse(txtPulse.getText().equals("")?"0":txtPulse.getText());
+
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
         lstComplainDetails = tblComplain.getItems();
@@ -420,7 +424,7 @@ private void makeInputInUpper(){
         lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
-        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight());
+        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight(), patientDetails.getBp(),patientDetails.getPulse());
         return true;
     }
 
@@ -434,6 +438,8 @@ private void makeInputInUpper(){
         }
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
+        patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
+        patientDetails.setPulse(txtPulse.getText().equals("")?"0":txtPulse.getText());
         lstMedicineDetails = tblPrescription.getItems();
         lstComplainDetails=tblComplain.getItems();
         lstPreviousHistoryDetails=tblPreviousHistory.getItems();

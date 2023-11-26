@@ -12,6 +12,17 @@ public class PreviousVisit {
     private String nextVisit;
     private float weight;
     private float height;
+    private String bp;
+    private String pulse;
+
+    public String getBp() {return bp;}
+
+    public void setBp(String bp) {this.bp = bp;}
+
+    public String getPulse() {return pulse;}
+
+    public void setPulse(String pulse) {this.pulse = pulse;}
+
     private String previousVisit;
 
     public Integer getId() {

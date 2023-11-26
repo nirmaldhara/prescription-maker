@@ -137,7 +137,9 @@ public class PrescriptionRenderUtil {
             TableView tblSuggestions,
             TableColumn<SuggestionsDetails, String> clmnSuggestions,
             TextField txtWeight,
-            TextField txtHeight
+            TextField txtHeight,
+            TextField txtBP,
+            TextField txtPulse
 
     ) {
         System.out.println("load history data");
@@ -156,6 +158,8 @@ public class PrescriptionRenderUtil {
                         SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
                         txtWeight.setText(""+clickedRow.getWeight());
                         txtHeight.setText(""+clickedRow.getHeight());
+                        txtBP.setText(clickedRow.getBp());
+                        txtPulse.setText(""+clickedRow.getPulse());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -165,7 +169,7 @@ public class PrescriptionRenderUtil {
         });
     }
 
-    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit, TextField txtWeight,TextField txtHeight) {
+    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit, TextField txtWeight,TextField txtHeight,TextField txtBP,TextField txtPulse) {
         tblPatient.setRowFactory(tv -> {
             TableRow<PatientDetails> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

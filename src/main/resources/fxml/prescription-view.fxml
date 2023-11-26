@@ -93,7 +93,7 @@
                         </columns>
                     </TableView>
 
-                    <DatePicker fx:id="txtNextVisitDate" editable="false" layoutX="1128.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
+                    <DatePicker fx:id="txtNextVisitDate" editable="false" layoutX="1129.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
                     <TableView fx:id="tblPreviousVisit" layoutX="852.0" layoutY="77.0" prefHeight="297.0" prefWidth="194.0">
                         <columns>
                             <TableColumn fx:id="clmnPreviousVisit" prefWidth="192.0" text="Previous Visit Details" />
@@ -189,7 +189,7 @@
                         <Image url="@../img/kidney.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="1065.0" layoutY="53.0" text="Next Visit" />
+                  <Label layoutX="1066.0" layoutY="53.0" text="Next Visit" />
                   <TextField fx:id="txtComplain" layoutX="3.0" layoutY="194.0" prefHeight="25.0" prefWidth="213.0" promptText="Complain Of" />
                   <TableView fx:id="tblComplain" layoutX="4.0" layoutY="220.0" prefHeight="152.0" prefWidth="212.0">
                     <columns>
@@ -268,6 +268,11 @@
             </Button>
             <TextField fx:id="txtBP" alignment="TOP_CENTER" layoutX="610.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Blood Pressure" />
             <TextField fx:id="txtPulse" alignment="TOP_CENTER" layoutX="717.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Pulse" />
+            <TextField fx:id="txtD3" layoutX="447.0" layoutY="377.0" prefHeight="25.0" prefWidth="28.0" promptText="D3">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
                 </children>
             </Pane>
 

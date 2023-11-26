@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -363,6 +364,10 @@ private void makeInputInUpper(){
         txtVisitDate.setValue(DateUtil.NOW_LOCAL_DATE());
         // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
 
+        //Calling handleSearchKeyPress method
+        txtMobileNo.setOnKeyPressed(this::handleSearchKeyPress);
+        txtPatientId.setOnKeyPressed(this::handleSearchKeyPress);
+
     }
 
 
@@ -389,7 +394,16 @@ private void makeInputInUpper(){
         }
 
     }
-
+    // Searching patient details by using enter key
+    private void handleSearchKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                searchPatientDetails(new ActionEvent()); // Trigger search on Enter key press
+            } catch (Exception e) {
+                e.printStackTrace(); // Handle the exception appropriately in your application
+            }
+        }
+    }
     @FXML
     public void openAddMedicine(ActionEvent event) throws IOException {
 

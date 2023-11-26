@@ -97,10 +97,10 @@ public class PrintUtil {
 
         htmlBuilder.append("<table style='border-collapse: collapse;width: 595px;border:none; font-size: 10px;'>");
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'>");
-        htmlBuilder.append("<th nowrap>Medicine Name</th>");
-        htmlBuilder.append("<th>Dose</th>");
-        htmlBuilder.append("<th>Duration</th>");
-        htmlBuilder.append("<th>Note</th>");
+        htmlBuilder.append("<th nowrap style='text-align:left'>Medicine Name</th>");
+        htmlBuilder.append("<th style='text-align:left'>Dose</th>");
+        htmlBuilder.append("<th style='text-align:left'>Duration</th>");
+        htmlBuilder.append("<th style='text-align:left'>Note</th>");
         htmlBuilder.append("</tr>");
 
         for(MedicineDetails pd:lstMedicineDetails) {
@@ -181,10 +181,10 @@ public class PrintUtil {
         /////////////////////////////////////////////
         htmlBuilder.append("<div style='padding-left:30px;padding-top:50px;display:flex;'>");
 
-        htmlBuilder.append("<div style='width:150px'>");////
+        htmlBuilder.append("<div style='width:150px'>");
         htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;font-size: 10px;'>");
 
-        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Complain Of</th></tr>");
+        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Complain Of</th></tr>");
         for(ComplainDetails cd:lstComplainDetails) {
             htmlBuilder.append("<tr><td nowrap>"+cd.getComplain()+"</td></tr>");
         }
@@ -193,7 +193,7 @@ public class PrintUtil {
 
         htmlBuilder.append("<div style='width:150px'>");////
         htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
-        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Previous History</th></tr>");
+        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Previous History</th></tr>");
         for(PreviousHistoryDetails phd:lstPreviousHistoryDetails) {
             htmlBuilder.append("<tr><td nowrap>"+phd.getPrevious_history()+"</td></tr>");
         }
@@ -202,7 +202,7 @@ public class PrintUtil {
 
         htmlBuilder.append("<div style='width:150px'>");////
         htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
-            htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Findings</th></tr>");
+            htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Findings</th></tr>");
         for(FindingsDetails fd:lstFindingsDetails) {
             htmlBuilder.append("<tr><td nowrap>"+fd.getFindings()+"</td></tr>");
         }
@@ -211,7 +211,7 @@ public class PrintUtil {
 
         htmlBuilder.append("<div style='width:150px'>");////
         htmlBuilder.append("<table style='border-collapse: collapse;width: 150px;border:none;font-size: 10px;'>");
-            htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap>Suggestions</th></tr>");
+            htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Suggestions</th></tr>");
         for(SuggestionsDetails sd:lstSuggestionsDetails) {
             htmlBuilder.append("<tr><td nowrap>"+sd.getSuggestions()+"</td></tr>");
         }

@@ -86,7 +86,7 @@ public class PrescriptionRenderUtil {
 
     }
 
-    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName, TextField txtId, TextField txtD1, TextField txtD2, TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote) throws Exception {
+    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName, TextField txtId, TextField txtD1, TextField txtD2, TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote, ComboBox<String> cmbWhen, ComboBox<String> cmbNoOFDays) throws Exception {
         ObservableList<MedicineDetails> autoCompleteData;
         autoCompleteData = FXCollections.observableArrayList(medicineService.getAutoSuggestMedicine());
         AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtMedicineName, autoCompleteData);
@@ -104,8 +104,9 @@ public class PrescriptionRenderUtil {
                 txtD5.setText(value.getDose5());
                 txtD6.setText(value.getDose6());
                 txtNote.setText(value.getNote());
+                cmbWhen.setValue(value.getWhen());
+                cmbNoOFDays.setValue(String.valueOf(value.getNoOfDays()));
                 // acb.dispose();
-
             }
         });
 

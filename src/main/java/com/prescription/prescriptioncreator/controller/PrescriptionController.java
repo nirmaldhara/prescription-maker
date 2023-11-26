@@ -236,7 +236,7 @@ private void makeInputInUpper(){
                 txtBP,
                 txtPulse);
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight,txtBP,txtPulse);
-        PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote);
+        PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote,cmbWhen,cmbNoOFDays);
 
         /*
          * @description store and display auto complete Previous History

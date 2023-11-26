@@ -18,7 +18,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, String pulse) throws Exception {
+    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, float pulse) throws Exception {
         return prescriptionDao.saveVisitHistory(patient_id,visit_id,visitDate,nextVisitDate,weight,height,bp,pulse);
     }
 

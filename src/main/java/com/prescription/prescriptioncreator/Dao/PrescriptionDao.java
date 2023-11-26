@@ -10,6 +10,6 @@ import java.util.List;
 public interface PrescriptionDao {
     public long saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails, int patientId) throws Exception;
     List<MedicineDetails>  getPrescriptionDetailsByVisitId( Integer visitID) throws Exception;
-    long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, String pulse) throws Exception;
+    long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, float pulse) throws Exception;
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception;
 }

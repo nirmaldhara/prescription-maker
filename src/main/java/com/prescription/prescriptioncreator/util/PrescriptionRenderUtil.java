@@ -158,7 +158,7 @@ public class PrescriptionRenderUtil {
                         SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
                         txtWeight.setText(""+clickedRow.getWeight());
                         txtHeight.setText(""+clickedRow.getHeight());
-                        txtBP.setText(clickedRow.getBp());
+                        txtBP.setText(""+clickedRow.getBp());
                         txtPulse.setText(""+clickedRow.getPulse());
                     } catch (Exception e) {
                         throw new RuntimeException(e);

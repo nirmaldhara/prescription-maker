@@ -105,7 +105,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
-    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, String pulse) throws Exception {
+    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, float pulse) throws Exception {
 
         String sql = "insert into visit_history (patient_id,visit_id, visit_date , next_visit, weight, height, bp, pulse) values (?, ?, ?, ?, ?,?,?,?)";
         Connection conn=getConnection();
@@ -118,7 +118,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 preparedStmt.setFloat(5, weight);
                 preparedStmt.setFloat(6,height);
                 preparedStmt.setString(7,bp);
-                preparedStmt.setString(8,pulse);
+                preparedStmt.setFloat(8,pulse);
                 preparedStmt.execute();
 
             } catch (Exception e) {

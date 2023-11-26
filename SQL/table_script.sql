@@ -108,6 +108,7 @@ CREATE TABLE `patient` (
         `complain` VARCHAR(255) NULL,
         PRIMARY KEY (`id`),
         UNIQUE INDEX `complain_UNIQUE` (`complain` ASC) VISIBLE);
+
     /* table script for p_complain_of */
         CREATE TABLE `prescription`.`p_complain_of` (
                 `id` INT NOT NULL AUTO_INCREMENT,
@@ -115,29 +116,18 @@ CREATE TABLE `patient` (
                 `visit_id` INT NOT NULL,
                 PRIMARY KEY (`id`))
 
-CREATE TABLE `visit_history` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `patient_id` int NOT NULL,
-  `visit_id` int NOT NULL,
-  `visit_date` datetime NOT NULL,
-  `next_visit` datetime NOT NULL,
-  `weight` float DEFAULT '0',
-  `height` float DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
-)
-
-CREATE TABLE `visit_history` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `patient_id` int NOT NULL,
-  `visit_id` int NOT NULL,
-  `visit_date` datetime NOT NULL,
-  `next_visit` datetime NOT NULL,
-  `weight` float DEFAULT '0',
-  `height` float DEFAULT '0',
-  `bp` VARCHAR(255) not null default "0",
-  `pulse` VARCHAR(255) not null default "0",
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
-)
+    /* table script for p_complain_of */
+       CREATE TABLE `visit_history` (
+                `id` int NOT NULL AUTO_INCREMENT,
+                `patient_id` int NOT NULL,
+                `visit_id` int NOT NULL,
+                `visit_date` datetime NOT NULL,
+                `next_visit` datetime NOT NULL,
+                `weight` float DEFAULT '0',
+                `height` float DEFAULT '0',
+                `bp` VARCHAR(255) not null default "0",
+                `pulse` float default '0',
+                 PRIMARY KEY (`id`),
+                 UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
+       )
 

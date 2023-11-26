@@ -21,15 +21,15 @@ public class PatientDetails {
     private float weight;
     private float height;
     private String bp;
-    private String pulse;
+    private float pulse;
 
     public String getBp() {return bp;}
 
     public void setBp(String bp) {this.bp = bp;}
 
-    public String getPulse() {return pulse;}
+    public float getPulse() {return pulse;}
 
-    public void setPulse(String pulse) {this.pulse = pulse;}
+    public void setPulse(float pulse) {this.pulse = pulse;}
 
     public String getAge() {
         return age;

@@ -408,7 +408,7 @@ private void makeInputInUpper(){
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
-        patientDetails.setPulse(txtPulse.getText().equals("")?"0":txtPulse.getText());
+        patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
 
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
@@ -439,7 +439,7 @@ private void makeInputInUpper(){
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
-        patientDetails.setPulse(txtPulse.getText().equals("")?"0":txtPulse.getText());
+        patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
         lstMedicineDetails = tblPrescription.getItems();
         lstComplainDetails=tblComplain.getItems();
         lstPreviousHistoryDetails=tblPreviousHistory.getItems();

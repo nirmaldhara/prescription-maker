@@ -194,6 +194,9 @@ public class PrescriptionController {
 
     @FXML
     public void initialize() throws Exception {
+        /// convert input in upper case
+        txtMedicineName=FXMLUtil.toUpperCase(txtMedicineName);
+
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);

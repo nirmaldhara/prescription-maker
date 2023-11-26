@@ -3,10 +3,7 @@ package com.prescription.prescriptioncreator.util;
 import com.prescription.prescriptioncreator.PrescriptionMaker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -73,4 +70,16 @@ public class FXMLUtil {
         });
         comboBox.setPromptText(value);
     }
+
+
+    public static TextField toUpperCase(TextField t){
+
+        t.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }));
+        return t;
+    }
+
+
 }

@@ -4,6 +4,7 @@ import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
+import com.prescription.prescriptioncreator.util.FXMLUtil;
 import com.prescription.prescriptioncreator.util.ToastUtil;
 import com.prescription.prescriptioncreator.util.ValidationUtil;
 import javafx.collections.FXCollections;
@@ -28,8 +29,13 @@ public class MedicineController {
     @FXML
     private TextField txtMedicineName,txtDose1,txtDose2,txtDose3,txtDose4,txtDose5,txtDose6,txtNote;
     Stage stage = new Stage();
+
+    private void makeInputUpper(){
+        txtMedicineName = FXMLUtil.toUpperCase(txtMedicineName);
+    }
     @FXML
     public void initialize() {
+        makeInputUpper();
         Scene scne= new Scene(new VBox());
         stage.setScene(scne);
         ArrayList<String> days = new ArrayList<>();

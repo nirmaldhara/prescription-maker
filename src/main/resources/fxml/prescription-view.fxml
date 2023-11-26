@@ -93,7 +93,7 @@
                         </columns>
                     </TableView>
 
-                    <DatePicker fx:id="txtNextVisitDate" editable="false" layoutX="897.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
+                    <DatePicker fx:id="txtNextVisitDate" editable="false" layoutX="1128.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
                     <TableView fx:id="tblPreviousVisit" layoutX="852.0" layoutY="77.0" prefHeight="297.0" prefWidth="194.0">
                         <columns>
                             <TableColumn fx:id="clmnPreviousVisit" prefWidth="192.0" text="Previous Visit Details" />
@@ -106,11 +106,6 @@
                         </font>
                     </TextField>
                     <TextField fx:id="txtD2" layoutX="415.0" layoutY="377.0" prefHeight="25.0" prefWidth="28.0" promptText="D2">
-                        <font>
-                            <Font size="10.0" />
-                        </font>
-                    </TextField>
-                    <TextField fx:id="txtD3" layoutX="447.0" layoutY="377.0" prefHeight="25.0" prefWidth="28.0" promptText="D3">
                         <font>
                             <Font size="10.0" />
                         </font>
@@ -154,17 +149,17 @@
                             <TableColumn fx:id="clmnPreviousVisit1" prefWidth="194.0" text="Previous Lab Test Report" />
                         </columns>
                     </TableView>
-                  <ImageView fitHeight="163.0" fitWidth="175.0" layoutX="1072.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="163.0" fitWidth="175.0" layoutX="1072.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/lungs.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="212.0" fitWidth="185.0" layoutX="1075.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="212.0" fitWidth="185.0" layoutX="1075.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/heart.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1083.0" layoutY="399.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1083.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/abdomen.png" />
                      </image>
@@ -189,12 +184,12 @@
                   </TableView>
                   <TextField fx:id="txtWeight" layoutX="401.0" layoutY="48.0" prefHeight="25.0" prefWidth="97.0" promptText="Weight in KG" />
                   <TextField fx:id="txtHeight" layoutX="505.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Height in CM" />
-                  <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1078.0" layoutY="561.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="193.0" fitWidth="179.0" layoutX="1078.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/kidney.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="834.0" layoutY="53.0" text="Next Visit" />
+                  <Label layoutX="1065.0" layoutY="53.0" text="Next Visit" />
                   <TextField fx:id="txtComplain" layoutX="3.0" layoutY="194.0" prefHeight="25.0" prefWidth="213.0" promptText="Complain Of" />
                   <TableView fx:id="tblComplain" layoutX="4.0" layoutY="220.0" prefHeight="152.0" prefWidth="212.0">
                     <columns>
@@ -247,8 +242,8 @@
                      </items>
                   </ComboBox>
                   <ComboBox fx:id="cmbNoOFDays1" layoutX="662.0" layoutY="409.0" prefHeight="25.0" prefWidth="82.0" promptText="Days" />
-            <Label layoutX="612.0" layoutY="51.0" text="Visit Date" />
-            <DatePicker fx:id="txtVisitDate" editable="false" layoutX="666.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="842.0" layoutY="51.0" text="Visit Date" />
+            <DatePicker fx:id="txtVisitDate" editable="false" layoutX="896.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
             <Button layoutX="978.0" layoutY="681.0" mnemonicParsing="false" onAction="#printPrescription" text="Print">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -271,6 +266,8 @@
                   </ImageView>
                </graphic>
             </Button>
+            <TextField fx:id="txtBP" alignment="TOP_CENTER" layoutX="610.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Blood Pressure" />
+            <TextField fx:id="txtPulse" alignment="TOP_CENTER" layoutX="717.0" layoutY="47.0" prefHeight="25.0" prefWidth="97.0" promptText="Pulse" />
                 </children>
             </Pane>
 

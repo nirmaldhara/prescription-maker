@@ -194,6 +194,10 @@ public class PrescriptionController {
 private void makeInputInUpper(){
     /// convert input in upper case
     txtMedicineName=FXMLUtil.toUpperCase(txtMedicineName);
+    txtComplain=FXMLUtil.toUpperCase(txtComplain);
+    txtPHistory=FXMLUtil.toUpperCase(txtPHistory);
+    txtFindings=FXMLUtil.toUpperCase(txtFindings);
+    txtSuggestions=FXMLUtil.toUpperCase(txtSuggestions);
 
 }
     @FXML

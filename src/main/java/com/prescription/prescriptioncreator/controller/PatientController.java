@@ -42,8 +42,8 @@ public class PatientController {
                 ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) ||
                 ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) ||
                 ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()) ||
-                ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val()) ||
-                ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()))
+                ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val())) ///||
+                //ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()))
         ){
             PatientService patientService = new PatientServiceImpl();
             PatientDetails patientDetails = new PatientDetails();
@@ -53,8 +53,10 @@ public class PatientController {
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
 
-            patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
-            patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText() ));
+            //patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
+            java.sql.Date sqlDate = (dob.getValue() == null) ? null : java.sql.Date.valueOf(dob.getValue());
+            patientDetails.setDob(sqlDate);
+            patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText().equals("") ? "0" :txtAgeInYears.getText() ));
 
             if(patientService.addPatient(patientDetails)==true){
                 ToastUtil.makeText(stage, ADD_PATIENT_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());

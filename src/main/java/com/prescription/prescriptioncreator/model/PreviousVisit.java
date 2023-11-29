@@ -9,7 +9,20 @@ public class PreviousVisit {
         this.previousVisit = previousVisit;
     }
 
-    
+    private String nextVisit;
+    private float weight;
+    private float height;
+    private String bp;
+    private float pulse;
+
+    public String getBp() {return bp;}
+
+    public void setBp(String bp) {this.bp = bp;}
+
+    public float getPulse() {return pulse;}
+
+    public void setPulse(float pulse) {this.pulse = pulse;}
+
     private String previousVisit;
 
     public Integer getId() {
@@ -31,4 +44,28 @@ public class PreviousVisit {
     }
 
     private  Integer visitId;
+
+    public String getNextVisit() {
+        return nextVisit;
+    }
+
+    public void setNextVisit(String nextVisit) {
+        this.nextVisit = nextVisit;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
 }

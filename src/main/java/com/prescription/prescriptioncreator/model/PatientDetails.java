@@ -1,5 +1,7 @@
 package com.prescription.prescriptioncreator.model;
 
+import java.util.Date;
+
 public class PatientDetails {
     public int getId() {
         return id;
@@ -10,12 +12,44 @@ public class PatientDetails {
     }
 
     private int id;
-    private  String first_name;
-    private  String last_name;
+    private String first_name;
+    private String last_name;
     private String patientId;
-    private int age;
-    private  String sex;
-    private  String mobile_no;
+    private String sex;
+    private String mobile_no;
+
+    private float weight;
+    private float height;
+    private String bp;
+    private float pulse;
+
+    public String getBp() {return bp;}
+
+    public void setBp(String bp) {this.bp = bp;}
+
+    public float getPulse() {return pulse;}
+
+    public void setPulse(float pulse) {this.pulse = pulse;}
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    private String age;
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    private Date dob;
 
     public String getFirst_name() {
         return first_name;
@@ -41,13 +75,6 @@ public class PatientDetails {
         this.patientId = patientId;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getSex() {
         return sex;
@@ -73,8 +100,33 @@ public class PatientDetails {
         this.address = address;
     }
 
-    private  String address;
+    private String address;
 
 
+    public float getWeight() {
+        return weight;
+    }
 
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    ////////
+    private Date created_date;
+    private int age_in_years;
+    public Date getCreated_date() {return created_date;}
+
+    public void setCreated_date(Date created_date) {this.created_date = created_date;}
+
+    public int getAge_in_years() {return age_in_years;}
+
+    public void setAge_in_years(int age_in_years) {this.age_in_years = age_in_years;}
 }

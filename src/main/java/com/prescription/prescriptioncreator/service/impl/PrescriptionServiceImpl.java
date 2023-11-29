@@ -7,6 +7,7 @@ import com.prescription.prescriptioncreator.model.PrescriptionDetails;
 import com.prescription.prescriptioncreator.model.PreviousVisit;
 import com.prescription.prescriptioncreator.service.PrescriptionService;
 
+import java.sql.Date;
 import java.util.List;
 
 public class PrescriptionServiceImpl implements PrescriptionService {
@@ -14,6 +15,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public long saveNPrintPrescription(List<MedicineDetails> lstMedicineDetails, int patientId) throws Exception {
        return prescriptionDao.saveNPrintPrescription(lstMedicineDetails,patientId);
+    }
+
+    @Override
+    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, float pulse) throws Exception {
+        return prescriptionDao.saveVisitHistory(patient_id,visit_id,visitDate,nextVisitDate,weight,height,bp,pulse);
     }
 
     @Override

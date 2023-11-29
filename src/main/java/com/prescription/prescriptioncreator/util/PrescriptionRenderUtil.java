@@ -86,7 +86,7 @@ public class PrescriptionRenderUtil {
 
     }
 
-    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName, TextField txtId, TextField txtD1, TextField txtD2, TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote) throws Exception {
+    public static void setMedicineSearchAutoComplete(MedicineService medicineService, TextField txtMedicineName, TextField txtId, TextField txtD1, TextField txtD2, TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote, ComboBox<String> cmbWhen, ComboBox<String> cmbNoOFDays) throws Exception {
         ObservableList<MedicineDetails> autoCompleteData;
         autoCompleteData = FXCollections.observableArrayList(medicineService.getAutoSuggestMedicine());
         AutoCompletionBinding acb = TextFields.bindAutoCompletion(txtMedicineName, autoCompleteData);
@@ -104,8 +104,9 @@ public class PrescriptionRenderUtil {
                 txtD5.setText(value.getDose5());
                 txtD6.setText(value.getDose6());
                 txtNote.setText(value.getNote());
+                cmbWhen.setValue(value.getWhen());
+                cmbNoOFDays.setValue(String.valueOf(value.getNoOfDays()));
                 // acb.dispose();
-
             }
         });
 
@@ -135,7 +136,11 @@ public class PrescriptionRenderUtil {
             TableColumn<FindingsDetails, String> clmnFindings,
             List<SuggestionsDetails> lstSuggestionsDetails,
             TableView tblSuggestions,
-            TableColumn<SuggestionsDetails, String> clmnSuggestions
+            TableColumn<SuggestionsDetails, String> clmnSuggestions,
+            TextField txtWeight,
+            TextField txtHeight,
+            TextField txtBP,
+            TextField txtPulse
 
     ) {
         System.out.println("load history data");
@@ -152,7 +157,10 @@ public class PrescriptionRenderUtil {
                         PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()), tblPreviousHistory, clmnPreviousHistory);
                         FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()), tblFindings, clmnFindings);
                         SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
-
+                        txtWeight.setText(""+clickedRow.getWeight());
+                        txtHeight.setText(""+clickedRow.getHeight());
+                        txtBP.setText(""+clickedRow.getBp());
+                        txtPulse.setText(""+clickedRow.getPulse());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -162,7 +170,7 @@ public class PrescriptionRenderUtil {
         });
     }
 
-    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit) {
+    public static void displayDataInVisitHistoryTable(TableView<PatientDetails> tblPatient, TableView<PreviousVisit> tblPreviousVisit, TableColumn<PreviousVisit, String> clmnPreviousVisit, TextField txtWeight,TextField txtHeight,TextField txtBP,TextField txtPulse) {
         tblPatient.setRowFactory(tv -> {
             TableRow<PatientDetails> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -172,7 +180,8 @@ public class PrescriptionRenderUtil {
                     PatientDetails clickedRow = row.getItem();
                     try {
                         System.out.println("displayDataInVisitHistoryTable :: --");
-                        PatientRenderUtil.displayPreviousVisitDetails(getVisitDetails(clickedRow.getId()), tblPreviousVisit, clmnPreviousVisit);
+                        List<PreviousVisit> lstPreHistory=getVisitDetails(clickedRow.getId());
+                        PatientRenderUtil.displayPreviousVisitDetails(lstPreHistory, tblPreviousVisit, clmnPreviousVisit);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);

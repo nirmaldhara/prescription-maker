@@ -10,13 +10,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.sql.Date;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.ERROR;
@@ -29,16 +32,18 @@ public class PrescriptionController {
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails = new ArrayList<>();
     @FXML
-    TextField txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote;
+    TextField txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote, txtD11, txtD21, txtD31, txtD41, txtD51, txtD61;
+
     @FXML
-    private ComboBox<String> cmbWhen, cmbNoOFDays;
+    private ComboBox<String> cmbWhen, cmbNoOFDays,cmbWhen1, cmbNoOFDays1;
     @FXML
     TableView tblPrescription;
     @FXML
     TableView<PreviousVisit> tblPreviousVisit;
     @FXML
     TableView<PatientDetails> tblPatient;
-
+    @FXML
+    TextField txtWeight,txtHeight,txtBP,txtPulse;
     @FXML
     TextField txtMobileNo, txtPatientId, txtMedicineName;
     @FXML
@@ -58,7 +63,7 @@ public class PrescriptionController {
     VBox mainVBox;
 
     @FXML
-    DatePicker txtCurrentDate;
+    DatePicker txtVisitDate,txtNextVisitDate;
 
     ////
     @FXML
@@ -108,7 +113,7 @@ public class PrescriptionController {
 
     }
 
-    private void clearAddMedicine() {
+    private void clearAddMedicine( TextField txtId,TextField txtMedicineName,TextField txtD1,TextField txtD2,TextField txtD3, TextField txtD4, TextField txtD5, TextField txtD6, TextField txtNote, ComboBox<String> cmbWhen, ComboBox<String> cmbNoOFDays) {
         FXMLUtil.clearTextBox(txtId, "0");
         FXMLUtil.clearTextBox(txtMedicineName);
         FXMLUtil.clearTextBox(txtD1);
@@ -118,18 +123,18 @@ public class PrescriptionController {
         FXMLUtil.clearTextBox(txtD5);
         FXMLUtil.clearTextBox(txtD6);
         FXMLUtil.clearTextBox(txtNote);
-        FXMLUtil.clearComboBox(cmbWhen, "");
+        FXMLUtil.clearComboBox(cmbWhen, "When");
         //FXMLUtil.clearComboBox(cmbNoOFDays);
         //cmbNoOFDays.getSelectionModel().clearSelection();
         //cmbNoOFDays.getPromptText();
-        FXMLUtil.clearComboBox(cmbNoOFDays, "");
+        FXMLUtil.clearComboBox(cmbNoOFDays, "Days");
     }
 
     @FXML
     private void addToPrescription(ActionEvent event) throws Exception {
-        //////
         if (!(
                 ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BlANK.val()) ||
+                        ValidationUtil.isTextFieldBlank(txtD1, Message.MEDICINE_DOSE_BLANK.val()) ||
                         ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
                         ValidationUtil.isComboBoxBlank(cmbNoOFDays, Message.MEDICINE_DAYS_BLANK.val()))
         ) {
@@ -147,6 +152,7 @@ public class PrescriptionController {
             medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays.getValue() == null ? "0" : cmbNoOFDays.getValue()));
 
 
+
             System.out.println("Medicine Id : " + txtId.getText());
             long id = 0;
             //id = Long.parseLong(txtId.getText().equals("")? "0":txtId.getText());///
@@ -157,15 +163,46 @@ public class PrescriptionController {
             }
             medicineDetails.setMedicineID(id);
             lstMedicineDetails = tblPrescription.getItems();
-            lstMedicineDetails.add(0, medicineDetails);
-            addDataToPrescriptionTable();
-            clearAddMedicine();
+            lstMedicineDetails.add(medicineDetails);
+
+
+          //  String medname=txtMedicineName.getText().trim();
+            if(!txtD11.getText().equals("") || !txtD21.getText().equals("") || !txtD31.getText().equals("") || !txtD41.getText().equals("")  || !txtD51.getText().equals("") || !txtD61.getText().equals("") ) {
+                addDataToPrescriptionTable();
+                medicineDetails = new MedicineDetails();
+                medicineDetails.setMedicineID(id);
+                medicineDetails.setMedicineName(txtMedicineName.getText());
+                medicineDetails.setDose1(txtD11.getText());
+                medicineDetails.setDose2(txtD21.getText());
+                medicineDetails.setDose3(txtD31.getText());
+                medicineDetails.setDose4(txtD41.getText());
+                medicineDetails.setDose5(txtD51.getText());
+                medicineDetails.setDose6(txtD61.getText());
+                medicineDetails.setNote(txtNote.getText());
+                medicineDetails.setWhen(cmbWhen1.getValue());
+                medicineDetails.setNoOfDays(Integer.parseInt(cmbNoOFDays1.getValue() == null ? "0" : cmbNoOFDays1.getValue()));
+                lstMedicineDetails = tblPrescription.getItems();
+                lstMedicineDetails.add( medicineDetails);
+            }
+                addDataToPrescriptionTable();
+
+            clearAddMedicine( txtId, txtMedicineName, txtD1, txtD2, txtD3,  txtD4,  txtD5,  txtD6,  txtNote,  cmbWhen,  cmbNoOFDays);
+            clearAddMedicine( txtId, txtMedicineName, txtD11, txtD21, txtD31,  txtD41,  txtD51,  txtD61,  txtNote,  cmbWhen1,  cmbNoOFDays1);
         }
 
     }
+private void makeInputInUpper(){
+    /// convert input in upper case
+    txtMedicineName=FXMLUtil.toUpperCase(txtMedicineName);
+    txtComplain=FXMLUtil.toUpperCase(txtComplain);
+    txtPHistory=FXMLUtil.toUpperCase(txtPHistory);
+    txtFindings=FXMLUtil.toUpperCase(txtFindings);
+    txtSuggestions=FXMLUtil.toUpperCase(txtSuggestions);
 
+}
     @FXML
     public void initialize() throws Exception {
+        makeInputInUpper();
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
         PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
@@ -193,9 +230,13 @@ public class PrescriptionController {
                 clmnFindings,
                 lstSuggestionsDetails,
                 tblSuggestions,
-                clmnSuggestions);
-        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit);
-        PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote);
+                clmnSuggestions,
+                txtWeight,
+                txtHeight,
+                txtBP,
+                txtPulse);
+        PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight,txtBP,txtPulse);
+        PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote,cmbWhen,cmbNoOFDays);
 
         /*
          * @description store and display auto complete Previous History
@@ -315,11 +356,17 @@ public class PrescriptionController {
             days.add("" + i);
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
         cmbNoOFDays.setItems(listDays);
+        cmbNoOFDays1.setItems(listDays);
 
         //  prescriptionData = FXCollections.observableArrayList();
 
-        txtCurrentDate.setValue(DateUtil.NEXT_MONTH_DATE());
+        txtNextVisitDate.setValue(DateUtil.NEXT_MONTH_DATE());
+        txtVisitDate.setValue(DateUtil.NOW_LOCAL_DATE());
         // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
+
+        //Calling handleSearchKeyPress method
+        txtMobileNo.setOnKeyPressed(this::handleSearchKeyPress);
+        txtPatientId.setOnKeyPressed(this::handleSearchKeyPress);
 
     }
 
@@ -334,36 +381,49 @@ public class PrescriptionController {
     public void searchPatientDetails(ActionEvent event) throws Exception {
         PatientService patientService = new PatientServiceImpl();
         String mobileNo = txtMobileNo.getText();
-        String patientId = txtPatientId.getText();
-        if ((!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val())) || (!ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val()))) {
+        int patientId = Integer.parseInt(txtPatientId.getText().equals("")? "0": txtPatientId.getText());
+        if (!ValidationUtil.isTextFieldBlank(txtMobileNo, MOBILE_OR_PATIENT_ID_BLANK.val()) || !ValidationUtil.isTextFieldBlank(txtPatientId, MOBILE_OR_PATIENT_ID_BLANK.val())) {
+            ValidationUtil.removeValidation(txtMobileNo);
+            ValidationUtil.removeValidation(txtPatientId);
             List<PatientDetails> lstPatient = patientService.searchPatientDetails(mobileNo, patientId);
+
             PatientRenderUtil.displayPatientDetails(lstPatient, tblPatient, tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId);
+           if(lstPatient==null || lstPatient.size()==0)
+                ToastUtil.makeText(stage, PATIENT_NOT_FOUND.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
             System.out.println("Search" + mobileNo);
         }
-    }
 
+    }
+    // Searching patient details by using enter key
+    private void handleSearchKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                searchPatientDetails(new ActionEvent()); // Trigger search on Enter key press
+            } catch (Exception e) {
+                e.printStackTrace(); // Handle the exception appropriately in your application
+            }
+        }
+    }
     @FXML
     public void openAddMedicine(ActionEvent event) throws IOException {
 
         FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml", 540, 220, "Add Medicine");
     }
 
-    @FXML
-    public void saveNPrintPrescription(ActionEvent event) throws Exception {
-        lblPrintStatus.setVisible(true);
-        lblPrintStatus.setText("Printing....");
-        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
-        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
 
+    private boolean save() throws Exception {
+        PrescriptionService prescriptionService = new PrescriptionServiceImpl();
         ComplainService cs = new ComplainServiceImpl();
         PreviousHistoryService phs = new PreviousHistoryServiceImpl();
         FindingsService fd = new FindingsServiceImpl();
         SuggestionsService sd = new SuggestionsServiceImpl();
-
-        if (patientDetails == null) {
-            ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
-        }
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         lstMedicineDetails = tblPrescription.getItems();
+        patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
+        patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
+        patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
+        patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
+
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
         lstComplainDetails = tblComplain.getItems();
@@ -378,14 +438,52 @@ public class PrescriptionController {
         lstSuggestionsDetails = tblSuggestions.getItems();
         sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
+        prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight(), patientDetails.getBp(),patientDetails.getPulse());
+        return true;
+    }
+
+    private boolean print() throws IOException, InterruptedException {
+        lblPrintStatus.setVisible(true);
+        lblPrintStatus.setText("Printing....");
+        PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+
+        if (patientDetails == null) {
+            ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
+        }
+        patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
+        patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
+        patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
+        patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
+        lstMedicineDetails = tblPrescription.getItems();
+        lstComplainDetails=tblComplain.getItems();
+        lstPreviousHistoryDetails=tblPreviousHistory.getItems();
+        lstFindingsDetails=tblFindings.getItems();
+        lstSuggestionsDetails=tblSuggestions.getItems();
+
         PrintUtil printUtil = new PrintUtil();
-        if (printUtil.createPrescription(patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
+        Collections.sort(lstMedicineDetails, new Comparator<MedicineDetails>() {
+            public int compare(MedicineDetails m1, MedicineDetails m2) {
+                // notice the cast to (Integer) to invoke compareTo
+                return (m1.getMedicineName()).compareTo(m2.getMedicineName());
+            }
+        });
+
+        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
             PrintUtil.print();
-            TimeUnit.SECONDS.sleep(2);
             lblPrintStatus.setText("Done");
-            TimeUnit.SECONDS.sleep(2);
+           // TimeUnit.SECONDS.sleep(4);
             lblPrintStatus.setText("");
         }
+        return true;
+    }
+    @FXML
+    public void printPrescription(ActionEvent event) throws Exception {
+        print();
+    }
+    @FXML
+    public void saveNPrintPrescription(ActionEvent event) throws Exception {
+       save();
+       print();
     }
 
 }

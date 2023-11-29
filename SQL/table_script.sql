@@ -3,14 +3,15 @@ CREATE TABLE `patient` (
   `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
-  `age` int DEFAULT NULL,
+  `dob` datetime DEFAULT NULL,
   `sex` varchar(255) DEFAULT NULL,
   `mobile_no` varchar(255) DEFAULT NULL,
   `patient_id` int DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `search` (`mobile_no`,`patient_id`)
-)
+);
+
 
     CREATE TABLE `medicine` (
       `id` int NOT NULL AUTO_INCREMENT,
@@ -107,10 +108,26 @@ CREATE TABLE `patient` (
         `complain` VARCHAR(255) NULL,
         PRIMARY KEY (`id`),
         UNIQUE INDEX `complain_UNIQUE` (`complain` ASC) VISIBLE);
+
     /* table script for p_complain_of */
         CREATE TABLE `prescription`.`p_complain_of` (
                 `id` INT NOT NULL AUTO_INCREMENT,
                 `complain_id` INT NOT NULL,
                 `visit_id` INT NOT NULL,
                 PRIMARY KEY (`id`))
+
+    /* table script for p_complain_of */
+       CREATE TABLE `visit_history` (
+                `id` int NOT NULL AUTO_INCREMENT,
+                `patient_id` int NOT NULL,
+                `visit_id` int NOT NULL,
+                `visit_date` datetime NOT NULL,
+                `next_visit` datetime NOT NULL,
+                `weight` float DEFAULT '0',
+                `height` float DEFAULT '0',
+                `bp` VARCHAR(255) not null default "0",
+                `pulse` float default '0',
+                 PRIMARY KEY (`id`),
+                 UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
+       )
 

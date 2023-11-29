@@ -4,6 +4,7 @@ import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.MedicineDetails;
 import com.prescription.prescriptioncreator.service.MedicineService;
 import com.prescription.prescriptioncreator.service.impl.MedicineServiceImpl;
+import com.prescription.prescriptioncreator.util.FXMLUtil;
 import com.prescription.prescriptioncreator.util.ToastUtil;
 import com.prescription.prescriptioncreator.util.ValidationUtil;
 import javafx.collections.FXCollections;
@@ -28,8 +29,13 @@ public class MedicineController {
     @FXML
     private TextField txtMedicineName,txtDose1,txtDose2,txtDose3,txtDose4,txtDose5,txtDose6,txtNote;
     Stage stage = new Stage();
+
+    private void makeInputUpper(){
+        txtMedicineName = FXMLUtil.toUpperCase(txtMedicineName);
+    }
     @FXML
     public void initialize() {
+        makeInputUpper();
         Scene scne= new Scene(new VBox());
         stage.setScene(scne);
         ArrayList<String> days = new ArrayList<>();
@@ -43,7 +49,11 @@ public class MedicineController {
     public  void addMedicineDetails(ActionEvent event) throws Exception{
         MedicineService medicineService = new MedicineServiceImpl();
         MedicineDetails medicineDetails = new MedicineDetails();
-        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BLANK.val()))) {
+        if(!(ValidationUtil.isTextFieldBlank(txtMedicineName, Message.MEDICINE_NAME_BLANK.val()) ||
+                ValidationUtil.isTextFieldBlank(txtDose1, Message.MEDICINE_DOSE_BLANK.val()) ||
+                ValidationUtil.isComboBoxBlank(cmbWhen, Message.MEDICINE_TIME_BlANK.val()) ||
+                ValidationUtil.isComboBoxBlank(cmbNoOFDays, Message.MEDICINE_DAYS_BLANK.val()))
+        ) {
             medicineDetails.setMedicineName(txtMedicineName.getText());
             medicineDetails.setDose1(txtDose1.getText());
             medicineDetails.setDose2(txtDose2.getText());

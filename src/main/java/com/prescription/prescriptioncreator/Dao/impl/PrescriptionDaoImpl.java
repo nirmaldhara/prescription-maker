@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
@@ -85,6 +86,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 medicineDetails.setMedicineName(rs.getString("medicine_name"));
                 medicineDetails.setWhen(rs.getString("when_bf_af"));
                 medicineDetails.setNoOfDays(rs.getInt("no_of_days"));
+                medicineDetails.setDose1(rs.getString("dose1"));
                 medicineDetails.setDose2(rs.getString("dose2"));
                 medicineDetails.setDose3(rs.getString("dose3"));
                 medicineDetails.setDose4(rs.getString("dose4"));
@@ -103,8 +105,31 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
+    public long saveVisitHistory(long patient_id,long visit_id, Date visitDate, Date nextVisitDate, float weight, float height,String bp, float pulse) throws Exception {
+
+        String sql = "insert into visit_history (patient_id,visit_id, visit_date , next_visit, weight, height, bp, pulse) values (?, ?, ?, ?, ?,?,?,?)";
+        Connection conn=getConnection();
+            try {
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setLong(1,patient_id);
+                preparedStmt.setLong(2, visit_id);
+                preparedStmt.setDate(3,visitDate );
+                preparedStmt.setDate(4, nextVisitDate);
+                preparedStmt.setFloat(5, weight);
+                preparedStmt.setFloat(6,height);
+                preparedStmt.setString(7,bp);
+                preparedStmt.setFloat(8,pulse);
+                preparedStmt.execute();
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        return 0;
+    }
+
+    @Override
     public List<PreviousVisit> getVisitDetails(int patientId) throws Exception {
-        String dbsql = "select  DATE_FORMAT(date,'%d/%m/%Y') AS visitdate, visit_id  from prescription where patient_id=?  group by DATE_FORMAT(date,'%d/%m/%Y'),visit_id";
+        String dbsql = "select  DATE_FORMAT(visit_date,'%d/%m/%Y') AS visit_date, visit_id, DATE_FORMAT(next_visit,'%d/%m/%Y') AS next_visit, weight, height, bp, pulse from visit_history where patient_id=?";
         PreparedStatement preparedStmt =null;
         ResultSet rs = null;
         int visitId=0;
@@ -117,7 +142,12 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             rs = preparedStmt.executeQuery();
             while(rs.next()) {
                 PreviousVisit pv= new PreviousVisit();
-                pv.setPreviousVisit(rs.getString("visitdate"));
+                pv.setPreviousVisit(rs.getString("visit_date"));
+                pv.setNextVisit(rs.getString("next_visit"));
+                pv.setWeight(rs.getFloat("weight"));
+                pv.setHeight(rs.getFloat("height"));
+                pv.setBp(rs.getString("bp"));
+                pv.setPulse(rs.getFloat("pulse"));
            //     pv.setId(rs.getInt("id"));
                 pv.setVisitId(rs.getInt("visit_id"));
                 visitList.add(pv);

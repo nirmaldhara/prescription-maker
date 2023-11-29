@@ -5,7 +5,7 @@ import com.prescription.prescriptioncreator.model.PatientDetails;
 import java.sql.SQLException;
 import java.util.List;
 public interface PatientService {
-    public  List<PatientDetails> searchPatientDetails(String mobile_no, String patient_id) throws Exception;
+    public  List<PatientDetails> searchPatientDetails(String mobile_no, int patient_id) throws Exception;
     boolean addPatient(PatientDetails patientDetails) throws Exception;
 
 }

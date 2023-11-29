@@ -1,6 +1,6 @@
 package com.prescription.prescriptioncreator.model;
 
-public class MedicineDetails {
+public class MedicineDetails implements Comparable<MedicineDetails>{
     public long getId() {
         return id;
     }
@@ -27,7 +27,11 @@ public class MedicineDetails {
     private String Dose4;
     private String Dose5;
     private String Dose6;
+
+
     private String when;
+    private int noOfDays;
+
 
     public int getNoOfDays() {
         return noOfDays;
@@ -37,7 +41,7 @@ public class MedicineDetails {
         this.noOfDays = noOfDays;
     }
 
-    private int noOfDays;
+
 
     public String getMedicineName() {
         return medicineName;
@@ -114,5 +118,12 @@ public class MedicineDetails {
     private String note;
     @Override
     public String toString() {return this.getMedicineName();
+    }
+
+
+    @Override
+    public int compareTo(MedicineDetails o) {
+
+         return this.getMedicineName().compareTo(o.getMedicineName());
     }
 }

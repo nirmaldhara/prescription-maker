@@ -4,18 +4,19 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PatientController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PatientController">
    <children>
       <TextField fx:id="txtFName" layoutX="14.0" layoutY="14.0" promptText="First name" />
-      <TextField fx:id="txtLName" layoutX="177.0" layoutY="14.0" promptText="Last name" />
-      <TextField fx:id="txtAge" layoutX="342.0" layoutY="14.0" prefHeight="25.0" prefWidth="74.0" promptText="Age" />
-      <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="514.0" promptText="Mobile Number" />
-      <TextArea fx:id="txtAddress" layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="514.0" promptText="Address" />
-      <ComboBox fx:id="cmbSex" layoutX="427.0" layoutY="14.0" prefHeight="25.0" prefWidth="99.0" promptText="Sex">
+      <TextField fx:id="txtLName" layoutX="168.0" layoutY="14.0" promptText="Last name" />
+      <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="149.0" promptText="Mobile Number" />
+      <TextArea fx:id="txtAddress" layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="483.0" promptText="Address" />
+      <ComboBox fx:id="cmbSex" layoutX="322.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" promptText="Sex">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Male" />
@@ -23,7 +24,10 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <Button layoutX="251.0" layoutY="179.0" mnemonicParsing="false" text="Add" onAction="#addPatientDetails" />
+      <Button layoutX="251.0" layoutY="179.0" mnemonicParsing="false" onAction="#addPatientDetails" text="Add" />
+      <DatePicker fx:id="dob" layoutX="321.0" layoutY="47.0" prefHeight="25.0" prefWidth="173.0" promptText="Date of Birth" />
+      <TextField fx:id="txtAgeInYears" layoutX="168.0" layoutY="47.0" prefHeight="25.0" prefWidth="112.0" promptText="Age In Years" />
+      <Label layoutX="289.0" layoutY="51.0" text="OR" />
    </children>
 
 </Pane>

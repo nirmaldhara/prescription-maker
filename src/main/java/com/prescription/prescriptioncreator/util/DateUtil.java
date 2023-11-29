@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.util;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -26,15 +27,13 @@ public class DateUtil {
     }
 
 
-    public static final String getAge(Date dob){
+    public static final  Period getAge(Date dob){
         //obtains an instance of LocalDate from a year, month and date
         LocalDate localDob =LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(dob) );
 //obtains the current date from the system clock
         LocalDate curDate = LocalDate.now();
 //calculates the difference between two dates
         Period period = Period.between(localDob, curDate);
-        String age=period.getYears() +"Y-"+period.getMonths()+"M-"+ period.getDays()+"D ";
-        return age;
+        return period;
     }
-
 }

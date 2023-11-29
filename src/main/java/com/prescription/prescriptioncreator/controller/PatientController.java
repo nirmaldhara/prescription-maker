@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_ERROR;
 import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_SUCCESS;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
@@ -29,6 +31,8 @@ public class PatientController {
     TextArea txtAddress;
     @FXML
     DatePicker dob;
+    @FXML
+    TextField txtAgeInYears;
     @FXML
     ComboBox<String> cmbSex;
     Stage stage = new Stage();
@@ -48,7 +52,10 @@ public class PatientController {
             patientDetails.setSex(cmbSex.getValue());
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
+
             patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
+            patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText() ));
+
             if(patientService.addPatient(patientDetails)==true){
                 ToastUtil.makeText(stage, ADD_PATIENT_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
 

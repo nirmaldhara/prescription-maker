@@ -31,9 +31,24 @@ public class ValidationUtil {
 
         return false;
     }
-    private boolean isNumeric(String text)
+    public static boolean isNumeric(TextField txtAgeInYears, String text)
     {
-        return text.matches("[0-9]*");
+        //return text.matches("[0-9]*");
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher match = pattern.matcher(txtAgeInYears.getText());
+
+        if (match.matches()) {
+            // Reset
+            txtAgeInYears.setStyle("");
+            txtAgeInYears.setTooltip(null);
+            return false; // Valid input
+        } else {
+            Tooltip tooltip1 = new Tooltip(text);
+            tooltip1.setStyle("-fx-border-color: red ; -fx-border-width: 2px ; -fx-background-color: #f74848; -fx-font-size: 16px;-fx-font-weight: bold;");
+            txtAgeInYears.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            txtAgeInYears.setTooltip(tooltip1);
+            return true; // Invalid input
+        }
     }
     public static boolean isComboBoxBlank(ComboBox<String> cmbBox, String message){
         if(cmbBox!=null)

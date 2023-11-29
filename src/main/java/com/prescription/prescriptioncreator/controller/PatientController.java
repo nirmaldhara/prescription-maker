@@ -4,6 +4,7 @@ import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
+import com.prescription.prescriptioncreator.util.PatientRenderUtil;
 import com.prescription.prescriptioncreator.util.ToastUtil;
 import com.prescription.prescriptioncreator.util.ValidationUtil;
 import javafx.beans.value.ChangeListener;
@@ -19,10 +20,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_ERROR;
-import static com.prescription.prescriptioncreator.appenum.Message.ADD_PATIENT_SUCCESS;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
+import static com.prescription.prescriptioncreator.appenum.Message.*;
 
 public class PatientController {
     @FXML
@@ -43,8 +44,9 @@ public class PatientController {
                 ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) ||
                 ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()) ||
                 ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val()) ||
-                ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()) ||
-                ValidationUtil.isNumeric(txtAgeInYears,Message.AGE_IN_INTEGER_BLANK.val()))
+                ValidationUtil.isNumeric(txtAgeInYears,Message.AGE_IN_INTEGER_BLANK.val()) ||
+                ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()))
+
         ){
             PatientService patientService = new PatientServiceImpl();
             PatientDetails patientDetails = new PatientDetails();
@@ -54,9 +56,7 @@ public class PatientController {
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
 
-            //patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
-            java.sql.Date sqlDate = (dob.getValue() == null) ? null : java.sql.Date.valueOf(dob.getValue());
-            patientDetails.setDob(sqlDate);
+            patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
             patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText().equals("") ? "0" :txtAgeInYears.getText() ));
 
             if(patientService.addPatient(patientDetails)==true){

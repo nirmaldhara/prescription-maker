@@ -47,7 +47,7 @@ public class PatientDaoImpl implements PatientDao {
                 PatientDetails pd= new PatientDetails();
                 pd.setId(rs.getInt("id"));
                 pd.setFirst_name(rs.getString("first_name"));
-                pd.setLast_name(rs.getString("first_name"));
+                pd.setLast_name(rs.getString("last_name"));
                 pd.setDob(rs.getDate("dob"));
                 //pd.setAge(DateUtil.getAge(rs.getDate("dob")));
                 pd.setAge(getAge(rs.getDate("dob"),rs.getDate("created_date"),rs.getInt("age_in_years")));

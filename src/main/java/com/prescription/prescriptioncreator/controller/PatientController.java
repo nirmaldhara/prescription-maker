@@ -11,11 +11,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -56,6 +58,7 @@ public class PatientController {
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
 
+
             patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
             patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText().equals("") ? "0" :txtAgeInYears.getText() ));
 
@@ -71,10 +74,29 @@ public class PatientController {
         //System.out.println("AddSex "+sex);
 
     }
+
     @FXML
     public void initialize() throws Exception {
 
         Scene scne= new Scene(new VBox());
         stage.setScene(scne);
+
+        setEnterKeyHandler(txtFName, txtLName);
+        setEnterKeyHandler(txtLName, cmbSex);
+        setEnterKeyHandler(cmbSex, txtMobileNo);
+        setEnterKeyHandler(txtMobileNo, txtAgeInYears);
+        setEnterKeyHandler(txtAgeInYears, dob.getEditor());
+        setEnterKeyHandler(dob.getEditor(), txtAddress);
+
+        // Add an event filter for Enter key press at the scene level
+
     }
+    public static void setEnterKeyHandler(Node currentField, Node nextField) {
+        currentField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                nextField.requestFocus();
+            }
+        });
+    }
+
 }

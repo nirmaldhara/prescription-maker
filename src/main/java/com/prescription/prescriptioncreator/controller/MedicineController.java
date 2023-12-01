@@ -44,7 +44,18 @@ public class MedicineController {
         ObservableList<String> listDays = FXCollections.observableArrayList(days);
         cmbNoOFDays.setItems(listDays);
 
+        PatientController.setEnterKeyHandler(txtMedicineName,txtDose1);
+        PatientController.setEnterKeyHandler(txtDose1,txtDose2);
+        PatientController.setEnterKeyHandler(txtDose2,txtDose3);
+        PatientController.setEnterKeyHandler(txtDose3,txtDose4);
+        PatientController.setEnterKeyHandler(txtDose4,txtDose5);
+        PatientController.setEnterKeyHandler(txtDose5,txtDose6);
+        PatientController.setEnterKeyHandler(txtDose6,cmbWhen);
+        PatientController.setEnterKeyHandler(cmbWhen,cmbNoOFDays);
+        PatientController.setEnterKeyHandler(cmbNoOFDays,txtNote);
+
     }
+
     @FXML
     public  void addMedicineDetails(ActionEvent event) throws Exception{
         MedicineService medicineService = new MedicineServiceImpl();

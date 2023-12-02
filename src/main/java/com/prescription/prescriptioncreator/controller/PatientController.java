@@ -84,9 +84,9 @@ public class PatientController {
         setEnterKeyHandler(txtFName, txtLName);
         setEnterKeyHandler(txtLName, cmbSex);
         setEnterKeyHandler(cmbSex, txtMobileNo);
-        setEnterKeyHandler(txtMobileNo, txtAgeInYears);
-        setEnterKeyHandler(txtAgeInYears, dob.getEditor());
-        setEnterKeyHandler(dob.getEditor(), txtAddress);
+        setEnterKeyHandler(txtMobileNo, dob );
+        setEnterKeyHandler(dob, txtAgeInYears);
+        setEnterKeyHandler(txtAgeInYears, txtAddress);
 
         // Add an event filter for Enter key press at the scene level
 

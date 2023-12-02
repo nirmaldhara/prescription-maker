@@ -14,9 +14,7 @@
    <children>
       <TextField fx:id="txtFName" layoutX="14.0" layoutY="14.0" promptText="First name" />
       <TextField fx:id="txtLName" layoutX="168.0" layoutY="14.0" promptText="Last name" />
-      <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="149.0" promptText="Mobile Number" />
-      <TextArea fx:id="txtAddress" layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="483.0" promptText="Address" />
-      <ComboBox fx:id="cmbSex" layoutX="322.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" promptText="Sex">
+      <ComboBox fx:id="cmbSex" editable="true" layoutX="322.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" promptText="Sex">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Male" />
@@ -24,10 +22,12 @@
             </FXCollections>
          </items>
       </ComboBox>
+      <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="149.0" promptText="Mobile Number" />
+      <DatePicker fx:id="dob" layoutX="168.0" layoutY="47.0" prefHeight="25.0" prefWidth="149.0" promptText="Date of Birth" />
+      <Label layoutX="335.0" layoutY="49.0" text="OR" />
+      <TextField fx:id="txtAgeInYears" layoutX="385.0" layoutY="45.0" prefHeight="25.0" prefWidth="112.0" promptText="Age In Years" />
+      <TextArea fx:id="txtAddress" layoutX="14.0" layoutY="81.0" prefHeight="87.0" prefWidth="483.0" promptText="Address" />
       <Button layoutX="251.0" layoutY="179.0" mnemonicParsing="false" onAction="#addPatientDetails" text="Add" />
-      <DatePicker fx:id="dob" layoutX="321.0" layoutY="47.0" prefHeight="25.0" prefWidth="173.0" promptText="Date of Birth" />
-      <TextField fx:id="txtAgeInYears" layoutX="168.0" layoutY="47.0" prefHeight="25.0" prefWidth="112.0" promptText="Age In Years" />
-      <Label layoutX="289.0" layoutY="51.0" text="OR" />
    </children>
 
 </Pane>

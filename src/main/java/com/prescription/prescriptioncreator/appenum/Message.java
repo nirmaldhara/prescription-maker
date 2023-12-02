@@ -22,7 +22,8 @@ public enum Message {
     MEDICINE_DAYS_BLANK("Select no of days to take medicine"),
     PATIENT_MOBILE_NO_MISMATCH("Provide 10 digits valid mobile number"),
     MEDICINE_DOSE_BLANK("Please provide dose1"),
-    DATEPICKER_BLANK("Select date of birth");
+    DATEPICKER_BLANK("Select date of birth"),
+    AGE_IN_INTEGER_BLANK("Enter numeric value only");
     private String value;
 
     public String val() {

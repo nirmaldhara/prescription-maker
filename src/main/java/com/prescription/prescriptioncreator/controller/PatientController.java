@@ -4,6 +4,7 @@ import com.prescription.prescriptioncreator.appenum.Message;
 import com.prescription.prescriptioncreator.model.PatientDetails;
 import com.prescription.prescriptioncreator.service.PatientService;
 import com.prescription.prescriptioncreator.service.impl.PatientServiceImpl;
+import com.prescription.prescriptioncreator.util.FXMLUtil;
 import com.prescription.prescriptioncreator.util.PatientRenderUtil;
 import com.prescription.prescriptioncreator.util.ToastUtil;
 import com.prescription.prescriptioncreator.util.ValidationUtil;
@@ -13,15 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
@@ -42,14 +42,16 @@ public class PatientController {
     @FXML
     public void addPatientDetails ( ActionEvent event) throws Exception {
         if(!(
-                ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) ||
+                ((ValidationUtil.isTextFieldBlank(txtFName, Message.PATIENT_FNAME_BlANK.val()) ||
                 ValidationUtil.isTextFieldBlank(txtLName, Message.PATIENT_LNAME_BlANK.val()) ||
                 ValidationUtil.isComboBoxBlank(cmbSex, Message.PATIENT_SEX_BLANK.val()) ||
-                ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val()) ||
-                ValidationUtil.isNumeric(txtAgeInYears,Message.AGE_IN_INTEGER_BLANK.val()) ||
-                ValidationUtil.isDatePickerBlank(dob,Message.DATEPICKER_BLANK.val()))
+                ValidationUtil.isValidMobileNumber(txtMobileNo,Message.PATIENT_MOBILE_NO_MISMATCH.val()))) ||
+                        (ValidationUtil.isNotNumeric(txtAgeInYears,Message.AGE_IN_INTEGER_BLANK.val()) &&
+                ValidationUtil.isDatePickerBlank(dob,Message.AGE_IN_INTEGER_BLANK.val())))
 
         ){
+            dob.setStyle("");
+            txtAgeInYears.setStyle("");
             PatientService patientService = new PatientServiceImpl();
             PatientDetails patientDetails = new PatientDetails();
             patientDetails.setFirst_name(txtFName.getText());
@@ -58,7 +60,7 @@ public class PatientController {
             patientDetails.setMobile_no(txtMobileNo.getText());
             patientDetails.setAddress(txtAddress.getText());
 
-
+            if(dob.getValue()!=null)
             patientDetails.setDob(java.sql.Date.valueOf(dob.getValue()));
             patientDetails.setAge_in_years(Integer.parseInt(txtAgeInYears.getText().equals("") ? "0" :txtAgeInYears.getText() ));
 
@@ -87,7 +89,19 @@ public class PatientController {
         setEnterKeyHandler(txtMobileNo, dob );
         setEnterKeyHandler(dob, txtAgeInYears);
         setEnterKeyHandler(txtAgeInYears, txtAddress);
+        dob.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
 
+                if(newValue!=null)
+                    txtAgeInYears.setDisable(true);
+                else
+                    txtAgeInYears.setDisable(false);
+
+
+                System.out.println(newValue);
+            }
+        });
         // Add an event filter for Enter key press at the scene level
 
     }

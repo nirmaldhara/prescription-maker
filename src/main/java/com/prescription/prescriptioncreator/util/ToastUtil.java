@@ -2,6 +2,7 @@ package com.prescription.prescriptioncreator.util;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -62,7 +63,13 @@ public class ToastUtil
                 KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue (toastStage.getScene().getRoot().opacityProperty(), 0));
                 fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
                 fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
-                fadeOutTimeline.play();
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        fadeOutTimeline.play(); // do your GUI stuff here
+                    }
+                });
             }).start();
         });
         fadeInTimeline.play();

@@ -9,11 +9,10 @@ CREATE TABLE `patient` (
   `mobile_no` varchar(255) DEFAULT NULL,
   `patient_id` int DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `search` (`mobile_no`,`patient_id`)
-)
-
+) ;
 
     CREATE TABLE `medicine` (
       `id` int NOT NULL AUTO_INCREMENT,

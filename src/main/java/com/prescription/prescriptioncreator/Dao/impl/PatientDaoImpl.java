@@ -79,7 +79,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStmt.setString (1, patientDetails.getFirst_name());
             preparedStmt.setString (2, patientDetails.getLast_name());
             preparedStmt.setDate (3, patientDetails.getDob()==null ?null :java.sql.Date.valueOf(patientDetails.getDob().toString()));
-            preparedStmt.setInt(4, patientDetails.getAge_in_years());////////
+            preparedStmt.setInt(4, patientDetails.getAge_in_years());
             preparedStmt.setString(5, patientDetails.getSex());
             preparedStmt.setString(6, patientDetails.getMobile_no());
             preparedStmt.setString(7, patientDetails.getPatientId());

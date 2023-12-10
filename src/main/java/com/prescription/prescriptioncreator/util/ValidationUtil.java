@@ -34,7 +34,7 @@ public class ValidationUtil {
     public static boolean isNotNumeric(TextField txtAgeInYears, String text)
     {
         //return text.matches("[0-9]*");
-        Pattern pattern = Pattern.compile("[0-9]");
+        Pattern pattern = Pattern.compile("\\b([1-9]|[1-9][0-9]|100)\\b");
         Matcher match = pattern.matcher(txtAgeInYears.getText());
 
         if (match.matches()) {

@@ -145,8 +145,12 @@
                     <ComboBox fx:id="cmbWhen" layoutX="575.0" layoutY="420.0" prefHeight="25.0" prefWidth="82.0" promptText="When">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="BF" />
-                                <String fx:value="AF" />
+                                <String fx:value="BB" />
+                                <String fx:value="AB" />
+                                <String fx:value="BL" />
+                                <String fx:value="AL" />
+                                <String fx:value="BD" />
+                                <String fx:value="AD" />
                             </FXCollections>
                         </items>
                     </ComboBox>
@@ -185,8 +189,12 @@
                   <ComboBox fx:id="cmbWhen1" layoutX="575.0" layoutY="449.0" prefHeight="25.0" prefWidth="82.0" promptText="When">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="BF" />
-                           <String fx:value="AF" />
+                            <String fx:value="BB" />
+                            <String fx:value="AB" />
+                            <String fx:value="BL" />
+                            <String fx:value="AL" />
+                            <String fx:value="BD" />
+                            <String fx:value="AD" />
                         </FXCollections>
                      </items>
                   </ComboBox>

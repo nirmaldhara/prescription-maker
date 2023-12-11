@@ -1,7 +1,7 @@
 package com.prescription.prescriptioncreator.Dao.impl;
 
 import com.prescription.prescriptioncreator.Dao.P_SuggestionsDao;
-import com.prescription.prescriptioncreator.model.SuggestionsDetails;
+import com.prescription.prescriptioncreator.model.DiagnosisDetails;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,12 +48,12 @@ public class P_SuggestionsDaoImpl implements P_SuggestionsDao {
     }
 
     @Override
-    public void saveP_Suggestions(List<SuggestionsDetails> lstSuggestionsDetails, int suggestionsId) throws Exception {
+    public void saveP_Suggestions(List<DiagnosisDetails> lstSuggestionsDetails, int suggestionsId) throws Exception {
         String sql = " insert into p_suggestions (suggestions_id, visit_id) values (?, ?)";
         //int suggestions_id = getLastSuggestionsId();
         int visit_id = getLastPrescriptionId();
         Connection conn=getConnection();
-        for(SuggestionsDetails sd:lstSuggestionsDetails) {
+        for(DiagnosisDetails sd:lstSuggestionsDetails) {
             try {
                 PreparedStatement preparedStmt = conn.prepareStatement(sql);
                 preparedStmt.setInt(1, suggestionsId);

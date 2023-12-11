@@ -4,14 +4,15 @@ CREATE TABLE `patient` (
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `dob` datetime DEFAULT NULL,
+  `age_in_years` int DEFAULT '0',
   `sex` varchar(255) DEFAULT NULL,
   `mobile_no` varchar(255) DEFAULT NULL,
   `patient_id` int DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `search` (`mobile_no`,`patient_id`)
-);
-
+) ;
 
     CREATE TABLE `medicine` (
       `id` int NOT NULL AUTO_INCREMENT,
@@ -117,17 +118,30 @@ CREATE TABLE `patient` (
                 PRIMARY KEY (`id`))
 
     /* table script for p_complain_of */
-       CREATE TABLE `visit_history` (
-                `id` int NOT NULL AUTO_INCREMENT,
-                `patient_id` int NOT NULL,
-                `visit_id` int NOT NULL,
-                `visit_date` datetime NOT NULL,
-                `next_visit` datetime NOT NULL,
-                `weight` float DEFAULT '0',
-                `height` float DEFAULT '0',
-                `bp` VARCHAR(255) not null default "0",
-                `pulse` float default '0',
-                 PRIMARY KEY (`id`),
-                 UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
-       )
+      CREATE TABLE `visit_history` (
+        `id` int NOT NULL AUTO_INCREMENT,
+        `patient_id` int NOT NULL,
+        `visit_id` int NOT NULL,
+        `visit_date` datetime NOT NULL,
+        `next_visit` datetime NOT NULL,
+        `weight` float DEFAULT '0',
+        `height` float DEFAULT '0',
+        `bp` varchar(45) DEFAULT NULL,
+        `pulse` varchar(45) DEFAULT NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
+      )
+    /* table script for diagnosis */
+      CREATE TABLE `prescription`.`diagnosis` (
+              `id` INT NOT NULL AUTO_INCREMENT,
+              `diagnosis` VARCHAR(255) NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE INDEX `diagnosis_UNIQUE` (`diagnosis` ASC) VISIBLE);
+
+    /* table script for p_diagnosis */
+    CREATE TABLE `prescription`.`p_diagnosis` (
+          `id` INT NOT NULL AUTO_INCREMENT,
+          `diagnosis_id` INT NOT NULL,
+          `visit_id` INT NOT NULL,
+          PRIMARY KEY (`id`));
 

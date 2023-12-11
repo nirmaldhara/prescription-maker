@@ -118,8 +118,6 @@ public class PatientDetails {
     public void setHeight(float height) {
         this.height = height;
     }
-
-    ////////
     private Date created_date;
     private int age_in_years;
     public Date getCreated_date() {return created_date;}

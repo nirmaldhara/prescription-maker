@@ -1,11 +1,16 @@
 package com.prescription.prescriptioncreator.util;
 
 import com.prescription.prescriptioncreator.PrescriptionMaker;
+import com.prescription.prescriptioncreator.model.MedicineDetails;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,4 +87,29 @@ public class FXMLUtil {
         return t;
     }
 
+
+    public static void removeTableRow(TableView tblPrescription) {
+        tblPrescription.setRowFactory(new Callback<TableView<MedicineDetails>, TableRow<MedicineDetails>>() {
+            @Override
+            public TableRow<MedicineDetails> call(TableView<MedicineDetails> tableView) {
+                final TableRow<MedicineDetails> row = new TableRow<>();
+                final ContextMenu contextMenu = new ContextMenu();
+                final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        tblPrescription.getItems().remove(row.getItem());
+                    }
+                });
+                contextMenu.getItems().add(removeMenuItem);
+                // Set context menu on row, but use a binding to make it only show for non-empty rows:
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                                .then((ContextMenu) null)
+                                .otherwise(contextMenu)
+                );
+                return row;
+            }
+        });
+    }
 }

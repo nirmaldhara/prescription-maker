@@ -203,7 +203,8 @@ private void makeInputInUpper(){
         makeInputInUpper();
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
-        PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
+        FXMLUtil.removeTableRow(tblPrescription);
+        FXMLUtil.removeTableRow(tblComplain);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(
                 tblPreviousVisit,
                 tblPrescription,

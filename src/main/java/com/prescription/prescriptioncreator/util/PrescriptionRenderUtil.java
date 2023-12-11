@@ -75,9 +75,9 @@ public class PrescriptionRenderUtil {
         return fd.getFindingsOFDetails(visitId);
     }
 
-    public static List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
-        SuggestionsService sd = new SuggestionsServiceImpl();
-        return sd.getSuggestionsOFDetails(visitId);
+    public static List<DiagnosisDetails> getDiagnosisOFDetails(long visitId) throws Exception {
+        DiagnosisService ds = new DiagnosisServiceImpl();
+        return ds.getDiagnosisOFDetails(visitId);
     }
 
     public static List<MedicineDetails> getPrescriptionDetailsByVisitId(int visitId) throws Exception {
@@ -134,9 +134,9 @@ public class PrescriptionRenderUtil {
             List<FindingsDetails> lstFindingsDetails,
             TableView tblFindings,
             TableColumn<FindingsDetails, String> clmnFindings,
-            List<SuggestionsDetails> lstSuggestionsDetails,
-            TableView tblSuggestions,
-            TableColumn<SuggestionsDetails, String> clmnSuggestions,
+            List<DiagnosisDetails> lstDiagnosisDetails,
+            TableView tblDiagnosis,
+            TableColumn<DiagnosisDetails, String> clmnDiagnosis,
             TextField txtWeight,
             TextField txtHeight,
             TextField txtBP,
@@ -156,7 +156,7 @@ public class PrescriptionRenderUtil {
                         ComplainRenderUtil.addToComplain(getComplainOFDetails(clickedRow.getVisitId()), tblComplain, clmnComplain);
                         PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()), tblPreviousHistory, clmnPreviousHistory);
                         FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()), tblFindings, clmnFindings);
-                        SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
+                        DiagnosisRenderUtil.addToDiagnosis(getDiagnosisOFDetails(clickedRow.getVisitId()), tblDiagnosis, clmnDiagnosis);
                         txtWeight.setText(""+clickedRow.getWeight());
                         txtHeight.setText(""+clickedRow.getHeight());
                         txtBP.setText(""+clickedRow.getBp());

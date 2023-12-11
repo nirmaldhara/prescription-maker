@@ -1,8 +1,7 @@
 package com.prescription.prescriptioncreator.Dao.impl;
 
-import com.prescription.prescriptioncreator.Dao.SuggestionsDao;
-import com.prescription.prescriptioncreator.model.FindingsDetails;
-import com.prescription.prescriptioncreator.model.SuggestionsDetails;
+import com.prescription.prescriptioncreator.Dao.DiagnosisDao;
+import com.prescription.prescriptioncreator.model.DiagnosisDetails;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,10 +9,10 @@ import java.util.List;
 
 import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
-public class SuggestionsDaoImpl implements SuggestionsDao {
+public class DiagnosisDaoImpl implements DiagnosisDao {
     @Override
-    public long addSuggestions(String suggestions) throws Exception {
-        String sql = " insert into suggestions (suggestions) values (?)";
+    public long addDiagnosis(String diagnosis) throws Exception {
+        String sql = " insert into diagnosis (diagnosis) values (?)";
         Connection conn = getConnection();
         PreparedStatement preparedStmt = null;
         ResultSet generatedKeys = null;
@@ -21,7 +20,7 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
         long id = -1;
         try {
             preparedStmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStmt.setString(1, suggestions);
+            preparedStmt.setString(1, diagnosis);
             try {
                 preparedStmt.executeUpdate();
 
@@ -32,9 +31,9 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
                 }
             } catch (SQLIntegrityConstraintViolationException e) {
 
-                String selectSql = "SELECT id FROM suggestions WHERE suggestions =  ?";
+                String selectSql = "SELECT id FROM diagnosis WHERE diagnosis =  ?";
                 PreparedStatement selectStatement = conn.prepareStatement(selectSql);
-                selectStatement.setString(1, suggestions);
+                selectStatement.setString(1, diagnosis);
                 resultSet = selectStatement.executeQuery();
                 if (resultSet.next()) {
                     id = resultSet.getLong("id");
@@ -43,7 +42,7 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
             }
 
 
-            System.out.println("suggestions id=" + id);
+            System.out.println("diagnosis id=" + id);
             return id;
         } catch (Exception e) {
             return -1;
@@ -56,9 +55,9 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
     }
 
     @Override
-    public List<SuggestionsDetails> getAutoSuggestSuggestions() throws Exception {
-        String dbsql = "select `id`,`suggestions` from `suggestions`";
-        List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
+    public List<DiagnosisDetails> getAutoSuggestDiagnosis() throws Exception {
+        String dbsql = "select `id`,`diagnosis` from `diagnosis`";
+        List<DiagnosisDetails> lstDiagnosisDetails = new ArrayList<>();
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
         Connection conn = getConnection();
@@ -67,9 +66,9 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
 
             rs = preparedStmt.executeQuery();
             while (rs.next()) {
-                SuggestionsDetails sd = new SuggestionsDetails();
-                sd.setSuggestions(rs.getString("suggestions"));
-                lstSuggestionsDetails.add(sd);
+                DiagnosisDetails sd = new DiagnosisDetails();
+                sd.setDiagnosis(rs.getString("diagnosis"));
+                lstDiagnosisDetails.add(sd);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,18 +79,18 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
                 rs.close();
 
         }
-        return lstSuggestionsDetails;
+        return lstDiagnosisDetails;
     }
 
     @Override
-    public void saveSuggestionsToPrescription(List<SuggestionsDetails> lstSuggestionsDetails, long visit_id) throws Exception {
-        String sql = " insert into p_suggestions (suggestions_id, visit_id) values (?, ?)";
+    public void saveDiagnosisToPrescription(List<DiagnosisDetails> lstDiagnosisDetails, long visit_id) throws Exception {
+        String sql = " insert into p_diagnosis (diagnosis_id, visit_id) values (?, ?)";
         //int previous_history_id = getLastPreviousHistoryId();
         Connection conn = getConnection();
-        for (SuggestionsDetails sd : lstSuggestionsDetails) {
+        for (DiagnosisDetails dd : lstDiagnosisDetails) {
             try {
                 PreparedStatement preparedStmt = conn.prepareStatement(sql);
-                preparedStmt.setLong(1, sd.getId());
+                preparedStmt.setLong(1, dd.getId());
                 preparedStmt.setLong(2, visit_id);
                 preparedStmt.execute();
             } catch (Exception e) {
@@ -101,9 +100,9 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
     }
 
     @Override
-    public List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
-        String dbsql = "SELECT p1.id,p1.suggestions FROM p_suggestions p, suggestions p1  where p.visit_id=? and p1.id=p.suggestions_id";
-        List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
+    public List<DiagnosisDetails> getDiagnosisOFDetails(long visitId) throws Exception {
+        String dbsql = "SELECT p1.id,p1.diagnosis FROM p_diagnosis p, diagnosis p1  where p.visit_id=? and p1.id=p.diagnosis_id";
+        List<DiagnosisDetails> lstDiagnosisDetails = new ArrayList<>();
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
         Connection conn = getConnection();
@@ -112,10 +111,10 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
             preparedStmt.setLong(1, visitId);
             rs = preparedStmt.executeQuery();
             while (rs.next()) {
-                SuggestionsDetails sd = new SuggestionsDetails();
-                sd.setSuggestions(rs.getString("suggestions"));
-                sd.setId(rs.getInt("id"));
-                lstSuggestionsDetails.add(sd);
+                DiagnosisDetails dd = new DiagnosisDetails();
+                dd.setDiagnosis(rs.getString("diagnosis"));
+                dd.setId(rs.getInt("id"));
+                lstDiagnosisDetails.add(dd);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,7 +125,7 @@ public class SuggestionsDaoImpl implements SuggestionsDao {
                 rs.close();
 
         }
-        return lstSuggestionsDetails;
+        return lstDiagnosisDetails;
     }
 
 }

@@ -89,7 +89,7 @@
                   <TextField fx:id="txtComplain" layoutX="3.0" layoutY="237.0" prefHeight="25.0" prefWidth="213.0" promptText="Complain Of" />
                   <TextField fx:id="txtPHistory" layoutX="226.0" layoutY="237.0" prefHeight="25.0" prefWidth="201.0" promptText="Previous History" />
                   <TextField fx:id="txtFindings" layoutX="437.0" layoutY="237.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
-                  <TextField fx:id="txtSuggestions" layoutX="647.0" layoutY="238.0" prefHeight="25.0" prefWidth="200.0" promptText="Suggestions" />
+                  <TextField fx:id="txtDiagnosis" layoutX="647.0" layoutY="238.0" prefHeight="25.0" prefWidth="200.0" promptText="Diagnosis" />
                   <TableView fx:id="tblComplain" layoutX="4.0" layoutY="263.0" prefHeight="152.0" prefWidth="212.0">
                     <columns>
                       <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
@@ -105,9 +105,9 @@
                       <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tblSuggestions" layoutX="647.0" layoutY="263.0" prefHeight="152.0" prefWidth="200.0">
+                  <TableView fx:id="tblDiagnosis" layoutX="647.0" layoutY="263.0" prefHeight="152.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn fx:id="clmnSuggestions" prefWidth="249.0" text="Suggestions" />
+                      <TableColumn fx:id="clmnDiagnosis" prefWidth="249.0" text="Diagnosis" />
                     </columns>
                   </TableView>
                     <TextField fx:id="txtMedicineName" layoutX="3.0" layoutY="419.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />

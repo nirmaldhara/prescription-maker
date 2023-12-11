@@ -4,17 +4,13 @@ import com.prescription.prescriptioncreator.model.*;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javafx.print.*;
 import javafx.scene.web.WebEngine;
@@ -65,7 +61,7 @@ public class PrintUtil {
         }
     }
     //6 parameters
-    public static boolean createPrescription(String visitDate,String nextVisit,PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<SuggestionsDetails> lstSuggestionsDetails) throws IOException {
+    public static boolean createPrescription(String visitDate,String nextVisit,PatientDetails patientDetails,List<MedicineDetails> lstMedicineDetails,List<ComplainDetails> lstComplainDetails,List<PreviousHistoryDetails> lstPreviousHistoryDetails,List<FindingsDetails> lstFindingsDetails,List<DiagnosisDetails> lstDiagnosisDetails) throws IOException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
@@ -125,8 +121,8 @@ public class PrintUtil {
 
         htmlBuilder.append("<td><table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
         htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Suggestion</th></tr>");
-        for(SuggestionsDetails sd:lstSuggestionsDetails) {
-            htmlBuilder.append("<tr><td nowrap>"+sd.getSuggestions()+"</td></tr>");
+        for(DiagnosisDetails dd:lstDiagnosisDetails) {
+            htmlBuilder.append("<tr><td nowrap>"+dd.getDiagnosis()+"</td></tr>");
         }
         htmlBuilder.append("</table></td></tr>");
         htmlBuilder.append("<tr style='height:20px;'><td colspan=4>&nbsp;</td></tr>");

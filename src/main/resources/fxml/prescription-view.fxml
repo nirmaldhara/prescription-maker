@@ -38,7 +38,7 @@
                                           </ImageView>
                                       </graphic>
                                   </Button>
-                                  <Button mnemonicParsing="false" prefHeight="19.0" prefWidth="123.0" text="Test Report">
+                                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" text="Add Test Report">
                                       <graphic>
                                           <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                               <image>
@@ -92,28 +92,28 @@
                         <Label layoutX="642.0" layoutY="200.0" text="Next Visit" />
       
                                       <DatePicker fx:id="txtNextVisitDate" editable="false" layoutX="699.0" layoutY="195.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="txtComplain" layoutX="3.0" layoutY="237.0" prefHeight="25.0" prefWidth="213.0" promptText="Complain Of" />
-                        <TextField fx:id="txtPHistory" layoutX="226.0" layoutY="237.0" prefHeight="25.0" prefWidth="201.0" promptText="Previous History" />
-                        <TextField fx:id="txtFindings" layoutX="437.0" layoutY="237.0" prefHeight="25.0" prefWidth="200.0" promptText="Findings " />
-                        <TextField fx:id="txtDiagnosis" layoutX="647.0" layoutY="238.0" prefHeight="25.0" prefWidth="200.0" promptText="Diagnosis" />
-                        <TableView fx:id="tblComplain" layoutX="4.0" layoutY="263.0" prefHeight="152.0" prefWidth="212.0">
+                        <TextField fx:id="txtComplain" layoutX="3.0" layoutY="237.0" prefHeight="25.0" prefWidth="180.0" promptText="Complain Of" />
+                        <TextField fx:id="txtPHistory" layoutX="189.0" layoutY="237.0" prefHeight="25.0" prefWidth="180.0" promptText="Previous History" />
+                        <TextField fx:id="txtFindings" layoutX="375.0" layoutY="237.0" prefHeight="25.0" prefWidth="180.0" promptText="Findings " />
+                        <TextField fx:id="txtDiagnosis" layoutX="560.0" layoutY="238.0" prefHeight="25.0" prefWidth="180.0" promptText="Diagnosis" />
+                        <TableView fx:id="tblComplain" layoutX="4.0" layoutY="263.0" prefHeight="152.0" prefWidth="180.0">
                           <columns>
-                            <TableColumn fx:id="clmnComplain" prefWidth="211.0" text="Complain Of" />
+                            <TableColumn fx:id="clmnComplain" prefWidth="180.0" text="Complain Of" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="tblPreviousHistory" layoutX="227.0" layoutY="263.0" prefHeight="152.0" prefWidth="200.0">
+                        <TableView fx:id="tblPreviousHistory" layoutX="190.0" layoutY="263.0" prefHeight="152.0" prefWidth="180.0">
                            <columns>
-                              <TableColumn fx:id="clmnPreviousHistory" prefWidth="250.0" text="Previous History" />
+                              <TableColumn fx:id="clmnPreviousHistory" prefWidth="180.0" text="Previous History" />
                            </columns>
                         </TableView>
-                        <TableView fx:id="tblFindings" layoutX="437.0" layoutY="263.0" prefHeight="152.0" prefWidth="200.0">
+                        <TableView fx:id="tblFindings" layoutX="375.0" layoutY="263.0" prefHeight="152.0" prefWidth="180.0">
                           <columns>
-                            <TableColumn fx:id="clmnFindings" prefWidth="250.0" text="Findings" />
+                            <TableColumn fx:id="clmnFindings" prefWidth="180.0" text="Findings" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="tblDiagnosis" layoutX="647.0" layoutY="263.0" prefHeight="152.0" prefWidth="200.0">
+                        <TableView fx:id="tblDiagnosis" layoutX="560.0" layoutY="263.0" prefHeight="152.0" prefWidth="180.0">
                           <columns>
-                            <TableColumn fx:id="clmnDiagnosis" prefWidth="249.0" text="Diagnosis" />
+                            <TableColumn fx:id="clmnDiagnosis" prefWidth="180.0" text="Diagnosis" />
                           </columns>
                         </TableView>
                           <TextField fx:id="txtMedicineName" layoutX="3.0" layoutY="419.0" prefHeight="25.0" prefWidth="376.0" promptText="Medicine Name" />
@@ -294,6 +294,12 @@
                   <TextField layoutX="1306.0" layoutY="138.0" prefHeight="25.0" prefWidth="123.0" />
                   <TextField layoutX="1307.0" layoutY="179.0" prefHeight="25.0" prefWidth="123.0" />
                   <TextField layoutX="1307.0" layoutY="218.0" prefHeight="25.0" prefWidth="123.0" />
+                  <TextField fx:id="txtDiagnosis1" layoutX="746.0" layoutY="238.0" prefHeight="25.0" prefWidth="96.0" promptText="Suggestions" />
+                  <TableView layoutX="746.0" layoutY="265.0" prefHeight="148.0" prefWidth="96.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Suggestions" />
+                    </columns>
+                  </TableView>
                       </children>
                   </Pane>
          </content>

@@ -75,6 +75,10 @@ public class PrescriptionRenderUtil {
         return fd.getFindingsOFDetails(visitId);
     }
 
+    public static List<DiagnosisDetails> getDiagnosisOFDetails(long visitId) throws Exception {
+        DiagnosisService ds = new DiagnosisServiceImpl();
+        return ds.getDiagnosisOFDetails(visitId);
+    }
     public static List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
         SuggestionsService sd = new SuggestionsServiceImpl();
         return sd.getSuggestionsOFDetails(visitId);
@@ -134,6 +138,9 @@ public class PrescriptionRenderUtil {
             List<FindingsDetails> lstFindingsDetails,
             TableView tblFindings,
             TableColumn<FindingsDetails, String> clmnFindings,
+            List<DiagnosisDetails> lstDiagnosisDetails,
+            TableView tblDiagnosis,
+            TableColumn<DiagnosisDetails, String> clmnDiagnosis,
             List<SuggestionsDetails> lstSuggestionsDetails,
             TableView tblSuggestions,
             TableColumn<SuggestionsDetails, String> clmnSuggestions,
@@ -156,6 +163,7 @@ public class PrescriptionRenderUtil {
                         ComplainRenderUtil.addToComplain(getComplainOFDetails(clickedRow.getVisitId()), tblComplain, clmnComplain);
                         PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()), tblPreviousHistory, clmnPreviousHistory);
                         FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()), tblFindings, clmnFindings);
+                        DiagnosisRenderUtil.addToDiagnosis(getDiagnosisOFDetails(clickedRow.getVisitId()), tblDiagnosis, clmnDiagnosis);
                         SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
                         txtWeight.setText(""+clickedRow.getWeight());
                         txtHeight.setText(""+clickedRow.getHeight());
@@ -192,53 +200,4 @@ public class PrescriptionRenderUtil {
         });
     }
 
-    public static void removePrescriptionRow(TableView tblPrescription) {
-        tblPrescription.setRowFactory(new Callback<TableView<MedicineDetails>, TableRow<MedicineDetails>>() {
-            @Override
-            public TableRow<MedicineDetails> call(TableView<MedicineDetails> tableView) {
-                final TableRow<MedicineDetails> row = new TableRow<>();
-                final ContextMenu contextMenu = new ContextMenu();
-                final MenuItem removeMenuItem = new MenuItem("Remove");
-                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        tblPrescription.getItems().remove(row.getItem());
-                    }
-                });
-                contextMenu.getItems().add(removeMenuItem);
-                // Set context menu on row, but use a binding to make it only show for non-empty rows:
-                row.contextMenuProperty().bind(
-                        Bindings.when(row.emptyProperty())
-                                .then((ContextMenu) null)
-                                .otherwise(contextMenu)
-                );
-                return row;
-            }
-        });
-    }
-
-    public static void removePatientRow(TableView tblPatient) {
-        tblPatient.setRowFactory(new Callback<TableView<PatientDetails>, TableRow<PatientDetails>>() {
-            @Override
-            public TableRow<PatientDetails> call(TableView<PatientDetails> tableView) {
-                final TableRow<PatientDetails> row = new TableRow<>();
-                final ContextMenu contextMenu = new ContextMenu();
-                final MenuItem removeMenuItem = new MenuItem("Remove");
-                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        tblPatient.getItems().remove(row.getItem());
-                    }
-                });
-                contextMenu.getItems().add(removeMenuItem);
-                // Set context menu on row, but use a binding to make it only show for non-empty rows:
-                row.contextMenuProperty().bind(
-                        Bindings.when(row.emptyProperty())
-                                .then((ContextMenu) null)
-                                .otherwise(contextMenu)
-                );
-                return row;
-            }
-        });
-    }
 }

@@ -1,8 +1,6 @@
 package com.prescription.prescriptioncreator.util;
 
-import com.prescription.prescriptioncreator.model.FindingsDetails;
 import com.prescription.prescriptioncreator.model.SuggestionsDetails;
-import com.prescription.prescriptioncreator.service.FindingsService;
 import com.prescription.prescriptioncreator.service.SuggestionsService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,8 +16,8 @@ import java.util.List;
 
 public class SuggestionsRenderUtil {
     public static void addToSuggestions(List<SuggestionsDetails> lstSuggestionsDetails,
-                                     TableView tblSuggestions,
-                                     TableColumn<SuggestionsDetails, String> clmnSuggestions
+                                        TableView tblSuggestions,
+                                        TableColumn<SuggestionsDetails, String> clmnSuggestions
     ){
         ObservableList<SuggestionsDetails> data = FXCollections.observableArrayList(lstSuggestionsDetails);
 

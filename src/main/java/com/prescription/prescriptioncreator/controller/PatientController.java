@@ -66,7 +66,7 @@ public class PatientController {
 
             if(patientService.addPatient(patientDetails)==true){
                 ToastUtil.makeText(stage, ADD_PATIENT_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
-
+                closeRegistrationWindow();
             }
             else {
                 ToastUtil.makeText(stage, ADD_PATIENT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
@@ -74,7 +74,6 @@ public class PatientController {
         }
 
         //System.out.println("AddSex "+sex);
-
     }
 
     @FXML
@@ -103,7 +102,6 @@ public class PatientController {
             }
         });
         // Add an event filter for Enter key press at the scene level
-
     }
     public static void setEnterKeyHandler(Node currentField, Node nextField) {
         currentField.setOnKeyPressed(event -> {
@@ -111,6 +109,12 @@ public class PatientController {
                 nextField.requestFocus();
             }
         });
+    }
+    //Closing the current window after successfully adding the details
+    private void closeRegistrationWindow() {
+        // Get the reference to the current window's Stage and close it
+        Stage currentStage = (Stage) txtFName.getScene().getWindow();
+        currentStage.close();
     }
 
 }

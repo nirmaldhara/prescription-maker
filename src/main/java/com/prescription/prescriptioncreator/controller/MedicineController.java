@@ -78,11 +78,18 @@ public class MedicineController {
 
             if(medicineService.addMedicine(medicineDetails)!=0){
                 ToastUtil.makeText(stage, ADD_MEDICINE_SUCCESS.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), SUCCESS.val());
+                closeAddMedicineWindow();
             }
             else {
                 ToastUtil.makeText(stage, ADD_MEDICINE_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
 
             }
         }
+    }
+    //Close the medicine window after successfully adding the medicine
+    private void closeAddMedicineWindow() {
+        // Get the reference to the current window's Stage and close it
+        Stage currentStage = (Stage) txtMedicineName.getScene().getWindow();
+        currentStage.close();
     }
 }

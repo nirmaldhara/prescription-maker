@@ -1,6 +1,5 @@
 package com.prescription.prescriptioncreator.Dao;
 
-import com.prescription.prescriptioncreator.model.FindingsDetails;
 import com.prescription.prescriptioncreator.model.SuggestionsDetails;
 
 import java.util.List;

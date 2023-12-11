@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.Date;
 import java.util.*;
 //import java.util.concurrent.TimeUnit;
@@ -24,10 +23,12 @@ import java.util.*;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.*;
 import static com.prescription.prescriptioncreator.appenum.IntegerValue.ERROR;
 import static com.prescription.prescriptioncreator.appenum.Message.*;
-import static com.prescription.prescriptioncreator.util.DBConnection.getConnection;
 
 public class PrescriptionController {
     Stage stage = new Stage();
+
+    @FXML
+    private  ScrollPane prescriptionPane;
     @FXML
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails = new ArrayList<>();
@@ -93,11 +94,20 @@ public class PrescriptionController {
     FindingsService findingsService = new FindingsServiceImpl();
 
     @FXML
+    private TableColumn<DiagnosisDetails, String> clmnDiagnosis;
+    @FXML
+    private TableView<DiagnosisDetails> tblDiagnosis;
+    @FXML
+    private TextField txtDiagnosis;
+    List<DiagnosisDetails> lstDiagnosisDetails = new ArrayList<>();
+    DiagnosisService diagnosisService = new DiagnosisServiceImpl();
+
+    @FXML
     private TableColumn<SuggestionsDetails, String> clmnSuggestions;
     @FXML
-    private TableView<SuggestionsDetails> tblSuggestions;
-    @FXML
     private TextField txtSuggestions;
+    @FXML
+    private TableView<SuggestionsDetails> tblSuggestions;
     List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
     SuggestionsService suggestionsService = new SuggestionsServiceImpl();
 
@@ -197,6 +207,7 @@ private void makeInputInUpper(){
     txtComplain=FXMLUtil.toUpperCase(txtComplain);
     txtPHistory=FXMLUtil.toUpperCase(txtPHistory);
     txtFindings=FXMLUtil.toUpperCase(txtFindings);
+    txtDiagnosis=FXMLUtil.toUpperCase(txtDiagnosis);
     txtSuggestions=FXMLUtil.toUpperCase(txtSuggestions);
 
 }
@@ -205,7 +216,13 @@ private void makeInputInUpper(){
         makeInputInUpper();
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
-        PrescriptionRenderUtil.removePrescriptionRow(tblPrescription);
+        prescriptionPane.setVvalue(1.0);
+        FXMLUtil.removeTableRow(tblPrescription);
+        FXMLUtil.removeTableRow(tblComplain);
+        FXMLUtil.removeTableRow(tblPreviousHistory);
+        FXMLUtil.removeTableRow(tblFindings);
+        FXMLUtil.removeTableRow(tblDiagnosis);
+        FXMLUtil.removeTableRow(tblSuggestions);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(
                 tblPreviousVisit,
                 tblPrescription,
@@ -228,6 +245,9 @@ private void makeInputInUpper(){
                 lstFindingsDetails,
                 tblFindings,
                 clmnFindings,
+                lstDiagnosisDetails,
+                tblDiagnosis,
+                clmnDiagnosis,
                 lstSuggestionsDetails,
                 tblSuggestions,
                 clmnSuggestions,
@@ -326,6 +346,31 @@ private void makeInputInUpper(){
          * @developer Sukhendu
          */
 
+        DiagnosisRenderUtil.setDiagnosisSearchAutoComplete(diagnosisService, txtDiagnosis);
+        txtDiagnosis.setOnKeyPressed((KeyEvent e) -> {
+            switch (e.getCode()) {
+                case ENTER:
+                    try {
+                        DiagnosisService diagnosisService = new DiagnosisServiceImpl();
+                        DiagnosisDetails diagnosisDetails = new DiagnosisDetails();
+                        long id = diagnosisService.addDiagnosis(txtDiagnosis.getText());
+                        diagnosisDetails.setDiagnosis(txtDiagnosis.getText());
+                        diagnosisDetails.setId(id);
+                        lstDiagnosisDetails = tblDiagnosis.getItems();
+                        lstDiagnosisDetails.add(diagnosisDetails);
+
+                        System.out.println(diagnosisDetails.getDiagnosis() + " id = " + id);
+                        DiagnosisRenderUtil.addToDiagnosis(lstDiagnosisDetails, tblDiagnosis, clmnDiagnosis);
+                        FXMLUtil.clearTextBox(txtDiagnosis);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+
         SuggestionsRenderUtil.setSuggestionsSearchAutoComplete(suggestionsService, txtSuggestions);
         txtSuggestions.setOnKeyPressed((KeyEvent e) -> {
             switch (e.getCode()) {
@@ -410,13 +455,20 @@ private void makeInputInUpper(){
         FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml", 540, 220, "Add Medicine");
     }
 
+    @FXML
+    public void openAddTestReport(ActionEvent event) {
+
+        FXMLUtil.openAddTestReportWindow("/fxml/testreport-view.fxml", 540, 220, "Add Test Report");
+    }
+
 
     private boolean save() throws Exception {
         PrescriptionService prescriptionService = new PrescriptionServiceImpl();
         ComplainService cs = new ComplainServiceImpl();
         PreviousHistoryService phs = new PreviousHistoryServiceImpl();
         FindingsService fd = new FindingsServiceImpl();
-        SuggestionsService sd = new SuggestionsServiceImpl();
+        DiagnosisService ds = new DiagnosisServiceImpl();
+        SuggestionsService ss = new SuggestionsServiceImpl();
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         lstMedicineDetails = tblPrescription.getItems();
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
@@ -435,8 +487,11 @@ private void makeInputInUpper(){
         lstFindingsDetails = tblFindings.getItems();
         fd.saveFindingsToPrescription(lstFindingsDetails, visit_id);
 
+        lstDiagnosisDetails = tblDiagnosis.getItems();
+        ds.saveDiagnosisToPrescription(lstDiagnosisDetails, visit_id);
+
         lstSuggestionsDetails = tblSuggestions.getItems();
-        sd.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
+        ss.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
         prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight(), patientDetails.getBp(),patientDetails.getPulse());
         return true;
@@ -458,6 +513,7 @@ private void makeInputInUpper(){
         lstComplainDetails=tblComplain.getItems();
         lstPreviousHistoryDetails=tblPreviousHistory.getItems();
         lstFindingsDetails=tblFindings.getItems();
+        lstDiagnosisDetails=tblDiagnosis.getItems();
         lstSuggestionsDetails=tblSuggestions.getItems();
 
         PrintUtil printUtil = new PrintUtil();
@@ -468,7 +524,7 @@ private void makeInputInUpper(){
             }
         });
 
-        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstSuggestionsDetails)) {
+        if (printUtil.createPrescription(txtVisitDate.getValue().toString(),txtNextVisitDate.getValue().toString(),patientDetails, lstMedicineDetails, lstComplainDetails, lstPreviousHistoryDetails, lstFindingsDetails, lstDiagnosisDetails)) {
             PrintUtil.print();
             lblPrintStatus.setText("Done");
            // TimeUnit.SECONDS.sleep(4);

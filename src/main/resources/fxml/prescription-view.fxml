@@ -19,7 +19,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="884.0" prefWidth="1745.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
    <children>
-      <ScrollPane fx:id="prescriptionPane" prefHeight="-1" prefWidth="-1">
+      <ScrollPane fx:id="prescriptionPane" prefHeight="750.0" prefWidth="1300.0">
          <content>
       
       

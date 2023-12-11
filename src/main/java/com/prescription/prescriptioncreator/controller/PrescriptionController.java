@@ -219,6 +219,10 @@ private void makeInputInUpper(){
         prescriptionPane.setVvalue(1.0);
         FXMLUtil.removeTableRow(tblPrescription);
         FXMLUtil.removeTableRow(tblComplain);
+        FXMLUtil.removeTableRow(tblPreviousHistory);
+        FXMLUtil.removeTableRow(tblFindings);
+        FXMLUtil.removeTableRow(tblDiagnosis);
+        FXMLUtil.removeTableRow(tblSuggestions);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(
                 tblPreviousVisit,
                 tblPrescription,

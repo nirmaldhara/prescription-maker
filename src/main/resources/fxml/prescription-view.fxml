@@ -294,10 +294,10 @@
                   <TextField layoutX="1306.0" layoutY="138.0" prefHeight="25.0" prefWidth="123.0" />
                   <TextField layoutX="1307.0" layoutY="179.0" prefHeight="25.0" prefWidth="123.0" />
                   <TextField layoutX="1307.0" layoutY="218.0" prefHeight="25.0" prefWidth="123.0" />
-                  <TextField fx:id="txtDiagnosis1" layoutX="746.0" layoutY="238.0" prefHeight="25.0" prefWidth="96.0" promptText="Suggestions" />
-                  <TableView layoutX="746.0" layoutY="265.0" prefHeight="148.0" prefWidth="96.0">
+                  <TextField fx:id="txtSuggestions" layoutX="746.0" layoutY="238.0" prefHeight="25.0" prefWidth="96.0" promptText="Suggestions" />
+                  <TableView fx:id="tblSuggestions" layoutX="746.0" layoutY="265.0" prefHeight="148.0" prefWidth="96.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Suggestions" />
+                      <TableColumn fx:id="clmnSuggestions" prefWidth="75.0" text="Suggestions" />
                     </columns>
                   </TableView>
                       </children>

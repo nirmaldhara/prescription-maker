@@ -88,17 +88,17 @@ public class FXMLUtil {
     }
 
 
-    public static void removeTableRow(TableView tblPrescription) {
-        tblPrescription.setRowFactory(new Callback<TableView<MedicineDetails>, TableRow<MedicineDetails>>() {
+    public static void removeTableRow(TableView tbl) {
+        tbl.setRowFactory(new Callback<TableView, TableRow>() {
             @Override
-            public TableRow<MedicineDetails> call(TableView<MedicineDetails> tableView) {
+            public TableRow<MedicineDetails> call(TableView tableView) {
                 final TableRow<MedicineDetails> row = new TableRow<>();
                 final ContextMenu contextMenu = new ContextMenu();
                 final MenuItem removeMenuItem = new MenuItem("Remove");
                 removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        tblPrescription.getItems().remove(row.getItem());
+                        tbl.getItems().remove(row.getItem());
                     }
                 });
                 contextMenu.getItems().add(removeMenuItem);

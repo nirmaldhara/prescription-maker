@@ -208,6 +208,7 @@ private void makeInputInUpper(){
     txtPHistory=FXMLUtil.toUpperCase(txtPHistory);
     txtFindings=FXMLUtil.toUpperCase(txtFindings);
     txtDiagnosis=FXMLUtil.toUpperCase(txtDiagnosis);
+    txtSuggestions=FXMLUtil.toUpperCase(txtSuggestions);
 
 }
     @FXML
@@ -448,6 +449,12 @@ private void makeInputInUpper(){
     public void openAddMedicine(ActionEvent event) throws IOException {
 
         FXMLUtil.openAddMedicineWindow("/fxml/addmedicine-view.fxml", 540, 220, "Add Medicine");
+    }
+
+    @FXML
+    public void openAddTestReport(ActionEvent event) {
+
+        FXMLUtil.openAddTestReportWindow("/fxml/testreport-view.fxml", 540, 220, "Add Test Report");
     }
 
 

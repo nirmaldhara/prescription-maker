@@ -131,4 +131,17 @@ CREATE TABLE `patient` (
         PRIMARY KEY (`id`),
         UNIQUE KEY `visit_id_UNIQUE` (`visit_id`)
       )
+    /* table script for diagnosis */
+      CREATE TABLE `prescription`.`diagnosis` (
+              `id` INT NOT NULL AUTO_INCREMENT,
+              `diagnosis` VARCHAR(255) NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE INDEX `diagnosis_UNIQUE` (`diagnosis` ASC) VISIBLE);
+
+    /* table script for p_diagnosis */
+    CREATE TABLE `prescription`.`p_diagnosis` (
+          `id` INT NOT NULL AUTO_INCREMENT,
+          `diagnosis_id` INT NOT NULL,
+          `visit_id` INT NOT NULL,
+          PRIMARY KEY (`id`));
 

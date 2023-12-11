@@ -207,6 +207,7 @@ private void makeInputInUpper(){
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
         prescriptionPane.setVvalue(1.0);
+        prescriptionPane.setPrefHeight(700);
         FXMLUtil.removeTableRow(tblPrescription);
         FXMLUtil.removeTableRow(tblComplain);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(

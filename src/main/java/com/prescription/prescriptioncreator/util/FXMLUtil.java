@@ -91,8 +91,8 @@ public class FXMLUtil {
     public static void removeTableRow(TableView tbl) {
         tbl.setRowFactory(new Callback<TableView, TableRow>() {
             @Override
-            public TableRow<MedicineDetails> call(TableView tableView) {
-                final TableRow<MedicineDetails> row = new TableRow<>();
+            public TableRow call(TableView tableView) {
+                final TableRow row = new TableRow<>();
                 final ContextMenu contextMenu = new ContextMenu();
                 final MenuItem removeMenuItem = new MenuItem("Remove");
                 removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {

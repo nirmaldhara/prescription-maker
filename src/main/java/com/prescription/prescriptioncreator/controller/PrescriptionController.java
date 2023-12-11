@@ -26,6 +26,9 @@ import static com.prescription.prescriptioncreator.appenum.Message.*;
 
 public class PrescriptionController {
     Stage stage = new Stage();
+
+    @FXML
+    private  ScrollPane prescriptionPane;
     @FXML
     Label lblPrintStatus;
     List<MedicineDetails> lstMedicineDetails = new ArrayList<>();
@@ -203,6 +206,7 @@ private void makeInputInUpper(){
         makeInputInUpper();
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
+        prescriptionPane.setVvalue(1.0);
         FXMLUtil.removeTableRow(tblPrescription);
         FXMLUtil.removeTableRow(tblComplain);
         PrescriptionRenderUtil.displayVisitHistoryInPrescriptionTable(

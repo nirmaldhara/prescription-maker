@@ -79,6 +79,10 @@ public class PrescriptionRenderUtil {
         DiagnosisService ds = new DiagnosisServiceImpl();
         return ds.getDiagnosisOFDetails(visitId);
     }
+    public static List<SuggestionsDetails> getSuggestionsOFDetails(long visitId) throws Exception {
+        SuggestionsService sd = new SuggestionsServiceImpl();
+        return sd.getSuggestionsOFDetails(visitId);
+    }
 
     public static List<MedicineDetails> getPrescriptionDetailsByVisitId(int visitId) throws Exception {
         PrescriptionService ps = new PrescriptionServiceImpl();
@@ -137,6 +141,9 @@ public class PrescriptionRenderUtil {
             List<DiagnosisDetails> lstDiagnosisDetails,
             TableView tblDiagnosis,
             TableColumn<DiagnosisDetails, String> clmnDiagnosis,
+            List<SuggestionsDetails> lstSuggestionsDetails,
+            TableView tblSuggestions,
+            TableColumn<SuggestionsDetails, String> clmnSuggestions,
             TextField txtWeight,
             TextField txtHeight,
             TextField txtBP,
@@ -157,6 +164,7 @@ public class PrescriptionRenderUtil {
                         PreviousHistoryRenderUtil.addToPreviousHistory(getPreviousHistoryOFDetails(clickedRow.getVisitId()), tblPreviousHistory, clmnPreviousHistory);
                         FindingsRenderUtil.addToFindings(getFindingsOFDetails(clickedRow.getVisitId()), tblFindings, clmnFindings);
                         DiagnosisRenderUtil.addToDiagnosis(getDiagnosisOFDetails(clickedRow.getVisitId()), tblDiagnosis, clmnDiagnosis);
+                        SuggestionsRenderUtil.addToSuggestions(getSuggestionsOFDetails(clickedRow.getVisitId()), tblSuggestions, clmnSuggestions);
                         txtWeight.setText(""+clickedRow.getWeight());
                         txtHeight.setText(""+clickedRow.getHeight());
                         txtBP.setText(""+clickedRow.getBp());

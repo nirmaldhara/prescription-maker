@@ -35,6 +35,22 @@ public class FXMLUtil {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
+    public static void openAddTestReportWindow(String Fxml,int width, int height,String title)
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            fxmlLoader.setLocation( FXMLUtil.class.getResource(Fxml));
+            Scene scene = new Scene(fxmlLoader.load(), width, height);
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.getIcons().add(new Image(FXMLUtil.class.getResourceAsStream("/img/test-tube.png")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(FXMLUtil.class.getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+    }
     public static void openAddMedicineWindow(String Fxml,int width, int height,String title)
     {
         FXMLLoader fxmlLoader = new FXMLLoader();

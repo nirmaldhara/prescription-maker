@@ -27,6 +27,7 @@ import static com.prescription.prescriptioncreator.appenum.Message.*;
 public class PrescriptionController {
     Stage stage = new Stage();
 
+
     @FXML
     private  ScrollPane prescriptionPane;
     @FXML
@@ -216,7 +217,10 @@ private void makeInputInUpper(){
         makeInputInUpper();
         lblPrintStatus.setVisible(false);
         txtId.setText("0");
-        prescriptionPane.setVvalue(1.0);
+       // prescriptionPane.setPrefSize(700, 1080);
+      //  mainVBox.setPrefHeight(stage.getHeight());
+
+        System.out.println(stage.getHeight());
 
         FXMLUtil.removeTableRow(tblPrescription);
         FXMLUtil.removeTableRow(tblComplain);

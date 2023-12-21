@@ -57,6 +57,7 @@ public class PrescriptionController {
     @FXML
     TableColumn<PatientDetails, String> tblPatientName, tblPatientAge, tblPatientSex, tblPatientAddress, tblPatientMobileNo, tblPatientId;
     MedicineService medicineService = new MedicineServiceImpl();
+    PrescriptionService prescriptionService = new PrescriptionServiceImpl();
     @FXML
     private Label welcomeText;
     @FXML
@@ -66,8 +67,6 @@ public class PrescriptionController {
 
     @FXML
     DatePicker txtVisitDate,txtNextVisitDate;
-
-    ////
     @FXML
     TableColumn<ComplainDetails, String> clmnComplain;
     @FXML
@@ -111,8 +110,12 @@ public class PrescriptionController {
     private TableView<SuggestionsDetails> tblSuggestions;
     List<SuggestionsDetails> lstSuggestionsDetails = new ArrayList<>();
     SuggestionsService suggestionsService = new SuggestionsServiceImpl();
-
-
+    @FXML
+    TextField txtLungsPoint1,txtLungsPoint2,txtLungsPoint3,txtLungsPoint4,txtLungsPoint5,txtLungsPoint6;
+    @FXML
+    TextField txtAbdomenPoint1,txtAbdomenPoint2,txtAbdomenPoint3,txtAbdomenPoint4,txtAbdomenPoint5,txtAbdomenPoint6,txtAbdomenPoint7,txtAbdomenPoint8,txtAbdomenPoint9;
+    AbdomenDetails abdomenDetails;
+    LungsDetails lungsDetails;
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -260,10 +263,27 @@ private void makeInputInUpper(){
                 txtWeight,
                 txtHeight,
                 txtBP,
-                txtPulse);
+                txtPulse,
+                lungsDetails,
+                txtLungsPoint1,
+                txtLungsPoint2,
+                txtLungsPoint3,
+                txtLungsPoint4,
+                txtLungsPoint5,
+                txtLungsPoint6,
+                abdomenDetails,
+                txtAbdomenPoint1,
+                txtAbdomenPoint2,
+                txtAbdomenPoint3,
+                txtAbdomenPoint4,
+                txtAbdomenPoint5,
+                txtAbdomenPoint6,
+                txtAbdomenPoint7,
+                txtAbdomenPoint8,
+                txtAbdomenPoint9
+                );
         PrescriptionRenderUtil.displayDataInVisitHistoryTable(tblPatient, tblPreviousVisit, clmnPreviousVisit, txtWeight,txtHeight,txtBP,txtPulse);
         PrescriptionRenderUtil.setMedicineSearchAutoComplete(medicineService, txtMedicineName, txtId, txtD1, txtD2, txtD3, txtD4, txtD5, txtD6, txtNote,cmbWhen,cmbNoOFDays);
-
         /*
          * @description store and display auto complete Previous History
          * @developer Sukhendu
@@ -475,12 +495,32 @@ private void makeInputInUpper(){
         FindingsService fd = new FindingsServiceImpl();
         DiagnosisService ds = new DiagnosisServiceImpl();
         SuggestionsService ss = new SuggestionsServiceImpl();
+        LungsDetails lungsDetails = new LungsDetails();
+        AbdomenDetails abdomenDetails = new AbdomenDetails();
+
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
         lstMedicineDetails = tblPrescription.getItems();
         patientDetails.setWeight(Float.parseFloat(txtWeight.getText().equals("")?"0.0":txtWeight.getText()));
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
         patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
+
+        lungsDetails.setLungs_point1(txtLungsPoint1.getText().equals("")?" ":txtLungsPoint1.getText());
+        lungsDetails.setLungs_point2(txtLungsPoint2.getText().equals("")?" ":txtLungsPoint2.getText());
+        lungsDetails.setLungs_point3(txtLungsPoint3.getText().equals("")?" ":txtLungsPoint3.getText());
+        lungsDetails.setLungs_point4(txtLungsPoint4.getText().equals("")?" ":txtLungsPoint4.getText());
+        lungsDetails.setLungs_point5(txtLungsPoint5.getText().equals("")?" ":txtLungsPoint5.getText());
+        lungsDetails.setLungs_point6(txtLungsPoint6.getText().equals("")?" ":txtLungsPoint6.getText());
+
+        abdomenDetails.setAbdomen_point1(txtAbdomenPoint1.getText().equals("")?" ":txtAbdomenPoint1.getText());
+        abdomenDetails.setAbdomen_point2(txtAbdomenPoint2.getText().equals("")?" ":txtAbdomenPoint2.getText());
+        abdomenDetails.setAbdomen_point3(txtAbdomenPoint3.getText().equals("")?" ":txtAbdomenPoint3.getText());
+        abdomenDetails.setAbdomen_point4(txtAbdomenPoint4.getText().equals("")?" ":txtAbdomenPoint4.getText());
+        abdomenDetails.setAbdomen_point5(txtAbdomenPoint5.getText().equals("")?" ":txtAbdomenPoint5.getText());
+        abdomenDetails.setAbdomen_point6(txtAbdomenPoint6.getText().equals("")?" ":txtAbdomenPoint6.getText());
+        abdomenDetails.setAbdomen_point7(txtAbdomenPoint7.getText().equals("")?" ":txtAbdomenPoint7.getText());
+        abdomenDetails.setAbdomen_point8(txtAbdomenPoint8.getText().equals("")?" ":txtAbdomenPoint8.getText());
+        abdomenDetails.setAbdomen_point9(txtAbdomenPoint9.getText().equals("")?" ":txtAbdomenPoint9.getText());
 
         long visit_id = prescriptionService.saveNPrintPrescription(lstMedicineDetails, patientDetails.getId());
 
@@ -500,6 +540,8 @@ private void makeInputInUpper(){
         ss.saveSuggestionsToPrescription(lstSuggestionsDetails, visit_id);
 
         prescriptionService.saveVisitHistory(patientDetails.getId(),visit_id, Date.valueOf(txtVisitDate.getValue()),Date.valueOf(txtNextVisitDate.getValue()),patientDetails.getWeight(), patientDetails.getHeight(), patientDetails.getBp(),patientDetails.getPulse());
+        prescriptionService.saveLungsHistory(visit_id,lungsDetails.getLungs_point1(),lungsDetails.getLungs_point2(),lungsDetails.getLungs_point3(),lungsDetails.getLungs_point4(),lungsDetails.getLungs_point5(),lungsDetails.getLungs_point6());
+        prescriptionService.saveAbdomenHistory(visit_id, abdomenDetails.getAbdomen_point1(), abdomenDetails.getAbdomen_point2(), abdomenDetails.getAbdomen_point3(), abdomenDetails.getAbdomen_point4(), abdomenDetails.getAbdomen_point5(), abdomenDetails.getAbdomen_point6(), abdomenDetails.getAbdomen_point7(), abdomenDetails.getAbdomen_point8(), abdomenDetails.getAbdomen_point9());
         return true;
     }
 
@@ -507,6 +549,8 @@ private void makeInputInUpper(){
         lblPrintStatus.setVisible(true);
         lblPrintStatus.setText("Printing....");
         PatientDetails patientDetails = tblPatient.getSelectionModel().getSelectedItem();
+        LungsDetails lungsDetails = new LungsDetails();
+        AbdomenDetails abdomenDetails = new AbdomenDetails();
 
         if (patientDetails == null) {
             ToastUtil.makeText(stage, PRINT_ERROR.val(), LONG_DELAY.val(), SHORT_FADE_IN_DELAY.val(), SHORT_FADE_OUT_DELAY.val(), ERROR.val());
@@ -515,6 +559,24 @@ private void makeInputInUpper(){
         patientDetails.setHeight(Float.parseFloat(txtHeight.getText().equals("")?"0.0":txtHeight.getText()));
         patientDetails.setBp(txtBP.getText().equals("")?"0/0":txtBP.getText());
         patientDetails.setPulse(Float.parseFloat(txtPulse.getText().equals("")?"0.0":txtPulse.getText()));
+
+        lungsDetails.setLungs_point1(txtLungsPoint1.getText().equals("")?" ":txtLungsPoint1.getText());
+        lungsDetails.setLungs_point2(txtLungsPoint2.getText().equals("")?" ":txtLungsPoint2.getText());
+        lungsDetails.setLungs_point3(txtLungsPoint3.getText().equals("")?" ":txtLungsPoint3.getText());
+        lungsDetails.setLungs_point4(txtLungsPoint4.getText().equals("")?" ":txtLungsPoint4.getText());
+        lungsDetails.setLungs_point5(txtLungsPoint5.getText().equals("")?" ":txtLungsPoint5.getText());
+        lungsDetails.setLungs_point6(txtLungsPoint6.getText().equals("")?" ":txtLungsPoint6.getText());
+
+        abdomenDetails.setAbdomen_point1(txtAbdomenPoint1.getText().equals("")?" ":txtAbdomenPoint1.getText());
+        abdomenDetails.setAbdomen_point2(txtAbdomenPoint2.getText().equals("")?" ":txtAbdomenPoint2.getText());
+        abdomenDetails.setAbdomen_point3(txtAbdomenPoint3.getText().equals("")?" ":txtAbdomenPoint3.getText());
+        abdomenDetails.setAbdomen_point4(txtAbdomenPoint4.getText().equals("")?" ":txtAbdomenPoint4.getText());
+        abdomenDetails.setAbdomen_point5(txtAbdomenPoint5.getText().equals("")?" ":txtAbdomenPoint5.getText());
+        abdomenDetails.setAbdomen_point6(txtAbdomenPoint6.getText().equals("")?" ":txtAbdomenPoint6.getText());
+        abdomenDetails.setAbdomen_point7(txtAbdomenPoint7.getText().equals("")?" ":txtAbdomenPoint7.getText());
+        abdomenDetails.setAbdomen_point8(txtAbdomenPoint8.getText().equals("")?" ":txtAbdomenPoint8.getText());
+        abdomenDetails.setAbdomen_point9(txtAbdomenPoint9.getText().equals("")?" ":txtAbdomenPoint9.getText());
+
         lstMedicineDetails = tblPrescription.getItems();
         lstComplainDetails=tblComplain.getItems();
         lstPreviousHistoryDetails=tblPreviousHistory.getItems();

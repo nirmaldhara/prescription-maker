@@ -120,7 +120,7 @@ public class PrintUtil {
         htmlBuilder.append("</table></td>");
 
         htmlBuilder.append("<td><table style='border-collapse: collapse;width: 150px;border:none; font-size: 10px;'>");
-        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Suggestion</th></tr>");
+        htmlBuilder.append("<tr style='border-top:1px solid black;border-bottom:1px solid black'><th nowrap style='text-align:left'>Diagnosis</th></tr>");
         for(DiagnosisDetails dd:lstDiagnosisDetails) {
             htmlBuilder.append("<tr><td nowrap>"+dd.getDiagnosis()+"</td></tr>");
         }

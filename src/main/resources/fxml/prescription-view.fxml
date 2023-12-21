@@ -20,9 +20,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="884.0" prefWidth="1745.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prescription.prescriptioncreator.controller.PrescriptionController">
    <children>
-      <VBox prefHeight="799.0" prefWidth="1183.0" fx:id="mainVBox">
+      <VBox fx:id="mainVBox" prefHeight="799.0" prefWidth="1183.0">
          <children>
-            <ScrollPane fx:id="prescriptionPane" >
+            <ScrollPane fx:id="prescriptionPane">
                <content>
 
 
@@ -281,27 +281,27 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <TextField layoutX="12.0" layoutY="779.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="13.0" layoutY="820.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="13.0" layoutY="859.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="270.0" layoutY="780.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="271.0" layoutY="821.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="271.0" layoutY="860.0" prefHeight="25.0" prefWidth="123.0" />
+                        <TextField fx:id="txtLungsPoint1" layoutX="12.0" layoutY="779.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point1" />
+                        <TextField fx:id="txtLungsPoint2" layoutX="13.0" layoutY="820.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point2" />
+                        <TextField fx:id="txtLungsPoint3" layoutX="13.0" layoutY="859.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point3" />
+                        <TextField fx:id="txtLungsPoint4" layoutX="270.0" layoutY="780.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point4" />
+                        <TextField fx:id="txtLungsPoint5" layoutX="271.0" layoutY="821.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point5" />
+                        <TextField fx:id="txtLungsPoint6" layoutX="271.0" layoutY="860.0" prefHeight="25.0" prefWidth="123.0" promptText="Lungs Point6" />
                         <TextField fx:id="txtSuggestions" layoutX="745.0" layoutY="238.0" prefHeight="25.0" prefWidth="180.0" promptText="Suggestions" />
                         <TableView fx:id="tblSuggestions" layoutX="745.0" layoutY="265.0" prefHeight="148.0" prefWidth="180.0">
                           <columns>
                             <TableColumn fx:id="clmnSuggestions" prefWidth="179.20001220703125" text="Suggestions" />
                           </columns>
                         </TableView>
-                        <TextField layoutX="518.0" layoutY="797.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="518.0" layoutY="826.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="519.0" layoutY="855.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="791.0" layoutY="798.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="791.0" layoutY="828.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="792.0" layoutY="858.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="768.0" layoutY="896.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="544.0" layoutY="895.0" prefHeight="25.0" prefWidth="123.0" />
-                        <TextField layoutX="657.0" layoutY="751.0" prefHeight="25.0" prefWidth="123.0" />
+                        <TextField fx:id="txtAbdomenPoint1" layoutX="518.0" layoutY="797.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point1" />
+                        <TextField fx:id="txtAbdomenPoint2" layoutX="518.0" layoutY="826.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point2" />
+                        <TextField fx:id="txtAbdomenPoint3" layoutX="519.0" layoutY="855.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point3" />
+                        <TextField fx:id="txtAbdomenPoint4" layoutX="791.0" layoutY="798.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point4" />
+                        <TextField fx:id="txtAbdomenPoint5" layoutX="791.0" layoutY="828.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point5" />
+                        <TextField fx:id="txtAbdomenPoint6" layoutX="792.0" layoutY="858.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point6" />
+                        <TextField fx:id="txtAbdomenPoint7" layoutX="768.0" layoutY="896.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point7" />
+                        <TextField fx:id="txtAbdomenPoint8" layoutX="544.0" layoutY="895.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point8" />
+                        <TextField fx:id="txtAbdomenPoint9" layoutX="657.0" layoutY="751.0" prefHeight="25.0" prefWidth="123.0" promptText="Abdomen Point9" />
                             </children>
                         </Pane>
                </content>

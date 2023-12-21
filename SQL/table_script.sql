@@ -145,3 +145,30 @@ CREATE TABLE `patient` (
           `visit_id` INT NOT NULL,
           PRIMARY KEY (`id`));
 
+     /* table script for lungs */
+    CREATE TABLE `prescription`.`lungs` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `visit_id` INT NOT NULL,
+      `lungs_point1` VARCHAR(255) NULL,
+      `lungs_point2` VARCHAR(255) NULL,
+      `lungs_point3` VARCHAR(255) NULL,
+      `lungs_point4` VARCHAR(255) NULL,
+      `lungs_point5` VARCHAR(255) NULL,
+      `lungs_point6` VARCHAR(255) NULL,
+      PRIMARY KEY (`id`));
+
+    /* table script for abdomen */
+    CREATE TABLE `prescription`.`abdomen` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `visit_id` INT NOT NULL,
+      `abdomen_point1` VARCHAR(255) NULL,
+      `abdomen_point2` VARCHAR(255) NULL,
+      `abdomen_point3` VARCHAR(255) NULL,
+      `abdomen_point4` VARCHAR(255) NULL,
+      `abdomen_point5` VARCHAR(255) NULL,
+      `abdomen_point6` VARCHAR(255) NULL,
+      `abdomen_point7` VARCHAR(255) NULL,
+      `abdomen_point8` VARCHAR(255) NULL,
+      `abdomen_point9` VARCHAR(255) NULL,
+      PRIMARY KEY (`id`));
+

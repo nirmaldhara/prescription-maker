@@ -16,6 +16,7 @@ import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PrescriptionRenderUtil {
     public static void addToPrescription(List<MedicineDetails> lstMedicineDetails,
@@ -56,7 +57,15 @@ public class PrescriptionRenderUtil {
         return ps.getVisitDetails(patientID);
 
     }
+    public static LungsDetails getLungsDetails(int visitId) throws Exception {
+        PrescriptionService ps = new PrescriptionServiceImpl();
+        return ps.getLungsDetails(visitId);
 
+    }
+    public static AbdomenDetails getAbdomenDetails(int visitId) throws Exception {
+        PrescriptionService ps = new PrescriptionServiceImpl();
+        return ps.getAbdomenDetails(visitId);
+    }
 
     public static List<ComplainDetails> getComplainOFDetails(int visitId) throws Exception {
         ComplainService cs = new ComplainServiceImpl();
@@ -147,7 +156,24 @@ public class PrescriptionRenderUtil {
             TextField txtWeight,
             TextField txtHeight,
             TextField txtBP,
-            TextField txtPulse
+            TextField txtPulse,
+            LungsDetails lungsDetails,
+            TextField txtLungsPoint1,
+            TextField txtLungsPoint2,
+            TextField txtLungsPoint3,
+            TextField txtLungsPoint4,
+            TextField txtLungsPoint5,
+            TextField txtLungsPoint6,
+            AbdomenDetails abdomenDetails,
+            TextField txtAbdomenPoint1,
+            TextField txtAbdomenPoint2,
+            TextField txtAbdomenPoint3,
+            TextField txtAbdomenPoint4,
+            TextField txtAbdomenPoint5,
+            TextField txtAbdomenPoint6,
+            TextField txtAbdomenPoint7,
+            TextField txtAbdomenPoint8,
+            TextField txtAbdomenPoint9
 
     ) {
         System.out.println("load history data");
@@ -169,6 +195,9 @@ public class PrescriptionRenderUtil {
                         txtHeight.setText(""+clickedRow.getHeight());
                         txtBP.setText(""+clickedRow.getBp());
                         txtPulse.setText(""+clickedRow.getPulse());
+                        LungsRenderUtil.addToLungs(getLungsDetails(clickedRow.getVisitId()),txtLungsPoint1,txtLungsPoint2,txtLungsPoint3,txtLungsPoint4,txtLungsPoint5,txtLungsPoint6);
+                        AbdomenRenderUtil.addToAbdomen(getAbdomenDetails(clickedRow.getVisitId()),txtAbdomenPoint1,txtAbdomenPoint2,txtAbdomenPoint3,txtAbdomenPoint4,txtAbdomenPoint5,txtAbdomenPoint6,txtAbdomenPoint7,txtAbdomenPoint8,txtAbdomenPoint9);
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -199,5 +228,4 @@ public class PrescriptionRenderUtil {
             return row;
         });
     }
-
 }
